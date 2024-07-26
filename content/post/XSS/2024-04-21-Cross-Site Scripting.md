@@ -1,7 +1,7 @@
 ---
 title: Cross-Site Scripting (XSS) Payloads and Mitigation Strategies
 # author: Gauranga
-date: 2024-04-21 16:50:00 GMT+5:45
+date: 2024-04-21 16:50:00 +00:00
 categories: [Writing]
 tags: [XSS, Cross-Site Scripting, Security Vulnerability, Web Applications, Injection Attacks, JavaScript, Vulnerability Mitigation]
 pin: true

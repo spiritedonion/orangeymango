@@ -1,7 +1,7 @@
 ---
 title: DVWA Command Injection
 # author: Gauranga
-date: 2024-03-06 04:45:00 GMT+5:45
+date: 2024-03-06 04:45:00 +00:00
 categories: [Writing]
 tags: [cybersecurity, DVWA, command injection, web security, vulnerability, exploitation, proof of concept]
 pin: true

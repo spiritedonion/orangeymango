@@ -1,7 +1,7 @@
 ---
 title: Bug Bounty Essentials - A Comprehensive Cheatsheet
 # author: Gauranga
-date: 2024-04-21 16:50:00 GMT+5:45
+date: 2024-04-21 16:50:00 +00:00
 categories: [Writing]
 tags: [Bug Bounty, Vulnerabilities, Security Flaws, Penetration Testing, Web Security, Exploits, Cybersecurity, Threat Hunting, Ethical Hacking, Risk Assessment]
 pin: true
