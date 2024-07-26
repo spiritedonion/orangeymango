@@ -1,4 +1,4 @@
----
+<!-- ---
 title: Writing
 description: My own Writing
 # image:
@@ -7,4 +7,4 @@ description: My own Writing
 style:
     background: "#2a9d8f"
     color: "#fff"
----
+--- -->
