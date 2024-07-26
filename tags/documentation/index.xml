@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Documentation on Orangeymango</title><link>https://orangeymango.me/tags/documentation/</link><description>Recent content in Documentation on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 04 Mar 2024 11:27:22 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/documentation/index.xml" rel="self" type="application/rss+xml"/><item><title>Port Swigger Labs</title><link>https://orangeymango.me/p/port-swigger-labs/</link><pubDate>Mon, 04 Mar 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/port-swigger-labs/</guid><description>&lt;img src="https://pbs.twimg.com/profile_images/1271377080220033024/InZ0OCwH_400x400.png" alt="Featured image of post Port Swigger Labs" />&lt;h1 id="lab-1-sql-injection-vulnerability-exploitation-in-product-category-filter">Lab 1: SQL Injection Vulnerability Exploitation in Product Category Filter
+&lt;/h1>&lt;h2 id="lab-objective">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to showcase the ability to exploit SQL injection vulnerabilities to bypass security measures and gain unauthorized access to sensitive data.&lt;/p>
+&lt;h2 id="lab-procedure">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Upon accessing the application, observe the functionality related to product filtering, specifically focusing on the product category filter.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;li>Initiate the action to set the product category filter.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Modifying the Request:&lt;/strong>
+&lt;ul>
+&lt;li>In Burp Suite, intercept the request that sets the product category filter.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter in the intercepted request.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Exploiting the SQL Injection Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Change the value of the &lt;code>category&lt;/code> parameter to &lt;code>' OR 1=1--&lt;/code>.&lt;/li>
+&lt;li>This modification introduces a SQL injection payload into the SQL query executed by the application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Submitting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Forward the modified request from Burp Suite to the vulnerable application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Verifying the Results:&lt;/strong>
+&lt;ul>
+&lt;li>Observe the response from the application.&lt;/li>
+&lt;li>Verify that the response now contains one or more unreleased products, indicating successful exploitation of the SQL injection vulnerability.&lt;/li>
+&lt;li>Note: The unreleased products are displayed despite the intended restriction imposed by the &lt;code>released = 1&lt;/code> condition in the original SQL query.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-2-sql-injection-vulnerability-allowing-login-bypass">Lab 2: SQL Injection Vulnerability Allowing Login Bypass
+&lt;/h1>&lt;h2 id="lab-objective-1">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to showcase the exploitation of a SQL injection vulnerability to bypass the authentication mechanism and log in as the administrator user.&lt;/p>
+&lt;h2 id="lab-procedure-1">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the login page of the application and inspect the authentication mechanism.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Login Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the login page of the application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Modifying the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Intercept the login request in Burp Suite.&lt;/li>
+&lt;li>Modify the &lt;code>username&lt;/code> parameter in the intercepted request.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Exploiting the SQL Injection Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Change the value of the &lt;code>username&lt;/code> parameter to &lt;code>administrator'--&lt;/code>.&lt;/li>
+&lt;li>This modification introduces a SQL injection payload into the SQL query executed by the application, causing it to ignore the password check.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Submitting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Forward the modified request from Burp Suite to the vulnerable application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Verifying Successful Login:&lt;/strong>
+&lt;ul>
+&lt;li>Observe the response from the application.&lt;/li>
+&lt;li>Verify that the response indicates successful login as the administrator user.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-3-sql-injection-attack-querying-the-database-type-and-version-on-oracle">Lab 3: SQL Injection Attack, Querying the Database Type and Version on Oracle
+&lt;/h1>&lt;h2 id="lab-objective-2">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to showcase the exploitation of a SQL injection vulnerability to extract the database type and version information from an Oracle database.&lt;/p>
+&lt;h2 id="lab-procedure-2">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Intercept the request that sets the product category filter in Burp Suite.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+'abc','def'+FROM+dual--&lt;/code> to determine the number of columns returned by the query and which columns contain text data.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Displaying the Database Version:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+BANNER,+NULL+FROM+v$version--&lt;/code> to extract the database version string.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with the above payload in Burp Suite and forward the request to the vulnerable application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Verifying the Results:&lt;/strong>
+&lt;ul>
+&lt;li>Observe the response from the application.&lt;/li>
+&lt;li>Verify that the response contains the database version string, indicating successful extraction of database type and version information.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-4-sql-injection-attack-querying-the-database-type-and-version-on-mysql-and-microsoft">Lab 4: SQL Injection Attack, Querying the Database Type and Version on MySQL and Microsoft
+&lt;/h1>&lt;h2 id="lab-objective-3">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to showcase the exploitation of a SQL injection vulnerability to extract the database type and version information from both MySQL and Microsoft SQL Server databases.&lt;/p>
+&lt;h2 id="lab-procedure-3">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Intercept the request that sets the product category filter in Burp Suite.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+'abc','def'#&lt;/code> to determine the number of columns returned by the query and which columns contain text data.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Displaying the Database Version:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+@@version,+NULL#&lt;/code> to extract the database version string.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with the above payload in Burp Suite and forward the request to the vulnerable application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Verifying the Results:&lt;/strong>
+&lt;ul>
+&lt;li>Observe the response from the application.&lt;/li>
+&lt;li>Verify that the response contains the database version string, indicating successful extraction of database type and version information.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-5-sql-injection-vulnerability-retrieving-user-credentials">Lab 5: SQL Injection Vulnerability, Retrieving User Credentials
+&lt;/h1>&lt;h2 id="lab-objective-4">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a SQL injection vulnerability to retrieve user credentials stored in a database table. By using a UNION attack, we will determine the name of the table containing user credentials, the names of the columns within that table, and then retrieve the usernames and passwords to log in as the administrator user.&lt;/p>
+&lt;h2 id="lab-procedure-4">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the login function of the application and inspect the authentication mechanism.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the login page of the application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Intercept the request that sets the product category filter in Burp Suite.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+'abc','def'--&lt;/code> to determine the number of columns returned by the query and which columns contain text data.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Table Names:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--&lt;/code> to retrieve the list of tables in the database.&lt;/li>
+&lt;li>Identify the name of the table containing user credentials.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Column Names:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+column_name,+NULL+FROM+information_schema.columns+WHERE+table_name='users_abcdef'--&lt;/code> (replace &amp;lsquo;users_abcdef&amp;rsquo; with the actual table name) to retrieve the details of the columns in the table.&lt;/li>
+&lt;li>Identify the names of the columns containing usernames and passwords.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Usernames and Passwords:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+username_abcdef,+password_abcdef+FROM+users_abcdef--&lt;/code> (replace &amp;lsquo;users_abcdef&amp;rsquo; with the actual table name and column names) to retrieve the usernames and passwords for all users.&lt;/li>
+&lt;li>Find the password for the administrator user.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>
+&lt;ul>
+&lt;li>Use the retrieved administrator password to log in as the administrator user.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-6-sql-injection-attack-listing-the-database-contents-on-oracle">Lab 6: SQL Injection Attack, Listing the Database Contents on Oracle
+&lt;/h1>&lt;h2 id="lab-objective-5">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a SQL injection vulnerability to retrieve user credentials stored in a database table on an Oracle database. By using a UNION attack, we will determine the name of the table containing user credentials, the names of the columns within that table, and then retrieve the usernames and passwords to log in as the administrator user.&lt;/p>
+&lt;h2 id="lab-procedure-5">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the login function of the application and inspect the authentication mechanism.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the login page of the application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Intercept the request that sets the product category filter in Burp Suite.&lt;/li>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+'abc','def'+FROM+dual--&lt;/code> to determine the number of columns returned by the query and which columns contain text data.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Table Names:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+table_name,NULL+FROM+all_tables--&lt;/code> to retrieve the list of tables in the database.&lt;/li>
+&lt;li>Identify the name of the table containing user credentials.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Column Names:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name='USERS_ABCDEF'--&lt;/code> (replace &amp;lsquo;USERS_ABCDEF&amp;rsquo; with the actual table name) to retrieve the details of the columns in the table.&lt;/li>
+&lt;li>Identify the names of the columns containing usernames and passwords.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Retrieving Usernames and Passwords:&lt;/strong>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF--&lt;/code> (replace &amp;lsquo;USERS_ABCDEF&amp;rsquo; with the actual table name and column names) to retrieve the usernames and passwords for all users.&lt;/li>
+&lt;li>Find the password for the administrator user.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>
+&lt;ul>
+&lt;li>Use the retrieved administrator password to log in as the administrator user.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-7-sql-injection-union-attack-determining-the-number-of-columns-returned-by-the-query">Lab 7: SQL Injection UNION Attack, Determining the Number of Columns Returned by the Query
+&lt;/h1>&lt;h2 id="lab-objective-6">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to determine the number of columns returned by the query by performing a SQL injection UNION attack that returns an additional row containing null values.&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Browser:&lt;/strong> Used for accessing the vulnerable web application.&lt;/li>
+&lt;/ol>
+&lt;h2 id="lab-procedure-6">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Performing a SQL Injection UNION Attack:&lt;/strong>
+&lt;ul>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+NULL--&lt;/code>.&lt;/li>
+&lt;li>Observe that an error occurs, indicating that the number of columns in the original query does not match the number of columns in the injected query.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter to add an additional column containing a null value: &lt;code>'+UNION+SELECT+NULL,NULL--&lt;/code>.&lt;/li>
+&lt;li>Continue adding null values until the error disappears and the response includes additional content containing the null values.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Verifying the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Count the number of columns in the response that contain null values.&lt;/li>
+&lt;li>This number represents the total number of columns returned by the query.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-8-sql-injection-union-attack-finding-a-column-containing-text">Lab 8: SQL Injection UNION Attack, Finding a Column Containing Text
+&lt;/h1>&lt;h2 id="lab-objective-7">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to perform a SQL injection UNION attack to identify a column containing text data. By injecting a specified value into the query results, we can determine which column accepts string values and use this information for further exploitation.&lt;/p>
+&lt;h2 id="lab-procedure-7">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>
+&lt;ul>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+NULL,NULL,NULL--&lt;/code>.&lt;/li>
+&lt;li>Verify that the query is returning three columns.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Injecting Specified Value:&lt;/strong>
+&lt;ul>
+&lt;li>Replace each &lt;code>NULL&lt;/code> value with the specified random value provided by the lab, for example: &lt;code>'+UNION+SELECT+'abcdef',NULL,NULL--&lt;/code>.&lt;/li>
+&lt;li>If an error occurs, try replacing each &lt;code>NULL&lt;/code> value with the next specified random value provided by the lab.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Identifying the Compatible Column:&lt;/strong>
+&lt;ul>
+&lt;li>Observe the application&amp;rsquo;s response to determine which column accepts the injected value without causing an error.&lt;/li>
+&lt;li>This column is compatible with string data and can be used for further exploitation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-9-sql-injection-union-attack-retrieving-data-from-other-tables">Lab 9: SQL Injection UNION Attack, Retrieving Data from Other Tables
+&lt;/h1>&lt;h2 id="lab-objective-8">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a SQL injection vulnerability to retrieve user credentials stored in a different table called users. By using a UNION attack, we will construct a SQL injection payload to retrieve all usernames and passwords from the users table and log in as the administrator user.&lt;/p>
+&lt;h2 id="lab-procedure-8">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+'abc','def'--&lt;/code>.&lt;/li>
+&lt;li>Verify that the query is returning two columns, both of which contain text data.&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>&lt;strong>Retrieving Data from Users Table:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+username,+password+FROM+users--&lt;/code> to retrieve the contents of the users table.&lt;/li>
+&lt;li>Verify that the application&amp;rsquo;s response contains usernames and passwords from the users table.&lt;/li>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Use the retrieved usernames and passwords to log in as the administrator user.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="lab-10-sql-injection-union-attack-retrieving-multiple-values-in-a-single-column">Lab 10: SQL Injection UNION Attack, Retrieving Multiple Values in a Single Column
+&lt;/h1>&lt;h2 id="introduction">Introduction:
+&lt;/h2>&lt;p>This lab contains a SQL injection vulnerability in the product category filter of an application. The results from the query are returned in the application&amp;rsquo;s response, allowing us to use a UNION attack to retrieve data from other tables. The objective is to perform a SQL injection UNION attack to retrieve all usernames and passwords from a table called users, and use this information to log in as the administrator user.&lt;/p>
+&lt;h2 id="lab-objective-9">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a SQL injection vulnerability to retrieve user credentials stored in a different table called users. By using a UNION attack, we will construct a SQL injection payload to retrieve all usernames and passwords from the users table and concatenate them into a single column separated by a specific delimiter (~).&lt;/p>
+&lt;h2 id="lab-procedure-9">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Navigate to the provided lab URL to access the vulnerable web application.&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>&lt;strong>Identifying the Vulnerability:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Access the page containing the product category filter of the application.&lt;/li>
+&lt;li>Observe the behavior of the application when filtering products by category.&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>&lt;strong>Intercepting the Request:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Open Burp Suite and configure it to intercept HTTP requests.&lt;/li>
+&lt;li>Navigate to the page where the product category filter is applied.&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>&lt;strong>Determining the Number of Columns:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Modify the &lt;code>category&lt;/code> parameter with a payload like &lt;code>'+UNION+SELECT+NULL,'abc'--&lt;/code>.&lt;/li>
+&lt;li>Verify that the query is returning two columns, with only one column containing text data.&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>&lt;strong>Retrieving Data from Users Table:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Use the payload &lt;code>'+UNION+SELECT+NULL,username||'~'||password+FROM+users--&lt;/code> to retrieve the contents of the users table.&lt;/li>
+&lt;li>Verify that the application&amp;rsquo;s response contains usernames and passwords concatenated into a single column separated by the specified delimiter (~).&lt;/li>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Extract the usernames and passwords from the concatenated column in the response.&lt;/li>
+&lt;li>Use the retrieved usernames and passwords to log in as the administrator user.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="lab-11-blind-sql-injection-with-conditional-responses">Lab 11: Blind SQL Injection with Conditional Responses
+&lt;/h1>&lt;h2 id="lab-objective-10">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a blind SQL injection vulnerability to retrieve the password of the administrator user. By manipulating the tracking cookie value and observing the presence or absence of the &amp;ldquo;Welcome back&amp;rdquo; message in the application&amp;rsquo;s response, we can infer the results of the SQL query and extract the password character by character.&lt;/p>
+&lt;h2 id="lab-procedure-10">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Visit the front page of the shop and use Burp Suite to intercept and modify the request containing the TrackingId cookie. Let&amp;rsquo;s say the original value of the cookie is TrackingId=&lt;id>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Exploiting the Blind SQL Injection Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>
+&lt;p>Modify the TrackingId cookie, changing it to:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39; AND &amp;#39;1&amp;#39;=&amp;#39;1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the &amp;ldquo;Welcome back&amp;rdquo; message appears in the response.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change the TrackingId cookie to:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39; AND &amp;#39;1&amp;#39;=&amp;#39;2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the &amp;ldquo;Welcome back&amp;rdquo; message does not appear in the response.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change the TrackingId cookie to:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39; AND (SELECT &amp;#39;a&amp;#39; FROM users LIMIT 1)=&amp;#39;a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the condition is true, confirming the existence of the table users.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change the TrackingId cookie to:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39; AND (SELECT &amp;#39;a&amp;#39; FROM users WHERE username=&amp;#39;administrator&amp;#39;)=&amp;#39;a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the condition is true, confirming the existence of the user administrator.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Password Length:&lt;/strong>
+&lt;ul>
+&lt;li>
+&lt;p>Change the TrackingId cookie to:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39; AND (SELECT &amp;#39;a&amp;#39; FROM users WHERE username=&amp;#39;administrator&amp;#39; AND LENGTH(password)&amp;gt;1)=&amp;#39;a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the condition is true, confirming that the password is greater than 1 character in length.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Send a series of follow-up values to test different password lengths using Burp Intruder.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Password Characters:&lt;/strong>
+&lt;ul>
+&lt;li>Use Burp Intruder to send suitable payloads to test the character at each position of the password.&lt;/li>
+&lt;li>Launch the attack by clicking the &amp;ldquo;Start attack&amp;rdquo; button or selecting &amp;ldquo;Start attack&amp;rdquo; from the Intruder menu.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>
+&lt;ul>
+&lt;li>Once the password characters are determined, log in as the administrator user using the obtained password.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="lab-12-blind-sql-injection-with-conditional-errors">Lab 12: Blind SQL Injection with Conditional Errors
+&lt;/h1>&lt;h2 id="lab-objective-11">Lab Objective:
+&lt;/h2>&lt;p>The objective of this lab is to demonstrate the exploitation of a blind SQL injection vulnerability to retrieve the password of the administrator user. By manipulating the tracking cookie value and observing the application&amp;rsquo;s response to different conditions, we can infer information about the database structure and extract the password character by character.&lt;/p>
+&lt;h2 id="tools-used">Tools Used:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Burp Suite:&lt;/strong> Used for intercepting and modifying HTTP requests.&lt;/li>
+&lt;li>&lt;strong>Browser:&lt;/strong> Used for accessing the vulnerable web application.&lt;/li>
+&lt;/ol>
+&lt;h2 id="lab-procedure-11">Lab Procedure:
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Accessing the Lab:&lt;/strong>
+&lt;ul>
+&lt;li>Visit the front page of the shop and use Burp Suite to intercept and modify the request containing the TrackingId cookie. Let&amp;rsquo;s say the original value of the cookie is &lt;code>TrackingId=&amp;lt;id&amp;gt;&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Exploiting the Blind SQL Injection Vulnerability:&lt;/strong>
+&lt;ul>
+&lt;li>
+&lt;p>Modify the TrackingId cookie, appending a single quotation mark to it:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that an error message is received.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change the TrackingId cookie to two quotation marks:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that the error disappears, indicating a syntax error.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Construct a subquery using valid SQL syntax:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT &amp;#39;&amp;#39; FROM dual)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Verify that no error is received, indicating the use of Oracle database.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Test an invalid query with valid SQL syntax:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT &amp;#39;&amp;#39; FROM not-a-real-table)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Receive an error, confirming the processing of injection as a SQL query.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify the existence of the users table:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT &amp;#39;&amp;#39; FROM users WHERE ROWNUM = 1)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Confirm that no error is received, indicating the existence of the table.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Test a condition:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE &amp;#39;&amp;#39; END FROM dual)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Receive an error, demonstrating conditional error response.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Check if the username administrator exists:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE &amp;#39;&amp;#39; END FROM users WHERE username=&amp;#39;administrator&amp;#39;)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Confirm the existence of the user by receiving an error.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Password Length:&lt;/strong>
+&lt;ul>
+&lt;li>
+&lt;p>Test the password length:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">TrackingId=&amp;lt;id&amp;gt;&amp;#39;||(SELECT CASE WHEN LENGTH(password)&amp;gt;1 THEN TO_CHAR(1/0) ELSE &amp;#39;&amp;#39; END FROM users WHERE username=&amp;#39;administrator&amp;#39;)||
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Continue testing different password lengths until the error disappears.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Determining the Password Characters:&lt;/strong>
+&lt;ul>
+&lt;li>Use Burp Intruder to test the character at each position of the password.&lt;/li>
+&lt;li>Launch the attack and review the results to determine the value of each character.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logging in as Administrator:&lt;/strong>
+&lt;ul>
+&lt;li>Once the password characters are determined, log in as the administrator user using the obtained password.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr></description></item></channel></rss>

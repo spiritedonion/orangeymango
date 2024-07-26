@@ -1,0 +1,1874 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Security on Orangeymango</title><link>https://orangeymango.me/tags/security/</link><description>Recent content in Security on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Feb 2024 11:27:22 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/security/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS Cloud Infrastructure</title><link>https://orangeymango.me/p/aws-cloud-infrastructure/</link><pubDate>Mon, 19 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/aws-cloud-infrastructure/</guid><description>&lt;img src="https://k21academy.com/wp-content/uploads/2021/09/AWS-2.png" alt="Featured image of post AWS Cloud Infrastructure" />&lt;p>&lt;strong>AWS lab by Gauranga Gautam&lt;/strong>&lt;/p>
+&lt;h1 id="lab1">&lt;strong>Lab1&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Explore Users and Groups&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Users:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>user-1, user-2, user-3 created.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>No permissions assigned.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image45.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image34.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Groups:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>EC2-Admin, EC2-Support, S3-Support created.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Group Permissions:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>EC2-Support: AmazonEC2ReadOnlyAccess policy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>S3-Support: AmazonS3ReadOnlyAccess policy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>EC2-Admin: Inline policy for EC2 Describe, Start, Stop.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image36.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image73.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image35.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image41.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Add Users to Groups&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Add user-1 to S3-Support:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; S3-Support &amp;gt; Users tab &amp;gt; Add user-1.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Add user-2 to EC2-Support:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; EC2-Support &amp;gt; Users tab &amp;gt; Add user-2.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Add user-3 to EC2-Admin:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; EC2-Admin &amp;gt; Users tab &amp;gt; Add user-3.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image57.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image26.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image38.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Sign-In and Test Users&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Test user-1 (S3-Support):&lt;/strong>&lt;/p>
+&lt;p>Sign in with IAM user-1.&lt;/p>
+&lt;p>S3 access granted, EC2 access denied.&lt;/p>
+&lt;p>&lt;strong>Test user-2 (EC2-Support):&lt;/strong>&lt;/p>
+&lt;p>Sign out user-1.&lt;/p>
+&lt;p>Sign in with IAM user-2.&lt;/p>
+&lt;p>EC2 read-only access, no S3 access.&lt;/p>
+&lt;p>&lt;strong>Test user-3 (EC2-Admin):&lt;/strong>&lt;/p>
+&lt;p>Sign out user-2.&lt;/p>
+&lt;p>Sign in with IAM user-3.&lt;/p>
+&lt;p>EC2 start/stop permissions, no S3 access.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image15.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image69.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image70.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage22png">&lt;img src="https://orangeymango.me/aws/image22.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-2">&lt;strong>Lab 2&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create Your VPC&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open VPC console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create VPC:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.0.0/16&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 Availability Zone&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 public subnet (10.0.0.0/24)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 private subnet (10.0.1.0/24)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NAT Gateway in 1 AZ.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>No VPC endpoints.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable DNS hostnames and resolution.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Confirm settings in the Preview panel.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create VPC.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image86.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image29.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image32.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image61.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image71.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image67.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create Additional Subnets&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open Subnets.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create second public subnet:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab-subnet-public2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: us-east-1b&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.2.0/24&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create second private subnet:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab-subnet-private2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: us-east-1b&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.3.0/24&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Associate route table with new private subnet.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Associate route table with new public subnet.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image53.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image8.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image85.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image14.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create a VPC Security Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open Security Groups.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create security group:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: Enable HTTP access&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: lab-vpc&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Add inbound rule: HTTP from Anywhere-IPv4.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image2.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Task 4: Launch a Web Server Instance&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Launch instance with:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Server 1&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Amazon Linux 2023 AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>t2.micro instance type&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Network: lab-vpc, Subnet: lab-subnet-public2, Auto-assign public&lt;/p>
+&lt;blockquote>
+&lt;p>IP enabled&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>User data script for Apache and PHP installation.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Wait for the instance to pass status checks.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Copy Public IPv4 DNS.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open browser, paste DNS, view AWS logo and metadata page.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image24.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image75.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image33.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image74.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage66png">&lt;img src="https://orangeymango.me/aws/image66.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-3">&lt;strong>Lab 3&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Launch Your Amazon EC2 Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Launch instance:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Server&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Amazon Linux 2023 AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>t2.micro instance type&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Network: Lab VPC, Subnet: default, Auto-assign public IP enabled&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: Create &amp;quot;Web Server security group&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>User data script for Apache installation.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Termination protection enabled.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>**Wait for instance to display &amp;quot;Running&amp;quot; with &amp;quot;2/2 checks&lt;/p>
+&lt;blockquote>
+&lt;p>passed.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image10.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image48.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image82.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image17.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image18.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image62.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image78.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Monitor Your Instance&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Choose &amp;quot;Status checks&amp;quot; tab.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Check both System reachability and Instance reachability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Monitoring&amp;quot; tab to view CloudWatch metrics.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>View system log and instance screenshot for troubleshooting.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image39.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Update Your Security Group and Access the Web Server&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Copy Public IPv4 address.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open Security Groups.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Edit &amp;quot;Web Server security group&amp;quot; inbound rules:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Add rule: Type HTTP, Source Anywhere-IPv4.&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>Refresh web browser, check if you can access the web server.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image12.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image30.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Resize Your Instance: Instance Type and EBS Volume&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Stop the instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change instance type to t2.small.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Modify EBS volume size to 10 GiB.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Start the resized instance.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image5.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image77.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 5: Explore EC2 Limits&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Search for &amp;quot;Service Quotas&amp;quot; in the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Amazon Elastic Compute Cloud (Amazon EC2)&amp;quot; under AWS&lt;/p>
+&lt;blockquote>
+&lt;p>services.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Observe and explore the default limits for running instances.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image6.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Test Termination Protection&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Open EC2 console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Instances.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;quot;Web Server&amp;quot; instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attempt to terminate, observe termination protection message.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Disable termination protection in &amp;quot;Instance settings.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Terminate the instance.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image83.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage72png">&lt;img src="https://orangeymango.me/aws/image72.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-4">&lt;strong>Lab 4&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create a New EBS Volume&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Navigate to Instances.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Note the Availability Zone of the existing instance (e.g.,&lt;/p>
+&lt;blockquote>
+&lt;p>us-east-1a).**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Go to Volumes.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a new volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Volume Type: General Purpose SSD (gp2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Size (GiB): 1&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: Select the same as the instance&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add Tag: Key: Name, Value: My Volume&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create Volume&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image56.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Attach the Volume to an Instance&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Select &amp;quot;My Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Attach volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the Lab instance, Device: /dev/sdf.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image3.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Connect to Your Amazon EC2 Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>macOS and Linux Users&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Download labsuser.pem.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open terminal, navigate to the directory.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>cd ~/Documents&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>chmod 400 labsuser.pem&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Copy the Public IPv4 address.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In terminal:&lt;/p>
+&lt;ul>
+&lt;li>ssh -i labsuser.pem ec2-user@&amp;lt;public-ip&amp;gt;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Task 4: Create and Configure Your File System&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>View available storage:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>df -h&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create ext3 file system:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkfs -t ext3 /dev/sdf&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a directory for mounting:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkdir /mnt/data-store&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mount the new volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mount /dev/sdf /mnt/data-store&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Add to /etc/fstab:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>**echo &amp;quot;/dev/sdf /mnt/data-store ext3 defaults,noatime 1 2&amp;quot; |
+&lt;blockquote>
+&lt;p>sudo tee -a /etc/fstab**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image40.png"
+loading="lazy"
+>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>View configuration file:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>cat /etc/fstab&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>View available storage again:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>df -h&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a file and add text:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>sudo sh -c &amp;quot;echo some text has been written &amp;gt;
+&lt;blockquote>
+&lt;p>/mnt/data-store/file.txt&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Verify the text has been written:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>cat /mnt/data-store/file.txt&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image88.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 5: Create an Amazon EBS Snapshot&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>In EC2 console, choose Volumes, select &amp;quot;My Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Create snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add tag: Key: Name, Value: My Snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create snapshot.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image84.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Restore the Amazon EBS Snapshot&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Create a Volume Using Your Snapshot&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>In EC2 console, select &amp;quot;My Snapshot.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Create volume from snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For Availability Zone, select the same as before.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add tag: Key: Name, Value: Restored Volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;strong>Attach the Restored Volume to Your EC2 Instance&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>In Volumes, select &amp;quot;Restored Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Attach volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the Lab instance, Device: /dev/sdg.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Mount the Restored Volume&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a directory for mounting:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkdir /mnt/data-store2&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mount the restored volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mount /dev/sdg /mnt/data-store2&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Verify the volume has the file:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>ls /mnt/data-store2/&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image20.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage21png">&lt;img src="https://orangeymango.me/aws/image21.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-5">&lt;strong>Lab 5&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create a Security Group for the RDS DB Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Go to the VPC service in the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In the left navigation pane, select &amp;quot;Security Groups.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create security group&amp;quot; and configure:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Security group name: DB Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: Permit access from Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Add inbound rule:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Type: MySQL/Aurora (3306)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Source: Type &amp;quot;sg&amp;quot; and select Web Security Group.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create security group.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image65.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create a DB Subnet Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to the RDS service in the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Subnet groups.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create DB Subnet Group&amp;quot; and configure:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: DB-Subnet-Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: DB Subnet Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add subnets for us-east-1a and us-east-1b with CIDR ranges&lt;/p>
+&lt;blockquote>
+&lt;p>10.0.1.0/24 and 10.0.3.0/24.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image1.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create an Amazon RDS DB Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>In the RDS service, choose &amp;quot;Databases.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create database&amp;quot; and select MySQL under Engine Options.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Dev/Test under Templates.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Multi-AZ DB instance under Availability and durability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure settings:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>DB instance identifier: lab-db&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Master username: main&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Master password: lab-password&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DB instance class: db.t3.micro&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Allocated storage: 20&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: DB Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Initial database name: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Uncheck backups, encryption, and enhanced monitoring.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create database.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wait for the database to be available, copy the Endpoint.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image27.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image16.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image28.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image23.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image55.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image80.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image58.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image63.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image42.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image89.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Interact with Your Database&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Obtain WebServer IP address from the Details dropdown.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Open a new web browser tab, paste the WebServer IP address, and&lt;/p>
+&lt;blockquote>
+&lt;p>press Enter.**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Navigate to the RDS link on the web application.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Configure the application:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Endpoint: Paste the Endpoint copied earlier&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Database: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Username: main&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Password: lab-password&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Submit.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="awsimage4png">&lt;img src="https://orangeymango.me/aws/image4.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-6">&lt;strong>Lab 6&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create an AMI for Auto Scaling&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to EC2 in the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Instances.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Wait for Web Server 1 to show &amp;quot;2/2 checks passed&amp;quot; under Status&lt;/p>
+&lt;blockquote>
+&lt;p>Checks.**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Web Server 1.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**In the &amp;quot;Actions&amp;quot; menu, choose &amp;quot;Image and templates&amp;quot; &amp;gt;&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;quot;Create image.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>Image name: WebServerAMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Image description: Lab AMI for Web Server&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create image.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image37.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image11.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image87.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create a Load Balancer&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Target Groups.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create target group&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Target type: Instances&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Target group name: LabGroup&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create target group.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Go to &amp;quot;Load Balancers&amp;quot; in the left navigation pane.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Choose &amp;quot;Create load balancer&amp;quot; and select &amp;quot;Application Load&lt;/p>
+&lt;blockquote>
+&lt;p>Balancer.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>Load balancer name: LabELB&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Subnets: Public Subnet 1, Public Subnet 2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security groups: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Listener HTTP:80, Default action: forward to LabGroup&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create load balancer.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image43.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image46.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image59.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image49.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image47.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image60.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create a Launch Template and an Auto Scaling Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to &amp;quot;Launch Templates&amp;quot; in the left navigation pane.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create launch template&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Launch template name: LabConfig&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Auto Scaling guidance: Provide guidance&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>AMI: Web Server AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Instance type: t2.micro&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security groups: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable detailed CloudWatch monitoring&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create launch template.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the success dialog, choose the LabConfig template.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>From the &amp;quot;Actions&amp;quot; menu, choose &amp;quot;Create Auto Scaling group&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Auto Scaling group name: Lab Auto Scaling Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Launch template: LabConfig&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Subnets: Private Subnet 1, Private Subnet 2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach to an existing load balancer: LabGroup&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable group metrics collection within CloudWatch&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Desired capacity: 2, Minimum capacity: 2, Maximum capacity: 6&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Scaling policy: Target tracking, Metric type: Average CPU&lt;/p>
+&lt;blockquote>
+&lt;p>Utilization, Target value: 60&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Tags: Key: Name, Value: Lab Instance&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>Choose &amp;quot;Create Auto Scaling group.&amp;quot;&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image68.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image76.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image9.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image25.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image13.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Verify that Load Balancing is Working&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Go to &amp;quot;Instances&amp;quot; in the left navigation pane.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify two new instances named Lab Instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Go to &amp;quot;Target Groups&amp;quot; and select LabGroup.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the &amp;quot;Targets&amp;quot; tab and wait for both instances to become&lt;/p>
+&lt;blockquote>
+&lt;p>healthy.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Go to &amp;quot;Load Balancers,&amp;quot; select LabELB, and copy the DNS name.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open a new browser tab, paste the DNS name, and ensure the&lt;/p>
+&lt;blockquote>
+&lt;p>application appears.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Task 5: Test Auto Scaling&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Open CloudWatch from the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;All alarms&amp;quot; in the left navigation pane.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify the two alarms created by Auto Scaling.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>If alarms are not visible, go to EC2 &amp;gt; Auto Scaling Groups &amp;gt; Lab&lt;/p>
+&lt;blockquote>
+&lt;p>Auto Scaling Group &amp;gt; Automatic Scaling &amp;gt; LabScalingPolicy &amp;gt;
+Actions &amp;gt; Edit, change Target Value to 50, and choose Update.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the OK alarm (AlarmHigh) and wait for it to transition to OK.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Return to the web application and choose &amp;quot;Load Test&amp;quot; to generate&lt;/p>
+&lt;blockquote>
+&lt;p>load.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Return to CloudWatch and wait for AlarmHigh to change to In alarm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify additional instances were launched in EC2 &amp;gt; Instances.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image54.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image50.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image7.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image64.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image51.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image52.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image81.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image31.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image44.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image79.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Terminate Web Server 1&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Select Web Server 1.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In the &amp;quot;Instance state&amp;quot; menu, choose &amp;quot;Instance State&amp;quot; &amp;gt;&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;quot;Terminate Instance.&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Terminate.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="awsimage19png">&lt;img src="https://orangeymango.me/aws/image19.png"
+loading="lazy"
+>
+&lt;/h2></description></item><item><title>Active Directory Penetration Test Report</title><link>https://orangeymango.me/p/active-directory-penetration-test-report/</link><pubDate>Sun, 18 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/active-directory-penetration-test-report/</guid><description>&lt;img src="https://wolfcareers.com/wp-content/uploads/2023/01/1_cQGpZGkSuehv-YEXUweMQ-e1672674616339.webp" alt="Featured image of post Active Directory Penetration Test Report" />&lt;p>&lt;em>Date: February 14, 2024&lt;/em>&lt;/p>
+&lt;h2 id="table-of-contents">Table of Contents
+&lt;/h2>&lt;ol>
+&lt;li>Executive Summary&lt;/li>
+&lt;li>Introduction&lt;/li>
+&lt;li>Scope&lt;/li>
+&lt;li>Methodology&lt;/li>
+&lt;li>Findings
+&lt;ul>
+&lt;li>5.1 Windows Server 2016 Setup&lt;/li>
+&lt;li>5.2 Active Directory Configuration
+&lt;ul>
+&lt;li>5.2.1: Implementing Active Directory Domain Services (AD DS)&lt;/li>
+&lt;li>5.2.2: Establish Domain Controller Role on the Server&lt;/li>
+&lt;li>5.2.3: Configure Active Directory Parameters&lt;/li>
+&lt;li>5.2.4: Validate Active Directory Configuration&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.3 Attacks
+&lt;ul>
+&lt;li>5.3.1 Brute Force Attack&lt;/li>
+&lt;li>5.3.2 Password Spraying Attack&lt;/li>
+&lt;li>5.3.3 Asreproast attack&lt;/li>
+&lt;li>5.3.4 SQL Injection Attack&lt;/li>
+&lt;li>5.3.5 Command Injection Attack&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.4 BloodHound Analysis&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Recommendations&lt;/li>
+&lt;li>Risk Assessment&lt;/li>
+&lt;li>Regulatory Compliance Considerations&lt;/li>
+&lt;li>Long-Term Security Considerations&lt;/li>
+&lt;li>Disclaimer&lt;/li>
+&lt;li>Acknowledgments&lt;/li>
+&lt;li>Conclusion&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="1-executive-summary">1. Executive Summary
+&lt;/h2>&lt;p>The objective of the penetration test was to thoroughly assess the security of the Windows Server 2016 environment and Active Directory configuration, aiming to identify potential vulnerabilities exploitable by attackers. Various attack scenarios, including brute force attacks, password spraying attacks, ASREPRoast attacks, SQL injection attacks, and command injection attacks, were simulated to uncover critical weaknesses in the system.&lt;/p>
+&lt;p>Upon examination of the Windows Server 2016 setup, default configurations and delayed application of crucial security patches were discovered, leaving the system vulnerable to known exploits. Additionally, weaknesses in the Active Directory configuration were noted, such as weak password policies, inadequate access controls, and insufficient segregation of duties, increasing the risk of unauthorized access.&lt;/p>
+&lt;p>The findings highlight the urgent need for comprehensive remediation measures to strengthen the organization&amp;rsquo;s security posture. Recommendations include prioritizing regular patching and updates, enforcing robust password policies, reviewing and reinforcing least privilege access controls, implementing effective network segmentation, and conducting frequent security awareness training for employees.&lt;/p>
+&lt;p>Implementing these recommendations will significantly improve the organization&amp;rsquo;s security posture, reducing the likelihood of cyber threats and protecting its assets, reputation, and stakeholder confidence.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-introduction">2. Introduction
+&lt;/h2>&lt;p>The goal of this penetration test was to evaluate Windows Server 2016 security in detail using an Active Directory environment that mimics a standard business infrastructure. Finding weaknesses and possible attack routes was the main goal in order to offer detailed suggestions for strengthening the security posture as a whole.&lt;/p>
+&lt;p>In the digital and linked world of today, businesses mostly depend on technological infrastructure to run their operations effectively. For enterprises looking to create a reliable and scalable network infrastructure, Windows Server 2016 together with Active Directory is a popular option. To reduce possible risks, enterprises must constantly assess and improve the infrastructure&amp;rsquo;s security due to the growing sophistication of cyberattacks.&lt;/p>
+&lt;p>Our objectives in doing this penetration test were to mimic actual attack scenarios and evaluate how resilient the Windows Server 2016 setup and Active Directory configuration were to different online threats. We sought to find flaws and vulnerabilities that may be used by bad actors to obtain unauthorized access, tamper with data integrity, or interfere with company operations using a combination of automated and human methods.&lt;/p>
+&lt;p>The firm will be able to improve its overall security posture by prioritizing repair activities, implementing efficient security controls, and making well-informed decisions about security investments thanks to the data gathered from this penetration test. The company may strengthen its defenses against cyberattacks and preserve the confidence of its stakeholders, assets, and reputation by promptly resolving vulnerabilities that are found and putting the suggested security measures into place.&lt;/p>
+&lt;p>In order to help the company mitigate risks and strengthen its security posture, we will offer comprehensive findings, analysis, and suggestions based on our evaluation throughout this report.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-scope">3. Scope
+&lt;/h2>&lt;p>The scope of this penetration test included:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Setting up a Windows Server 2016 environment:&lt;/strong>
+&lt;ul>
+&lt;li>Creating and configuring a Windows Server 2016 environment with default settings to simulate a standard deployment scenario.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Configuring Active Directory to simulate a corporate network:&lt;/strong>
+&lt;ul>
+&lt;li>Configuring Active Directory (AD) services to replicate a corporate network environment, including organizational units, user accounts, group policies, and other AD objects.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Executing a minimum of five distinct attacks targeting the Windows Server environment:&lt;/strong>
+&lt;ul>
+&lt;li>Executing at least five different attack scenarios, covering common vectors such as Brute Force Attack, Password Spraying Attack, ASREPRoast Attack, SQL Injection Attack, Command Injection Attack.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Utilizing BloodHound for reconnaissance and privilege escalation:&lt;/strong>
+&lt;ul>
+&lt;li>Using BloodHound, a tool for analyzing Active Directory attack paths, to conduct reconnaissance and identify potential attack paths within the Active Directory environment, as well as to assess opportunities for privilege escalation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="4-methodology">4. Methodology
+&lt;/h2>&lt;p>The penetration test employed a blend of manual and automated techniques to simulate real-world attack scenarios. Manual techniques involve the use of human expertise to identify and exploit vulnerabilities in the system, while automated techniques leverage specialized tools and scripts to rapidly scan for and exploit known vulnerabilities.&lt;/p>
+&lt;p>Various attack vectors were explored and exploited to evaluate the robustness of the system&amp;rsquo;s defenses. This included but was not limited to, network-based attacks such as port scanning, service enumeration, and exploitation of software vulnerabilities.&lt;/p>
+&lt;hr>
+&lt;h1 id="5-findings">5. Findings
+&lt;/h1>&lt;h2 id="51-windows-server-2016-setup">5.1 Windows Server 2016 Setup
+&lt;/h2>&lt;p>The Windows Server 2016 environment was configured with default settings, including standard services and configurations. However, critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/p>
+&lt;p>Installation Process Overview:&lt;/p>
+&lt;p>&lt;strong>Prepare for Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Download the Windows Server 2016 ISO from the Microsoft website or a licensed distributor.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a new virtual machine (VM) using VMware Workstation or similar software.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach the Windows Server 2016 ISO file to the VM&amp;rsquo;s virtual CD/DVD drive.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Adjust VM settings such as CPU cores, RAM, disk size, and network adapter settings.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled.png"
+loading="lazy"
+alt="image"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Boot from Installation Media:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Power on the VM and ensure it boots from the Windows Server 2016 installation ISO.&lt;/li>
+&lt;li>Press any key to boot from CD or DVD when prompted.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Start Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Select language, time, and keyboard input preferences.&lt;/li>
+&lt;li>Click &amp;ldquo;Install Now&amp;rdquo; to begin the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Enter Product Key:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Optionally enter a product key for Windows Server 2016.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Operating System Edition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Choose the desired edition of Windows Server 2016.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled1.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Accept License Terms:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Read and accept the license terms.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose Installation Type:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Select &amp;ldquo;Custom: Install Windows only (advanced)&amp;rdquo; for a clean installation.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled2.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Installation Drive:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Choose the drive for installation and configure partitions if necessary.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Begin Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Start the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Complete Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Remove the installation media (ISO file) from the virtual CD/DVD drive.&lt;/li>
+&lt;li>Follow on-screen instructions to set up Windows Server 2016, create user accounts, and configure network settings.&lt;/li>
+&lt;li>Log in to the Windows Server 2016 desktop.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Install VMware Tools:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Install VMware Tools for enhanced VM performance and additional features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled3.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Finalize Configuration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Customize additional Windows Server 2016 settings as needed.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>In summary, the Windows Server 2016 setup process involved downloading the ISO, creating a VM, installing the operating system, configuring settings, and finalizing the setup. However, it lacked timely application of critical security patches and updates, posing potential vulnerabilities to the system.&lt;/p>
+&lt;ul>
+&lt;li>Critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="52-active-directory-configuration">5.2 Active Directory Configuration
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>Active Directory was configured with default parameters, featuring weak password policies and inadequate access controls.&lt;/p>
+&lt;h3 id="521-implementing-active-directory-domain-services-ad-ds">5.2.1: Implementing Active Directory Domain Services (AD DS)
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Launch Server Manager on the designated Windows Server 2016 machine.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Navigate to &amp;ldquo;Add roles and features&amp;rdquo; within Server Manager.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled4.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;ldquo;Role-based or feature-based installation&amp;rdquo; to align with best practices and proceed accordingly..&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select the appropriate server from the pool and initiate the installation process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;ldquo;Active Directory Domain Services&amp;rdquo; from the list of server roles and add required features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled5.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Review the provided information about AD DS and commence the installation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="522-establish-domain-controller-role-on-the-server">5.2.2: Establish Domain Controller Role on the Server
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Upon completion of the installation, initiate the promotion of the server to a domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled6.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize the Active Directory Domain Services Configuration Wizard to specify whether to add a new forest or domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled7.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Provide essential details such as the root domain name, forest, and domain functional levels.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Set a Directory Services Restore Mode (DSRM) password and review configuration options.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Execute the promotion process and allow the server to restart automatically.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="523-configure-active-directory-parameters">5.2.3: Configure Active Directory Parameters
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Post-restart, access the system using the domain administrator account.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize Server Manager to access &amp;ldquo;Active Directory Users and Computers.&amp;rdquo;&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled8.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Establish organizational units (OUs) to organize Active Directory objects effectively.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled9.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure Group Policy Objects (GPOs) to enforce security settings and password policies.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create requisite user accounts, groups, and computer accounts as per organizational requirements.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure DNS settings to ensure seamless name resolution within the domain.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="524-validate-active-directory-configuration">5.2.4: Validate Active Directory Configuration
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Validate the Active Directory configuration by reviewing the organizational units, user accounts, groups, and computer accounts.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ensure proper application of Group Policy Objects (GPOs) by executing &amp;ldquo;gpresult&amp;rdquo; or &amp;ldquo;rsop.msc&amp;rdquo; on client machines.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled10.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Conduct comprehensive testing of user authentication, group membership, and other Active Directory functionalities to verify proper operation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="53-attacks">5.3 Attacks
+&lt;/h2>&lt;h3 id="531-brute-force-attack">5.3.1 Brute Force Attack
+&lt;/h3>&lt;ul>
+&lt;li>To execute this attack, the CrackMapExec tool was utilized. CrackMapExec is a powerful penetration testing tool commonly used for scanning and exploitation tasks in Windows environments. It supports various protocols, including SMB, and allows for automated password guessing using wordlists.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Command: &lt;code>sudo crackmapexec smb 192.168.85.3 -u ap -p /usr/share/wordlists/rockyou.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>sudo crackmapexec smb 192.168.85.3&lt;/code>: Specifies the use of CrackMapExec to target the SMB protocol on the IP address 192.168.85.3. The SMB protocol is commonly used for file sharing in Windows environments.&lt;/li>
+&lt;li>&lt;code>u ap&lt;/code>: Specifies the username &amp;ldquo;ap&amp;rdquo; for authentication. This is the username that will be used in the brute force attack.&lt;/li>
+&lt;li>&lt;code>p /usr/share/wordlists/rockyou.txt&lt;/code>: Specifies the path to a wordlist file containing a list of commonly used passwords (rockyou.txt). CrackMapExec will attempt to authenticate with each password in the wordlist in order to gain access to the system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled11.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided image depicts the output of the brute force attack conducted using CrackMapExec. It provides insight into the results of the attack, including any successful authentication attempts and the discovered credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="532-password-spraying-attack">5.3.2 Password Spraying Attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>This attack was carried out using the CrackMapExec program. A potent penetration testing tool called CrackMapExec is frequently used for Windows environment scanning and exploitation activities. It enables automated password guessing using wordlists and supports a number of protocols, including SMB.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>crackmapexec smb 192.168.85.3 -d [server.web](http://server.web/) -u username.txt -p Password@123 --continue-on-success&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>crackmapexec smb 192.168.85.3&lt;/code>: Initiates CrackMapExec to target the SMB protocol on the specified IP address.&lt;/li>
+&lt;li>&lt;code>d server.web&lt;/code>: Specifies the domain name for authentication.&lt;/li>
+&lt;li>&lt;code>u username.txt&lt;/code>: Provides a file containing usernames for the attack.&lt;/li>
+&lt;li>&lt;code>p Password@123&lt;/code>: Sets the password to be used during the attack.&lt;/li>
+&lt;li>&lt;code>-continue-on-success&lt;/code>: Instructs the tool to continue the attack even after successful authentication attempts.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled12.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided screenshot below illustrates the output of the password spraying attack using CrackMapExec, revealing insights into successful authentication attempts and discovered credentials.&lt;/p>
+&lt;p>Instead of trying multiple passwords for a single username, try a single password across multiple usernames. This reduces the risk of account lockouts and increases the likelihood of success.&lt;/p>
+&lt;hr>
+&lt;h3 id="533-asreproast-attack">5.3.3 Asreproast attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>The ASREPRoast attack utilizes tools such as &lt;strong>&lt;code>GetNPUsers.py&lt;/code>&lt;/strong> from the Impacket toolkit to request AS_REP messages containing encrypted ticket-granting service (TGS) tickets for vulnerable Active Directory user accounts. These messages are then captured and cracked offline using password-cracking tools like John the Ripper or Hashcat, revealing plaintext passwords. This attack leverages weaknesses in authentication mechanisms to compromise user accounts within the domain, demonstrating a significant security risk in Active Directory environments.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>python3 GetNPUser.py [server.web/](http://server.web/) -userfile ../../username.txt -format hashcat -outputfile hashes.asreproast&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>python3 GetNPUser.py&lt;/code>&lt;/strong>: Executes the Python script &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> for performing the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>server.web/&lt;/code>&lt;/strong>: Specifies the target Active Directory domain for the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>userfile ../../username.txt&lt;/code>&lt;/strong>: Specifies the path to a file containing a list of usernames to target within the domain.&lt;/li>
+&lt;li>&lt;strong>&lt;code>format hashcat&lt;/code>&lt;/strong>: Specifies the output format for the captured hashes, compatible with Hashcat for offline cracking.&lt;/li>
+&lt;li>&lt;strong>&lt;code>outputfile hashes.asreproast&lt;/code>&lt;/strong>: Specifies the output file name for storing the captured hashes in the ASREPRoast attack format.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled13.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The ASREPRoast attack was successfully executed against the domain &lt;strong>&lt;code>server.web&lt;/code>&lt;/strong>. The Impacket toolkit was used with the &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> script to retrieve AS-REP hashes for users within the domain.&lt;/p>
+&lt;p>&lt;em>Cracking the Hashes&lt;/em>&lt;/p>
+&lt;p>&lt;strong>Command: &lt;code>john -w=password_kerb.txt hashs.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>john&lt;/code>&lt;/strong>: Refers to the John the Ripper password cracking tool.&lt;/li>
+&lt;li>&lt;strong>&lt;code>w=password_kerb.txt&lt;/code>&lt;/strong>: Specifies the wordlist file (&lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>) containing potential passwords.&lt;/li>
+&lt;li>&lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong>: Represents the file containing hashed passwords obtained from the ASREPRoast attack.&lt;/li>
+&lt;li>The command aims to crack the hashes in &lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong> using the passwords from &lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled14.png"
+loading="lazy"
+>
+The ASREPRoast attack proved effective against the &lt;code>server.web&lt;/code> domain. By employing the Impacket toolkit and the &lt;code>GetNPUser.py&lt;/code> script, AS-REP hashes for domain users were obtained. Following this, &lt;code>John the Ripper&lt;/code> was employed to crack these hashes offline, with the intention of uncovering plaintext passwords linked to the hashed credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="534-sql-injection-attack">5.3.4 SQL Injection Attack
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Login Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Attempted to login with standard credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled15.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Received an error message indicating a potential vulnerability.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled16.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>BurpSuite Capturing:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Captured the login request using BurpSuite.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Sent the request to the repeater for further analysis.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled17.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Request Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Saved the captured request as a file named &amp;lsquo;sql&amp;rsquo;.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Analyzed the request in BurpSuite repeater.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled18.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SQLMap Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Executed SQLMap to exploit the SQL injection vulnerability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs --batch&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>r sql&lt;/code>: Specifies the file containing the captured request.&lt;/li>
+&lt;li>&lt;code>-dbs&lt;/code>: Retrieves available databases.&lt;/li>
+&lt;li>&lt;code>-batch&lt;/code>: Executes SQLMap in batch mode for automation.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled19.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Database Enumeration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap identified the website as vulnerable to SQL injection.&lt;/li>
+&lt;li>Retrieved available databases using the command.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Extraction:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs -D gauranga --dump&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>D gauranga&lt;/code>: Specifies the database to target.&lt;/li>
+&lt;li>&lt;code>-dump&lt;/code>: Extracts data from the specified database.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled20.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Credential Retrieval:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap successfully retrieved usernames and passwords from the &amp;lsquo;gauranga&amp;rsquo; database.&lt;/li>
+&lt;li>Obtained admin credentials for further exploitation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Admin Login:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Successfully logged in using the obtained admin credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled21.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled22.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The SQL injection attack was successful in exploiting the vulnerability present in the login form. By leveraging SQLMap, sensitive data including usernames and passwords were extracted from the database, granting access as an admin user.&lt;/p>
+&lt;hr>
+&lt;h3 id="535-command-injection-attack">5.3.5 Command Injection Attack
+&lt;/h3>&lt;p>&lt;em>Attack Execution:&lt;/em>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Ping Test:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Attempted to execute a ping command to test the command injection vulnerability.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Injection Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Injected the command &lt;code>&amp;amp;whoami&lt;/code> into the ping box.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Observed the response showing the current user&amp;rsquo;s authority as &amp;lsquo;system&amp;rsquo;.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled23.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Netcat Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Set up a listener using Netcat for receiving the reverse shell.&lt;/li>
+&lt;li>Command Used: &lt;code>nc -lnvp 9001&lt;/code>.
+&lt;ul>
+&lt;li>&lt;code>nc&lt;/code>: Netcat command.&lt;/li>
+&lt;li>&lt;code>lnvp&lt;/code>: Options for listening on a specific port (9001) and verbose mode.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Reverse Shell Acquisition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Searched for a suitable reverse shell payload on &lt;a class="link" href="https://www.revshells.com/" target="_blank" rel="noopener"
+>revshells.com&lt;/a>.&lt;/li>
+&lt;li>Selected a reverse shell payload compatible with the target environment.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Payload Integration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Inserted the obtained reverse shell payload into the ping box.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled24.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Executed the ping command with the injected payload.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled25.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>As a result of the injected payload, gained command execution within the Windows Server system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The command injection attack successfully exploited the vulnerability, allowing for arbitrary command execution. By injecting malicious commands into the ping box, an attacker gained access to the target system with system-level privileges, facilitating further malicious activities.&lt;/p>
+&lt;hr>
+&lt;h3 id="54-bloodhound-analysis">5.4 BloodHound Analysis
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Installed Neo4j, a graph database management system, and created an account. Neo4j serves as the backend database for BloodHound, storing and analyzing data collected from the Active Directory environment.&lt;/li>
+&lt;li>Installed BloodHound on a Windows system. BloodHound is a powerful tool designed for Active Directory security assessment and reconnaissance, utilizing graph theory and database queries to analyze relationships and permissions within Active Directory.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Collection:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Utilized SharpHound, a data collection tool within BloodHound, to gather information from the Windows Active Directory environment. SharpHound collected data in JSON format.&lt;/li>
+&lt;/ul>
+&lt;h3 id="command-for-bloodhound-data-collection">Command for BloodHound Data Collection:
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">.&lt;span class="se">\S&lt;/span>harpHound.exe -c All
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Import:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Imported the collected data from the Windows Active Directory environment in JSON format into the Neo4j database. This step enabled BloodHound to analyze the data and generate visualizations for further analysis.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Leveraged BloodHound&amp;rsquo;s visualization and querying features to perform the following analyses:
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Map of Active Directory Environment:&lt;/strong> Visual representation showcasing relationships between users, groups, computers, and permissions within the Active Directory infrastructure.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled26.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Potential Attack Paths for User &amp;ldquo;ap&amp;rdquo;:&lt;/strong> Identified potential attack paths that user &amp;ldquo;ap&amp;rdquo; could exploit for lateral movement and privilege escalation within the Active Directory environment.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled27.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Map of All Users:&lt;/strong> Visualization depicting all users present in the Active Directory environment, along with their respective relationships and permissions, aiding in the identification of potential security vulnerabilities related to user accounts.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled28.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="6-recommendations">6. Recommendations
+&lt;/h2>&lt;p>Based on the findings of our penetration testing of the Active Directory environment, the following recommendations are proposed to strengthen the security posture:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Implement Regular Patch Management:&lt;/strong> Establish a routine patch management process to ensure all servers and applications within the Active Directory environment are up-to-date with the latest security patches and updates.&lt;/li>
+&lt;li>&lt;strong>Enhance Password Policies:&lt;/strong> Enforce stronger password policies, including the use of complex passwords, regular password changes, and multi-factor authentication (MFA) where applicable.&lt;/li>
+&lt;li>&lt;strong>Implement Network Segmentation:&lt;/strong> Segment the network to isolate critical systems and sensitive data from potential attackers. Implement firewall rules and access controls to restrict unauthorized access between network segments.&lt;/li>
+&lt;li>&lt;strong>Conduct Regular Security Training:&lt;/strong> Provide comprehensive security awareness training for employees to educate them about common security threats, phishing attacks, and best practices for safeguarding sensitive information.&lt;/li>
+&lt;li>&lt;strong>Implement Security Monitoring:&lt;/strong> Deploy robust security monitoring tools to continuously monitor the Active Directory environment for suspicious activities, unauthorized access attempts, and potential security breaches.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="7-risk-assessment">7. Risk Assessment
+&lt;/h2>&lt;p>A comprehensive risk assessment was diligently executed to thoroughly evaluate the potential impact and likelihood of identified vulnerabilities within the Active Directory environment. Risks were meticulously categorized based on severity and meticulously prioritized for remediation, considering their potential impact on business operations and data security.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-regulatory-compliance-considerations">8. Regulatory Compliance Considerations
+&lt;/h2>&lt;p>An assessment was conducted to ascertain compliance of the Active Directory system with key regulations, including the &lt;strong>&lt;code>General Data Protection Regulation (GDPR)&lt;/code>&lt;/strong> for protecting personal data within the EU, the &lt;strong>&lt;code>Health Insurance Portability and Accountability Act (HIPAA)&lt;/code>&lt;/strong> for safeguarding health information in the US, and the &lt;strong>&lt;code>Payment Card Industry Data Security Standard (PCI DSS)&lt;/code>&lt;/strong> for securing credit card data. Subsequent recommendations were provided to ensure alignment with these regulations and to maintain the confidentiality and security of data.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-long-term-security-considerations">9. Long-Term Security Considerations
+&lt;/h2>&lt;p>To ensure ongoing security in the Active Directory environment, it&amp;rsquo;s important to plan for long-term improvements. This could involve identifying key security objectives, establishing regular security assessments, implementing continuous monitoring measures, and providing ongoing security training for staff. By taking a proactive approach to long-term security, the organization can better protect its IT infrastructure against evolving threats.&lt;/p>
+&lt;hr>
+&lt;h2 id="10-disclaimer">10. Disclaimer
+&lt;/h2>&lt;p>This penetration test report is provided solely for informational purposes. The findings and recommendations contained within should be carefully evaluated and implemented by qualified security professionals in accordance with organizational policies and best practices. It is important to note that the testing and setup were conducted on an isolated environment within the researcher&amp;rsquo;s own computer system. Therefore, the outcomes and effectiveness of any security measures may differ in a real-world organizational setting. Additionally, while every effort has been made to ensure the accuracy of the findings, no guarantees are made regarding the completeness or timeliness of the information presented.&lt;/p>
+&lt;hr>
+&lt;h2 id="11-acknowledgments">11. Acknowledgments
+&lt;/h2>&lt;p>I extend my sincere appreciation to the organizations and individuals who provided guidance, resources, and support during the preparation and execution of this penetration testing project. Special thanks to &lt;strong>&lt;code>Eminence Ways Pvt. Ltd&lt;/code>&lt;/strong>, whose assistance and cooperation were invaluable in facilitating the successful completion of this project.&lt;/p>
+&lt;hr>
+&lt;h2 id="12-conclusion">12. Conclusion
+&lt;/h2>&lt;p>In conclusion, the penetration testing revealed vulnerabilities within the Active Directory environment. Addressing these vulnerabilities and implementing recommended security measures is crucial for enhancing overall security. The cooperation of the organization&amp;rsquo;s IT team was invaluable throughout the testing process. It is recommended that immediate action be taken to mitigate risks and strengthen cybersecurity resilience.&lt;/p>
+&lt;hr>
+&lt;p>&lt;em>Signed,&lt;/em>&lt;/p>
+&lt;p>Gauranga Gautam&lt;/p></description></item></channel></rss>

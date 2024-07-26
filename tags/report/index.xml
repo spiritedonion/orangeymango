@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Report on Orangeymango</title><link>https://orangeymango.me/tags/report/</link><description>Recent content in Report on Orangeymango</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 12 Apr 2024 04:45:00 +0000</lastBuildDate><atom:link href="https://orangeymango.me/tags/report/index.xml" rel="self" type="application/rss+xml"/><item><title>Active Directory and Pam360</title><link>https://orangeymango.me/p/active-directory-and-pam360/</link><pubDate>Fri, 12 Apr 2024 04:45:00 +0000</pubDate><guid>https://orangeymango.me/p/active-directory-and-pam360/</guid><description>&lt;img src="https://www.digiboy.ir/wp-content/uploads/ManageEngine-PAM360.png" alt="Featured image of post Active Directory and Pam360" />&lt;h1 id="active-directory-and-pam360">Active Directory and PAM360
+&lt;/h1>&lt;p>Active Directory (AD) is a directory service that Microsoft developed for the Windows domain networks. It is included in most Windows Server operating systems. It provides a variety of features, such as user and resource management and Certificate Services, which are essential for a secure IT environment.&lt;/p>
+&lt;p>PAM360, on the other hand, is a comprehensive privileged access management solution that helps businesses consolidate and manage their privileged accounts. It provides a single console from which you can manage privileged access, monitor sessions, and record all activities related to privileged access to ensure security and compliance.&lt;/p>
+&lt;p>Together, AD and PAM360 can provide a secure and efficient environment for managing user access and privileges. PAM360&amp;rsquo;s integration with Active Directory can help streamline the process of managing privileged accounts, making it easier to ensure that the right people have the right access at the right time.&lt;/p>
+&lt;hr>
+&lt;h1 id="configuration-setup-for-windows-server-and-windows-10">Configuration Setup for Windows Server and Windows 10:
+&lt;/h1>&lt;hr>
+&lt;h3 id="windows-server-configuration">&lt;strong>Windows Server Configuration:&lt;/strong>
+&lt;/h3>&lt;ul>
+&lt;li>Static IP: &lt;code>192.168.85.3&lt;/code>&lt;/li>
+&lt;li>Default Gateway: &lt;code>192.168.85.2&lt;/code>&lt;/li>
+&lt;li>DNS Server: &lt;code>127.0.0.1&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image5.png"
+loading="lazy"
+alt="/AD-and-Pam360/image5.png"
+>&lt;/p>
+&lt;h3 id="windows-10-configuration">&lt;strong>Windows 10 Configuration:&lt;/strong>
+&lt;/h3>&lt;ul>
+&lt;li>Static IP: &lt;code>192.168.85.4&lt;/code>&lt;/li>
+&lt;li>Default Gateway: &lt;code>192.168.85.2&lt;/code>&lt;/li>
+&lt;li>DNS Server: &lt;code>192.168.85.3&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image13.png"
+loading="lazy"
+alt="/AD-and-Pam360/image13.png"
+>&lt;/p>
+&lt;h3 id="installation-and-setup-of-pam360">Installation and Setup of Pam360:
+&lt;/h3>&lt;h3 id="installation">Installation:
+&lt;/h3>&lt;ul>
+&lt;li>Install Pam360 on the designated server.&lt;/li>
+&lt;li>Start the Pam360 service.&lt;/li>
+&lt;/ul>
+&lt;h3 id="login-credentials">Login Credentials:
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>Default Username:&lt;/strong> &lt;code>admin&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Default Password:&lt;/strong> &lt;code>admin&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="initial-login">Initial Login:
+&lt;/h3>&lt;ul>
+&lt;li>Log in to Pam360 using the provided default credentials.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image36.png"
+loading="lazy"
+alt="/AD-and-Pam360/image36.png"
+>&lt;/p>
+&lt;h3 id="profile-update-process">Profile Update Process:
+&lt;/h3>&lt;p>&lt;strong>Password Modification:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Change the default password to a secure one.
+&lt;ul>
+&lt;li>&lt;strong>New Password:&lt;/strong> &lt;code>QWau&amp;amp;kf$3%$11&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>Next process is profile update.&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image39.png"
+loading="lazy"
+alt="/AD-and-Pam360/image39.png"
+>&lt;/p>
+&lt;h3 id="addition-of-new-resources">Addition of New Resources:
+&lt;/h3>&lt;p>&lt;strong>Resource Addition Process:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Provide the necessary details for the new resources.&lt;/li>
+&lt;li>Save the provided details and proceed.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image38.png"
+loading="lazy"
+alt="/AD-and-Pam360/image38.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image35.png"
+loading="lazy"
+alt="/AD-and-Pam360/image35.png"
+>&lt;/p>
+&lt;h3 id="organizational-unit-import">Organizational Unit Import:
+&lt;/h3>&lt;p>&lt;strong>Import Process:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Discover and import the organizational unit through the domain.&lt;/li>
+&lt;li>The organizational unit was imported through domain discovery.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image16.png"
+loading="lazy"
+alt="/AD-and-Pam360/image16.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image31.png"
+loading="lazy"
+alt="/AD-and-Pam360/image31.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image19.png"
+loading="lazy"
+alt="/AD-and-Pam360/image19.png"
+>&lt;/p>
+&lt;p>&lt;strong>User Import:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Navigate to the users panel.&lt;/li>
+&lt;li>Click on &amp;ldquo;Import from Active Directory.&amp;rdquo;&lt;/li>
+&lt;li>Users will be imported through the domain discovery process.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image37.png"
+loading="lazy"
+alt="/AD-and-Pam360/image37.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image27.png"
+loading="lazy"
+alt="/AD-and-Pam360/image27.png"
+>&lt;/p>
+&lt;hr>
+&lt;h1 id="professional-guide-to-implementing-inbound-rule-via-firewall-settings">Professional Guide to Implementing Inbound Rule via Firewall Settings
+&lt;/h1>&lt;hr>
+&lt;h2 id="introduction">Introduction:
+&lt;/h2>&lt;ul>
+&lt;li>In a corporate network, controlling inbound traffic through firewall settings is crucial for security and network management. This guide details the steps to implement an inbound rule using firewall settings to regulate incoming network traffic effectively.&lt;/li>
+&lt;/ul>
+&lt;h1 id="professional-guide">Professional Guide
+&lt;/h1>&lt;ul>
+&lt;li>Press &lt;code>Windows + R&lt;/code> to open the Run dialog box.&lt;/li>
+&lt;li>Type &lt;code>control firewall.cpl&lt;/code> and press Enter to access the Windows Firewall settings.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image25.png"
+loading="lazy"
+alt="/AD-and-Pam360/image25.png"
+>&lt;/p>
+&lt;h3 id="navigate-to-advanced-settings">Navigate to Advanced Settings:
+&lt;/h3>&lt;ul>
+&lt;li>In the Windows Firewall window, click on &amp;ldquo;Advanced settings&amp;rdquo; on the left-hand side.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image14.png"
+loading="lazy"
+alt="/AD-and-Pam360/image14.png"
+>&lt;/p>
+&lt;h3 id="select-inbound-rules">Select Inbound Rules:
+&lt;/h3>&lt;ul>
+&lt;li>In the &amp;ldquo;Windows Defender Firewall with Advanced Security&amp;rdquo; window, click on &amp;ldquo;Inbound Rules&amp;rdquo; on the left-hand side.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image4.png"
+loading="lazy"
+alt="/AD-and-Pam360/image4.png"
+>&lt;/p>
+&lt;h3 id="create-a-new-rule">Create a New Rule:
+&lt;/h3>&lt;ul>
+&lt;li>Right-click on the &amp;ldquo;Inbound Rules&amp;rdquo; panel and select &amp;ldquo;New Rule&amp;hellip;&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image23.png"
+loading="lazy"
+alt="/AD-and-Pam360/image23.png"
+>&lt;/p>
+&lt;h3 id="specify-port-forwarding">Specify Port Forwarding:
+&lt;/h3>&lt;ul>
+&lt;li>Choose the &amp;ldquo;Port&amp;rdquo; option and click &amp;ldquo;Next.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image11.png"
+loading="lazy"
+alt="/AD-and-Pam360/image11.png"
+>&lt;/p>
+&lt;h3 id="specify-port-number">Specify Port Number:
+&lt;/h3>&lt;ul>
+&lt;li>Enter the specific port number (8282) used by the Pam360 service and click &amp;ldquo;Next.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image26.png"
+loading="lazy"
+alt="/AD-and-Pam360/image26.png"
+>&lt;/p>
+&lt;h3 id="allow-connection">Allow Connection:
+&lt;/h3>&lt;ul>
+&lt;li>Choose &amp;ldquo;Allow the connection&amp;rdquo; and click &amp;ldquo;Next.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image2.png"
+loading="lazy"
+alt="/AD-and-Pam360/image2.png"
+>&lt;/p>
+&lt;h3 id="select-network-location">Select Network Location:
+&lt;/h3>&lt;ul>
+&lt;li>Uncheck the &amp;ldquo;Public&amp;rdquo; network location to restrict the rule to the private network only. Click &amp;ldquo;Next.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image30.png"
+loading="lazy"
+alt="/AD-and-Pam360/image30.png"
+>&lt;/p>
+&lt;h3 id="name-the-rule">Name the Rule:
+&lt;/h3>&lt;ul>
+&lt;li>Optionally, provide a name and description for the rule to identify its purpose. Click &amp;ldquo;Finish.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image6.png"
+loading="lazy"
+alt="/AD-and-Pam360/image6.png"
+>&lt;/p>
+&lt;h3 id="confirmation">Confirmation:
+&lt;/h3>&lt;ul>
+&lt;li>You should see a confirmation message indicating that the inbound rule has been successfully created.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image10.png"
+loading="lazy"
+alt="/AD-and-Pam360/image10.png"
+>&lt;/p>
+&lt;h3 id="test-connection">Test Connection:
+&lt;/h3>&lt;ul>
+&lt;li>Copy the IP address of the Windows server (e.g., &lt;code>192.168.85.3&lt;/code>) and append the port number (&lt;code>8282&lt;/code>) along with the appropriate protocol (https://).&lt;/li>
+&lt;li>Open a web browser on the Windows 10 machine and paste the URL (e.g., &lt;code>https://192.168.85.3:8282/&lt;/code>) to test the connection to the Pam360 service.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image34.png"
+loading="lazy"
+alt="/AD-and-Pam360/image34.png"
+>&lt;/p>
+&lt;hr>
+&lt;h1 id="professional-guide-to-implementing-wallpaper-policy-via-group-policy-management">Professional Guide to Implementing Wallpaper Policy via Group Policy Management
+&lt;/h1>&lt;h2 id="introduction-1">Introduction:
+&lt;/h2>&lt;p>In a corporate environment, managing desktop wallpapers across a network of computers is essential for maintaining a professional and uniform appearance. This guide outlines the steps to create and enforce a Wallpaper Policy using Group Policy Management within a domain.&lt;/p>
+&lt;h2 id="step-1-folder-setup">Step 1: Folder Setup
+&lt;/h2>&lt;ul>
+&lt;li>Create a dedicated folder named &amp;ldquo;Wallpaper&amp;rdquo; to store the images for wallpapers.&lt;/li>
+&lt;li>Ensure the folder is accessible by all users by enabling advanced sharing and assigning appropriate permissions.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image21.png"
+loading="lazy"
+alt="/AD-and-Pam360/image21.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image17.png"
+loading="lazy"
+alt="/AD-and-Pam360/image17.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image3.png"
+loading="lazy"
+alt="/AD-and-Pam360/image3.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image18.png"
+loading="lazy"
+alt="/AD-and-Pam360/image18.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image24.png"
+loading="lazy"
+alt="/AD-and-Pam360/image24.png"
+>&lt;/p>
+&lt;h2 id="step-2-group-policy-object-creation">Step 2: Group Policy Object Creation
+&lt;/h2>&lt;ul>
+&lt;li>Open Group Policy Management console within your domain.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image9.png"
+loading="lazy"
+alt="/AD-and-Pam360/image9.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Create a new Group Policy Object (GPO) by right-clicking on your domain and selecting &amp;ldquo;Create a GPO in this domain, and Link it here.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image7.png"
+loading="lazy"
+alt="/AD-and-Pam360/image7.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Name the GPO appropriately, such as &amp;ldquo;Wallpaper Policy.&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image22.png"
+loading="lazy"
+alt="/AD-and-Pam360/image22.png"
+>&lt;/p>
+&lt;h2 id="step-3-configuring-group-policy-settings">Step 3: Configuring Group Policy Settings
+&lt;/h2>&lt;ul>
+&lt;li>Right-click on the newly created GPO and select &amp;ldquo;Edit&amp;rdquo; to access its settings.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image29.png"
+loading="lazy"
+alt="/AD-and-Pam360/image29.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Navigate to User Configuration &amp;gt; Policies &amp;gt; Administrative Templates &amp;gt; Desktop &amp;gt; Desktop.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image28.png"
+loading="lazy"
+alt="/AD-and-Pam360/image28.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Double-click on &amp;ldquo;Desktop Wallpaper&amp;rdquo; policy to edit it.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image15.png"
+loading="lazy"
+alt="/AD-and-Pam360/image15.png"
+>&lt;/p>
+&lt;h2 id="step-4-setting-wallpaper-path">Step 4: Setting Wallpaper Path
+&lt;/h2>&lt;ul>
+&lt;li>Enable the policy and specify the complete network path of the image stored in the Wallpaper folder.&lt;/li>
+&lt;li>Ensure the path is accessible by all users in the domain.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image33.png"
+loading="lazy"
+alt="/AD-and-Pam360/image33.png"
+>&lt;/p>
+&lt;h2 id="step-5-update-policy-command">Step 5: Update Policy Command
+&lt;/h2>&lt;ul>
+&lt;li>After configuring the policy, execute the command to update Group Policy on client computers:&lt;/li>
+&lt;li>Previous Wallpaper&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image12.png"
+loading="lazy"
+alt="/AD-and-Pam360/image12.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Update Policy Command&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image20.png"
+loading="lazy"
+alt="/AD-and-Pam360/image20.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Logout from the User&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image8.png"
+loading="lazy"
+alt="/AD-and-Pam360/image8.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Login from the User&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/image32.png"
+loading="lazy"
+alt="/AD-and-Pam360/image32.png"
+>&lt;/p>
+&lt;hr>
+&lt;hr>
+&lt;h1 id="professional-guide-to-implementing-roaming-profile-via-group-policy-management">Professional Guide to Implementing Roaming Profile via Group Policy Management
+&lt;/h1>&lt;hr>
+&lt;h2 id="introduction-2">Introduction:
+&lt;/h2>&lt;p>Roaming profiles allow users to access their personalized desktop environment from any computer within a network. This guide outlines the steps to create and implement Roaming Profiles using Group Policy Management within a domain.&lt;/p>
+&lt;h2 id="step-1-folder-setup-1">Step 1: Folder Setup
+&lt;/h2>&lt;ul>
+&lt;li>Create a dedicated folder for Roaming Profiles.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Enable sharing for this folder.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%201.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Configure special permissions by accessing advanced settings.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%202.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Disable inheritance for this folder.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%203.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Select users or groups who will have Roaming Profiles.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%204.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Grant the required permissions.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%205.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Copy the generated network path.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%206.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;h2 id="step-2-group-policy-object-creation-1">Step 2: Group Policy Object Creation
+&lt;/h2>&lt;ul>
+&lt;li>Navigate to AppData properties within Group Policy Management console.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%207.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>Configure preferred settings and specify the network path for Roaming Profiles.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%208.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p>
+&lt;ul>
+&lt;li>After logging in from a user, the Roaming Profile will be created in the network folder on the Windows Server.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://orangeymango.me/AD-and-Pam360/Untitled%209.png"
+loading="lazy"
+alt="Untitled"
+>&lt;/p></description></item></channel></rss>
