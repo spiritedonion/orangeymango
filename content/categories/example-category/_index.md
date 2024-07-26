@@ -1,7 +1,7 @@
 ---
-title: Example Category
-description: A description of this category
-image:
+title: Writing
+description: My own Writing
+# image:
 
 # Badge style
 style:
