@@ -2,7 +2,7 @@
 title: Port Swigger Labs
 # author: Gauranga
 date: 2024-03-04 11:27:22 +00:00
-categories: [Writing]
+# categories: [Writing]
 tags: [Documentation]
 pin: true
 math: true

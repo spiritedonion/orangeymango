@@ -2,7 +2,7 @@
 title: FortiGate Implementation for Enhanced Enterprise Data Security
 # author: Gauranga
 date: 2024-02-20 11:27:22 +00:00
-categories: [Writing]
+# categories: [Writing]
 tags: [Cybersecurity, Data Security, Network Security, FortiGate, Enterprise Solutions, Data Management, Information Security, Encryption, Access Controls, Performance Evaluation, Implementation Strategies]
 pin: true
 math: true

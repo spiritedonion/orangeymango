@@ -2,7 +2,7 @@
 title: Basic Security
 # author: Gauranga
 date: 2024-03-04 11:27:22 +00:00
-categories: [Writing]
+# categories: [Writing]
 tags: [cybersecurity, network security, application security, cloud security, mobile security, IoT security, data security, password management, software updates, phishing awareness, data backup, device security]
 pin: true
 math: true
