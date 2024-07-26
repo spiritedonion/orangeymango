@@ -2,12 +2,12 @@
 title: Bug Bounty Essentials - A Comprehensive Cheatsheet
 # author: Gauranga
 date: 2024-07-24 16:50:00 +00:00
-categories: [Writing]
+# categories: [Writing]
 tags: [Bug Bounty, Vulnerabilities, Security Flaws, Penetration Testing, Web Security, Exploits, Cybersecurity, Threat Hunting, Ethical Hacking, Risk Assessment]
 pin: true
 math: true
 mermaid: true
-image: https://miro.medium.com/v2/resize:fit:1400/1*wBuE9-f32uHnqH9Sq4EFiQ.png
+# image: https://miro.medium.com/v2/resize:fit:1400/1*wBuE9-f32uHnqH9Sq4EFiQ.png
 #   path: /commons/devices-mockup.png
 #   lqip: data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSDIAAAARL0AmbZurmr57yyIiqE8oiG0bejIYEQTgqiDA9vqnsUSI6H+oAERp2HZ65qP/VIAWAFZQOCBCAAAA8AEAnQEqEAAIAAVAfCWkAALp8sF8rgRgAP7o9FDvMCkMde9PK7euH5M1m6VWoDXf2FkP3BqV0ZYbO6NA/VFIAAAA
 #   alt: Responsive rendering of Chirpy theme on multiple devices.
